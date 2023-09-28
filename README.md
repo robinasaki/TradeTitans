@@ -20,3 +20,5 @@ The application will be a java swing application that can be used to track a sto
 ## Documentation Link
 
 https://www.alphavantage.co/documentation/
+
+The suggested API is from alphavantage, It's possible to change in the future without losing the functionality of the program.
