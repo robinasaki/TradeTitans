@@ -1,5 +1,10 @@
 # Stock Tracker
 
+### Credit:
+Chenxu Robin Mao, robin.mao@mail.utoronto.ca
+
+---
+
 ## Project Domain
 
 The main domain will be in tracking stocks and may include some kind of simulator. 
