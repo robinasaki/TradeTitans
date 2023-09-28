@@ -1,7 +1,10 @@
 # Stock Tracker
 
 ### Credit:
-wChenxu Robin Mao, robin.mao@mail.utoronto.ca
+Chenxu Robin Mao, robin.mao@mail.utoronto.ca
+Colin Walton, colin.walton@mail.utoronto.ca
+
+Abdulrahman Mubarak, Abdulrahman.mubarak@mail.utoronto.ca
 
 ---
 
@@ -14,3 +17,5 @@ The main domain will be in tracking stocks and may include some kind of simulato
 The application will be a java swing application that can be used to track a stock portfolio. The user will be able to view quotes, as well as simulate deposits, withdrawls, buys, and sells.
 
 ## Documentation Link
+
+https://www.alphavantage.co/documentation/
