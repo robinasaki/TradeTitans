@@ -1,7 +1,7 @@
 # Stock Tracker
 
 ### Credit:
-Chenxu Robin Mao, robin.mao@mail.utoronto.ca
+wChenxu Robin Mao, robin.mao@mail.utoronto.ca
 
 ---
 
