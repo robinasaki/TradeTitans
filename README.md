@@ -5,6 +5,8 @@
 - Jarod Palubiski, jarod.palubiski@mail.utoronto.ca
 - Colin Walton, colin.walton@mail.utoronto.ca
 
+Abdulrahman Mubarak, Abdulrahman.mubarak@mail.utoronto.ca
+
 ---
 
 ## Project Domain
