@@ -2,7 +2,7 @@
 
 ### Credit:
 - Chenxu Robin Mao, robin.mao@mail.utoronto.ca
-- Jarod Palubisi, jarod.palubiski@mail.utoronto.ca
+- Jarod Palubiski, jarod.palubiski@mail.utoronto.ca
 
 ---
 
