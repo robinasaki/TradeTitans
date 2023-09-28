@@ -2,6 +2,7 @@
 
 ### Credit:
 Chenxu Robin Mao, robin.mao@mail.utoronto.ca
+Colin Walton, colin.walton@mail.utoronto.ca
 
 ---
 
