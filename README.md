@@ -24,4 +24,4 @@ The user will be able to view quotes (updated from API), as well as simulate dep
 
 || https://www.alphavantage.co/documentation/
 
-The suggested API is from alphavantage, It's possible to change in the future without losing the functionality of the program.
+The suggested API is from Alpha Vantage, It's possible to change in the future without losing the functionality of the program.
