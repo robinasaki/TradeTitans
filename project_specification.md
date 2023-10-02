@@ -2,9 +2,9 @@
 
 ## Team Name
 
-The Stockers
+The Stock-ers
 
-## Project Domain
+## Task 1: Project Domain
 
 Stock tracking and monitor stocks you have purchased.
 
