@@ -20,7 +20,7 @@ real-world data.
 
 ## Task 3: User Stories
 - [Team Story]: Put team story here.
-- [Jarod's Story]: Humphrey wishes to find either a specific stock or find others by inputting specific filters into a search.
+- [Jarod's Story]: Humphrey wishes to find either a specific stock or find others by inputting specific filters into a search. He is then given the specific stock requested or the stocks requested by the general search.
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
