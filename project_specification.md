@@ -25,6 +25,8 @@ be automatically tracked using real-world data.
 buying weed stocks. Wants to use the stock simulation mode of the program to learn the trends of the market.
 
 ## Task 4: Domain Enitities
+Portfolio
+Stock
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
