@@ -1,3 +1,9 @@
+# Project Specification for Group #106
+
+## Team Name
+
+The Stockers
+
 ## Task 1: Problem Domain
 
 Our program will serve the purpose of track stock quotes, users will be able to create a portfolio, track the value of it and view information about the stocks in the portfolio.
