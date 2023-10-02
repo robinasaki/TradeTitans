@@ -33,9 +33,12 @@ buying weed stocks. Wants to use the stock simulation mode of the program to lea
   - currency
   - stocks
 - Stock:
-  - name.
-  - current quote.
-  - historical quotes.
+  - name
+  - currentQuote
+  - historicalQuote
+  - marketCap
+  - max
+  - min
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
