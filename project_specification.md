@@ -2,7 +2,7 @@
 
 ## Team Name
 
-The Stock-ers
+The Trading Titans
 
 ## Task 1: Picking the domain for your project
 Our program will serve the purpose of track stock quotes, users will be able to create a portfolio, track the value of 
