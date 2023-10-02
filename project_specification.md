@@ -24,6 +24,7 @@ be automatically tracked using real-world data.
 - [Robin's Story]: Wish to get familiarized with the stock market but just lost his entire lunch saving 
 buying weed stocks. Wants to use the stock simulation mode of the program to learn the trends of the market.
 
+## Task 4: Domain Enitities
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
