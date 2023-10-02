@@ -22,23 +22,20 @@ be automatically tracked using real-world data.
 - [Team Story]: Put team story here.
 - [Abdul's Story]: Abdul is interested in obtaining an estimate of potential profits by investing in stocks from a 
 particular company. He wishes to input hypothetical data and receive an estimation based on current market prices.
-- [Jarod's Story]: Humphrey wishes to find either a specific stock or find others by inputting specific filters into a 
+- [Jarod's Story]: Jarod wishes to find either a specific stock or find others by inputting specific filters into a 
 search. He is then given the specific stock requested or the stocks requested by the general search.
 - [Robin's Story]: Wish to get familiarized with the stock market but just lost his entire lunch saving 
 buying weed stocks. Wants to use the stock simulation mode of the program to learn the trends of the market.
 
-## Task 4: Domain Enitities
+## Task 4: Domain Entities
 - Portfolio:
   - name
   - currency
   - stocks
 - Stock:
-  - name
-  - currentQuote
-  - historicalQuote
-  - marketCap
-  - max
-  - min
+  - name.
+  - current quote.
+  - historical quotes.
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
