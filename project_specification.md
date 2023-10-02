@@ -9,13 +9,9 @@ Our program will serve the purpose of track stock quotes, users will be able to 
 it and view information about the stocks in the portfolio.
 
 ## Task 2: Writing the specification
-The fundamental functions of the program will include stock tracking, quotes tracking, historical quotes, and creating 
-personalized stock portfolio.
+The fundamental functions of the program will include current and historical stock, ETF, and commodity quote tracking, and creating and following the value of a personalized stock portfolio over time.
 
-The program will also 
-have a stock simulation mode, where the program allows users to stimulate a hypothetical stock portfolio and allows the
-user to stimulate stock exchanges, which includes buy, sell, deposit, withdraw, dividend payments, and more using the 
-real-world data.
+The program will have a stock simulation mode, where the program allows users to simulate a hypothetical stock portfolio and allows the user to simulate deposits, withdrawals, and stock & ETF buys and sells. Dividend payments and more will be automatically tracked using real-world data.
 
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
