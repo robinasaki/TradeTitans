@@ -11,7 +11,6 @@ public class APIAccessor {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         int responseCode = connection.getResponseCode();
-        System.out.println("Response Code: " + responseCode);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String request = "";
