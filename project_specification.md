@@ -27,7 +27,7 @@ search. He is then given the specific stock requested or the stocks requested by
 - [Robin's Story]: Wish to get familiarized with the stock market but just lost his entire lunch saving 
 buying weed stocks. Wants to use the stock simulation mode of the program to learn the trends of the market.
 
-## Task 4: Domain Enitities
+## Task 4: Domain Entities
 - Portfolio:
     - name
     - currency
