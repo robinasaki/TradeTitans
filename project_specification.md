@@ -29,11 +29,13 @@ buying weed stocks. Wants to use the stock simulation mode of the program to lea
 
 ## Task 4: Domain Enitities
 - Portfolio:
-    - name
-    - currency
-    - stocks
+  - name
+  - currency
+  - stocks
 - Stock:
-
+  - name.
+  - current quote.
+  - historical quotes.
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
