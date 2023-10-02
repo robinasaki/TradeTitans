@@ -38,4 +38,7 @@ Running initial_testing/APIAccessor.java retrieves data on TSLA daily share pric
 
 ![javaAPI](api_java.png)
 
+## Potential Issues
 
+-Parsing the JSON from the API calls requires using libraries and using maven, we haven't learned how to use it yet
+-Rate limiting of 5 calls per minutes and 100 calls per day with Alpha Vantage
