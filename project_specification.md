@@ -26,7 +26,7 @@ particular company. He wishes to input hypothetical data and receive an estimati
 search. He is then given the specific stock requested or the stocks requested by the general search.
 - [Robin's Story]: Wish to get familiarized with the stock market but just lost his entire lunch saving 
 buying weed stocks. Wants to use the stock simulation mode of the program to learn the trends of the market.
-- [Colin's Story]: Shayan frequently trades stocks & ETFs and wants to view his performance over time. He creates a portfolio where he records all his transactions (deposits, withdraws, buys, sells) and what time he made them in the program. He can then view his overall performance over different time periods such as the last day, week, month, year, etc. 
+- [Colin's Story]: Shayan frequently trades stocks & ETFs and wants to view his performance over time. He creates a portfolio where he records all his transactions (deposits, withdraws, buys, sells) and what time he made them in the program. He can then view various performance metrics over different time periods such as the last day, week, month, year, etc. 
 
 ## Task 4: Domain Entities
 - Portfolio:
@@ -37,6 +37,12 @@ buying weed stocks. Wants to use the stock simulation mode of the program to lea
   - name.
   - current quote.
   - historical quotes.
+- Transaction
+  - transaction type (deposit, withdraw, buy, sell)
+  - stock symbol
+  - time/date
+  - number of shares
+  - price per share
 
 ## Task 5: Scheduled Meeting Time + Mode of Communication
 - We will meet during each tutorial time, as well as Tuesdays and Thursdays from 5:00-6:00pm.
