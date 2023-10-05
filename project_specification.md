@@ -33,10 +33,11 @@ buying weed stocks. Wants to use the stock simulation mode of the program to lea
   - name
   - currency
   - stocks
+  - transactions
 - Stock:
-  - name.
-  - current quote.
-  - historical quotes.
+  - name
+  - symbol
+  - historical prices (includes current price)
 - Transaction
   - transaction type (deposit, withdraw, buy, sell)
   - stock symbol
