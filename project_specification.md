@@ -19,7 +19,7 @@ be automatically tracked using real-world data.
 
 
 ## Task 3: User Stories
-- [Team Story]: Put team story here.
+- [Team Story]: Christopher is willing to change his portfolio's currency from CAD to USD so he can buy USA stocks in USD directly.  
 - [Abdul's Story]: Abdul is interested in obtaining an estimate of potential profits by investing in stocks from a 
 particular company. He wishes to input hypothetical data and receive an estimation based on current market prices.
 - [Jarod's Story]: Jarod wishes to find either a specific stock or find others by inputting specific filters into a 
