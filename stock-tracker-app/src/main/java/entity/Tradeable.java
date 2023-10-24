@@ -1,4 +1,4 @@
-package enitity;
+package entity;
 
 public abstract class Tradeable {
     
