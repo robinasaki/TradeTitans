@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public abstract class Tradeable {
     private String name; // e.g. "Apple Inc."

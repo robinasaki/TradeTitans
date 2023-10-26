@@ -1,16 +1,18 @@
 package entity;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Currency extends Tradeable {
     private final String name;
 
-    private Currency(String name) {
-        this.name = name;
+    public Currency(String name, String symbol, HashMap<Date, Double> priceHistory, String currencyName) {
+        super(name, symbol, priceHistory);
+        this.name = currencyName;
     }
 
     public void trade() {
         // TODO: Complete trade method.
     }
 
-    @Override
     public String getCurrencyName() { return name; }
 }
