@@ -2,7 +2,7 @@ package entity;
 
 import java.util.Date;
 
-public abstract class Tradable {
+public abstract class Tradeable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private HashMap<Date, double> priceHistory; // price history in USD
