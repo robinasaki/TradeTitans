@@ -24,5 +24,4 @@ public abstract class Tradeable {
     public HashMap<Date, double> getPriceHistory() {
         return price_history;
     }
-
 }
