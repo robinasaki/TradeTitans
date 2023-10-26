@@ -8,7 +8,7 @@ public class Currency extends Tradeable {
     }
 
     public void trade() {
-        // TODO: Complete this.
+        // TODO: Complete trade method.
     }
 
     @Override
