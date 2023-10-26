@@ -5,12 +5,12 @@ import java.util.Date;
 public abstract class Tradeable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
-    private HashMap<Date, double> price_history; // price history in USD
+    private HashMap<Date, double> priceHistory; // price history in USD
     
-    public Tradeable(String name, String symbol, double price) {
+    public Tradeable(String name, String symbol, HashMap<Date, double> priceHistory) {
         this.name = name;
         this.symbol = symbol;
-        this.price = price;
+        this.priceHistory = priceHistory;
     }
 
     public String getName() {
