@@ -1,5 +1,5 @@
 package entity;
-import Currency;
+import entity.Currency;
 public class Portfolio {
     private final String name;
 
