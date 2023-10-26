@@ -1,12 +1,12 @@
 package entity;
 
 public class TradeTransaction extends Transaction {
-    Tradable assetIn;
-    Tradable assetOut;
+    Tradeable assetIn;
+    Tradeable assetOut;
     Double shares;
     Double sharePrice;
 
-    public TradeTransaction(Double tradingFee, Tradable assetIn, Tradable assetOut, Double shares, Double sharePrice) {
+    public TradeTransaction(Double tradingFee, Tradeable assetIn, Tradeable assetOut, Double shares, Double sharePrice) {
         super(tradingFee);
         this.assetIn = assetIn;
         this.assetOut = assetOut;

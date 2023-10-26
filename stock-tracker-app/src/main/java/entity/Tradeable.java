@@ -7,7 +7,7 @@ public abstract class Tradeable {
     private String symbol; // e.g. "AAPL"
     private HashMap<Date, Double> priceHistory; // price history in USD
     
-    public Tradable(String name, String symbol, HashMap<Date, Double> priceHistory) {
+    public Tradeable(String name, String symbol, HashMap<Date, Double> priceHistory) {
         this.name = name;
         this.symbol = symbol;
         this.priceHistory = priceHistory;
