@@ -5,7 +5,7 @@ public class BankingTransaction extends Transaction {
     Boolean deposit;
     Double amount;
 
-    public BankingTransaction(Double tradingFee, Tradeable asset, Boolean deposit, Double amount){
+    public BankingTransaction(Double tradingFee, Tradeable asset, Boolean deposit, Double amount) {
         super(tradingFee);
         this.asset = asset;
         this.deposit = deposit;
