@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Portfolio {
     private final String name;
 
-    private final Currency currency;
+    final Currency currency;
 
     private HashMap<Tradeable, Double> holdings;
 
