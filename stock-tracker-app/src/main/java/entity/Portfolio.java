@@ -5,11 +5,11 @@ public class Portfolio {
 
     private final Currency currency;
 
-    private final int protfolioId;
+    private final int portfolioId;
 
-    public Portfolio(String name, Currency currency, int protfolioId){
+    public Portfolio(String name, Currency currency, int portfolioId){
         this.name = name;
         this.currency = currency;
-        this.protfolioId = protfolioId;
+        this.portfolioId = portfolioId;
     }
 }
