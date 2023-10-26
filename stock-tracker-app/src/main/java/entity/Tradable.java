@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.HashMap;
+
 import java.util.Date;
 
 public abstract class Tradable {
