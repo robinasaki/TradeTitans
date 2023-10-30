@@ -41,6 +41,7 @@ public class Portfolio {
         return this.transactions;
     }
 
+    // don't see how this is strictly necessary
     public void addStock(Tradeable stock, Double amount){
         this.holdings.put(stock, amount);
     }
@@ -49,5 +50,13 @@ public class Portfolio {
         this.transactions.add(transaction);
         this.holdings[transaction.getAssetIn()] += transaction.getAmountIn();
         this.holdings[transaction.getAssetOut()] += transaction.getAmountOut();
+    }
+
+    public double getPortfolioValue(){
+        double value = 0;
+        for (Tradeable asset : this.holdings.keySet()){
+            value += asset.getCurrentPrice() * this.holdings.get(asset);
+        }
+        return value;
     }
 }
