@@ -3,14 +3,15 @@ package entity;
 public class TradeTransaction extends Transaction {
     private Tradeable assetIn;
     private Tradeable assetOut;
-    private Double shares_in;
-    private Double shares_out;
+    private double amountIn;
+    private double amountOut;
 
-    public TradeTransaction(Double tradingFee, Tradeable assetIn, Tradeable assetOut, Double shares)
+    public TradeTransaction(Double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
         super(tradingFee);
         this.assetIn = assetIn;
         this.assetOut = assetOut;
-        this.shares = shares;
+        this.amountIn = amountIn;
+        this.amountOut = amountOut;
     }
 
     public Tradeable getAssetIn() {
@@ -21,12 +22,12 @@ public class TradeTransaction extends Transaction {
         return assetOut;
     }
 
-    public Double getShares_in() {
-        return shares_in;
+    public double getAmountIn() {
+        return amountIn;
     }
 
-    public Double getShares_out() {
-        return shares_out;
+    public double getAmountOut() {
+        return amountOut;
     }
 
 
