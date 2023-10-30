@@ -3,9 +3,6 @@ package entity;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import entity.Currency;
-import entity.Tradeable;
-import entity.Transaction;
 public class Portfolio {
     private final String name;
 
@@ -53,7 +50,7 @@ public class Portfolio {
         watchlist.remove(asset);
     }
 
-    public void getWatchlist(){
+    public ArrayList<Tradeable> getWatchlist(){
         return watchlist;
     }
 
