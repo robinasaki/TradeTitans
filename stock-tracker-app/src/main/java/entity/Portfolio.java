@@ -15,7 +15,7 @@ public class Portfolio {
 
     private ArrayList<Transaction> transactions;
 
-    private int portfolioId;
+    private final int portfolioId;
 
     public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
         this.name = name;
