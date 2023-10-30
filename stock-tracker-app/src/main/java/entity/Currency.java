@@ -1,4 +1,5 @@
 package entity;
+
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,5 +15,7 @@ public class Currency extends Tradeable {
         // TODO: Complete trade method.
     }
 
-    public String getCurrencyName() { return name; }
+    public String getCurrencyName() {
+        return name;
+    }
 }

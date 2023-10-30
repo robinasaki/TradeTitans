@@ -14,7 +14,7 @@ public class TradeTransaction extends Transaction {
         this.sharePrice = sharePrice;
     }
 
-    private void trade(){
+    private void trade() {
         // #TODO
     }
 }
