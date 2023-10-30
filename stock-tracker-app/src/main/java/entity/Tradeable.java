@@ -27,7 +27,7 @@ public abstract class Tradeable {
         return priceHistory;
     }
 
-    public double getCurrentPrice(){
+    public double getCurrentPrice() {
         return this.priceHistory.get(LocalDate.now());
     }
 }
