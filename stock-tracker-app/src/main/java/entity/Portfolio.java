@@ -15,6 +15,8 @@ public class Portfolio {
 
     private ArrayList<Transaction> transactions;
 
+    private ArrayList<Tradeable> watchlist;
+
     private final int portfolioId;
 
     public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
@@ -41,10 +43,20 @@ public class Portfolio {
         return this.transactions;
     }
 
-    // don't see how this is strictly necessary
-    public void addStock(Tradeable stock, Double amount){
-        this.holdings.put(stock, amount);
+
+    // these three methods are for the watchlist
+    public void addAsset(Tradeable asset){
+        watchlist.add(asset);
     }
+
+    public void removeAsset(Tradeable asset){
+        watchlist.remove(asset);
+    }
+
+    public void getWatchlist(){
+        return watchlist;
+    }
+
 
     public void addTrade(TradeTransaction transaction){
         this.transactions.add(transaction);
