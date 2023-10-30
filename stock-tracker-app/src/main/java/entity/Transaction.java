@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public abstract class Transaction {
     final LocalDateTime transactionTime;
-    final Double tradingFee;
+    final double tradingFee;
 
     public Transaction(Double tradingFee) {
         this.transactionTime = LocalDateTime.now();
