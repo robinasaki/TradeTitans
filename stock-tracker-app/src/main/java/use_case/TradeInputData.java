@@ -1,4 +1,4 @@
-package UseCases;
+package use_case;
 
 public class TradeInputData {
 }
