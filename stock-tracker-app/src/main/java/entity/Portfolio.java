@@ -46,10 +46,20 @@ public class Portfolio {
         this.holdings.put(stock, amount);
     }
 
-    public void addTransaction(Transaction transaction){
+    public void addTrade(TradeTransaction transaction){
         this.transactions.add(transaction);
         this.holdings[transaction.getAssetIn()] += transaction.getAmountIn();
         this.holdings[transaction.getAssetOut()] += transaction.getAmountOut();
+    }
+
+    public void deposit(BankingTransaction transaction){
+        this.transactions.add(transaction);
+        this.holdings[transaction.getCurrency()] += transaction.getAmount();
+    }
+
+    public void withdraw(BankingTransaction transaction){
+        this.transactions.add(transaction);
+        this.holdings[transaction.getCurrency()] -= transaction.getAmount();
     }
 
     public double getPortfolioValue(){
