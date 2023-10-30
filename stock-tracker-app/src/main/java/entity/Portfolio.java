@@ -44,4 +44,10 @@ public class Portfolio {
     public void addStock(Tradeable stock, Double amount){
         this.holdings.put(stock, amount);
     }
+
+    public void addTransaction(Transaction transaction){
+        this.transactions.add(transaction);
+        this.holdings[transaction.getAssetIn()] += transaction.getAmountIn();
+        this.holdings[transaction.getAssetOut()] += transaction.getAmountOut();
+    }
 }
