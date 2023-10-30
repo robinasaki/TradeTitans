@@ -1,5 +1,7 @@
 package use_case;
 
+import use_case.TradeInputBoundary;
+import use_case.TradeInputData;
 import entity.TradeTransaction;
 
 public class TradeInteractor implements TradeInputBoundary{
