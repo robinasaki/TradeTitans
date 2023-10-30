@@ -54,12 +54,12 @@ public class Portfolio {
 
     public void deposit(BankingTransaction transaction){
         this.transactions.add(transaction);
-        this.holdings.put(transaction.getCurrency(), this.holdings.get(transaction.getCurrency()) + transaction.getAmount());
+        this.holdings.put(transaction.getAsset(), this.holdings.get(transaction.getAsset()) + transaction.getAmount());
     }
 
     public void withdraw(BankingTransaction transaction){
         this.transactions.add(transaction);
-        this.holdings.put(transaction.getCurrency(), this.holdings.get(transaction.getCurrency()) - transaction.getAmount());
+        this.holdings.put(transaction.getAsset(), this.holdings.get(transaction.getAsset()) - transaction.getAmount());
     }
 
     public double getPortfolioValue(){
