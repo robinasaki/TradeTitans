@@ -1,5 +1,7 @@
 package use_case;
 
+import entity.Tradeable;
+
 public class TradeInputData {
     final private double tradingFee;
     final private Tradeable assetIn;
