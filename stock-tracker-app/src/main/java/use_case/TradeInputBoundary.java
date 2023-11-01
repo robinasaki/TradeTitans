@@ -1,5 +1,6 @@
 package use_case;
 
 public interface TradeInputBoundary {
-    void trade();
+
+    void execute(TradeInputData tradeInputData);
 }
