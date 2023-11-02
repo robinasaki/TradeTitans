@@ -1,17 +1,22 @@
 package entity;
-import Currency;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+
 public class Portfolio {
     private final String name;
 
-    private final Currency currency;
+    private Currency currency;
 
     private HashMap<Tradeable, Double> holdings;
 
     private ArrayList<Transaction> transactions;
 
-    private final Integer portfolioId;
+    private ArrayList<Tradeable> watchlist;
 
-    public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, Integer portfolioId) {
+    private final int portfolioId;
+
+    public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
         this.name = name;
         this.currency = currency;
         this.holdings = holdings;
@@ -35,7 +40,42 @@ public class Portfolio {
         return this.transactions;
     }
 
-    public void addStock(Tradeable stock, Double amount){
-        this.holdings.put(stock, amount);
+
+    // these three methods are for the watchlist
+    public void addAsset(Tradeable asset){
+        watchlist.add(asset);
+    }
+
+    public void removeAsset(Tradeable asset){
+        watchlist.remove(asset);
+    }
+
+    public ArrayList<Tradeable> getWatchlist(){
+        return watchlist;
+    }
+
+
+    public void addTrade(TradeTransaction transaction){
+        this.transactions.add(transaction);
+        this.holdings.put(transaction.getAssetIn(), this.holdings.get(transaction.getAssetIn()) + transaction.getAmountIn());
+        this.holdings.put(transaction.getAssetOut(), this.holdings.get(transaction.getAssetOut()) - transaction.getAmountOut());
+    }
+
+    public void deposit(BankingTransaction transaction){
+        this.transactions.add(transaction);
+        this.holdings.put(transaction.getAsset(), this.holdings.get(transaction.getAsset()) + transaction.getAmount());
+    }
+
+    public void withdraw(BankingTransaction transaction){
+        this.transactions.add(transaction);
+        this.holdings.put(transaction.getAsset(), this.holdings.get(transaction.getAsset()) - transaction.getAmount());
+    }
+
+    public double getPortfolioValue(){
+        double value = 0;
+        for (Tradeable asset : this.holdings.keySet()){
+            value += asset.getCurrentPrice() * this.holdings.get(asset);
+        }
+        return value;
     }
 }

@@ -2,6 +2,7 @@ package entity;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.time.LocalDate;
 
 public abstract class Tradeable {
     private String name; // e.g. "Apple Inc."
@@ -24,5 +25,9 @@ public abstract class Tradeable {
 
     public HashMap<Date, Double> getPriceHistory() {
         return priceHistory;
+    }
+
+    public double getCurrentPrice() {
+        return this.priceHistory.get(LocalDate.now());
     }
 }

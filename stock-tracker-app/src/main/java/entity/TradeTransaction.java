@@ -1,18 +1,35 @@
 package entity;
 
 public class TradeTransaction extends Transaction {
-    Tradeable assetIn;
-    Tradeable assetOut;
-    Double shares;
-    Double sharePrice;
+    private Tradeable assetIn;
+    private Tradeable assetOut;
+    private double amountIn;
+    private double amountOut;
 
-    public TradeTransaction(Double tradingFee, Tradeable assetIn, Tradeable assetOut, Double shares, Double sharePrice) {
+    public TradeTransaction(double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
         super(tradingFee);
         this.assetIn = assetIn;
         this.assetOut = assetOut;
-        this.shares = shares;
-        this.sharePrice = sharePrice;
+        this.amountIn = amountIn;
+        this.amountOut = amountOut;
     }
+
+    public Tradeable getAssetIn() {
+        return assetIn;
+    }
+
+    public Tradeable getAssetOut() {
+        return assetOut;
+    }
+
+    public double getAmountIn() {
+        return amountIn;
+    }
+
+    public double getAmountOut() {
+        return amountOut;
+    }
+
 
     private void trade() {
         // #TODO
