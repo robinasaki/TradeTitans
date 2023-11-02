@@ -1,4 +1,4 @@
-package main.java.use_case;
+package use_case;
 
 public interface TradeOutputBoundary {
 }
