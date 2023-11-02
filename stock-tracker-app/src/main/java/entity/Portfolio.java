@@ -1,10 +1,5 @@
 package entity;
-
-import entity.Currency;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import Currency;
 public class Portfolio {
     private final String name;
 
