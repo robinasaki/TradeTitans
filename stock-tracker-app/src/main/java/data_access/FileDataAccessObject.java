@@ -11,7 +11,8 @@ public class FileUserDataAccessObject {
 
     private final HashMap<String, Portfolio> portfolios;
 
-    public FileUserDataAccessObject(String csvPath, User File, csvFile File csvFile) {
-
+    public FileUserDataAccessObject(String csvPath, User user, File csvFile, HashMap<String, Portfolio> portfolios) {
+        this.portfolios = portfolios;
+        this.csvFile = csvFile;
     }
 }
