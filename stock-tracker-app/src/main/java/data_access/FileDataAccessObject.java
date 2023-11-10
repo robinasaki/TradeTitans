@@ -2,6 +2,7 @@ package data_access;
 
 import entity.Portfolio;
 import entity.User;
+import java.io.File;
 import java.util.HashMap;
 
 public class FileUserDataAccessObject {
@@ -10,7 +11,7 @@ public class FileUserDataAccessObject {
 
     private final HashMap<String, Portfolio> portfolios;
 
-    public FileUserDataAccessObject(String csvPath, User user, HashMap<String, Portfolio> portfolios) {
-        this.portfolios = portfolios;
+    public FileUserDataAccessObject(String csvPath, User File, csvFile File csvFile) {
+
     }
 }
