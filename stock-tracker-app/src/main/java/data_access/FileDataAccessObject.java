@@ -1,7 +1,7 @@
-package data_access
+package data_access;
 
 import entity.Portfolio;
-
+import entity.User;
 
 public class FileUserDataAccessObject {
 
@@ -9,5 +9,5 @@ public class FileUserDataAccessObject {
 
     private final Map<String, Portfolio> portfolios;
 
-    public FileUserDataAccessObject(String csvPath, User
+    public FileUserDataAccessObject(String csvPath, User user) {}
 }
