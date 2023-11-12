@@ -6,13 +6,13 @@ import java.io.File;
 import java.util.HashMap;
 
 public class FileUserDataAccessObject {
+    private static final String FILE_PATH = "portfolioData.ser";
 
-    private final File csvFile;
-
-    private final HashMap<String, Portfolio> portfolios;
-
-    public FileUserDataAccessObject(String csvPath, User user, File csvFile, HashMap<String, Portfolio> portfolios) {
-        this.portfolios = portfolios;
-        this.csvFile = csvFile;
+    public void savePortfolios(List<Portfolio> portfolios) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(portfolios);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
