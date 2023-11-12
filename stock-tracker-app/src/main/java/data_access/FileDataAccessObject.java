@@ -1,13 +1,18 @@
-package data_access
+package data_access;
 
 import entity.Portfolio;
-
+import entity.User;
+import java.io.File;
+import java.util.HashMap;
 
 public class FileUserDataAccessObject {
 
     private final File csvFile;
 
-    private final Map<String, Portfolio> portfolios;
+    private final HashMap<String, Portfolio> portfolios;
 
-    public FileUserDataAccessObject(String csvPath, User
+    public FileUserDataAccessObject(String csvPath, User user, File csvFile, HashMap<String, Portfolio> portfolios) {
+        this.portfolios = portfolios;
+        this.csvFile = csvFile;
+    }
 }
