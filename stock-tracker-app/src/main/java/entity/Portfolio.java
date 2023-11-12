@@ -2,6 +2,12 @@ package entity;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.io.Serializable;
+import entity.Currency;
+import entity.Transaction;
+import entity.TradeTransaction;
+import entity.BankingTransaction;
+import entity.Tradeable;
 
 public class Portfolio implements Serializable {
     private final String name;
