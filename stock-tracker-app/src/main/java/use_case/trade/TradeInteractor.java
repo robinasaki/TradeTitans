@@ -2,7 +2,7 @@ package use_case.trade;
 
 import entity.TradeTransaction;
 import entity.User;
-import entity.UserFactory
+import entity.UserFactory;
 import java.time.LocalDateTime;
 
 public class TradeInteractor implements TradeInputBoundary{
@@ -28,14 +28,14 @@ public class TradeInteractor implements TradeInputBoundary{
 
     @Override
     public void execute(TradeInputData tradeInputData) {
-        if (userDataAccessObject.existsByName(tradeInputData.getAmountIn())) {
+        if (userDataAccessObject.existsByName(TradeInputData.getAmountIn())) {
             userPresenter.prepareFailView("PUT SOMETHING HERE");
         } else {
             LocalDateTime now =LocalDateTime.now();
-            User user = userFactory.create(tradeInputData.getAmountIn(), tradeInputData.getTradingFee(), now);
+            User user = userFactory.create(TradeInputData.getAmountIn(), tradeInputData.getTradingFee(), now);
             userDataAccessObject.save(user);
 
-            TradeOutputData tradeOutputData = new TradeOutputData(user.getName(), now.toString(), false);
+            TradeOutputData tradeOutputData = new TradeOutputData(User.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(tradeOutputData);
         }
     }
