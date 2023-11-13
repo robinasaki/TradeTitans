@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 //import java.io.InputStreamReader;
 //import java.net.HttpURLConnection;
@@ -58,9 +60,11 @@ public class APIDataAccessObject {
 
                 JsonNode timeSeries = root.get("Time Series (Daily)");
 
-                for (JsonNode node : timeSeries) {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(node.get("date").asText());
-                    double price = node.get("4. close").asDouble();
+                Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
+                while(fields.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fields.next();
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                    double price = entry.getValue().get("4. close").asDouble();
                     quotes.put(date, price);
                 }
             } catch (IOException | InterruptedException | ParseException e) {
@@ -74,8 +78,8 @@ public class APIDataAccessObject {
             String startDateString = dateFormat.format(startDate);
             String endDateString = dateFormat.format(endDate); 
             return String.format(
-                    "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json&startDate=%s&endDate=%s",
-                    BASE_URL, FUNCTION, symbol, apiKey, startDateString, endDateString);
+                    "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
+                    BASE_URL, FUNCTION, symbol, apiKey);
         }
 
 /*
