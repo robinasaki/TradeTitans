@@ -1,13 +1,6 @@
 package entity;
 
-import org.junit.Assert.*;
-import entity.Portfolio;
-import entity.Tradeable;
 import org.junit.Test;
-import entity.Transaction;
-import entity.TradeTransaction;
-package entity;
-
 
 public class PortfolioTest {
     private Portfolio techPortfolio;
@@ -24,7 +17,7 @@ public class PortfolioTest {
         microsoftStock = new Tradeable("Microsoft", "MSFT");
         googleStock = new Tradeable("Alphabet Inc.", "GOOGL");
         outsidePortfolio = new Tradeable("Outside Portfolio", "");
-
+        
     }
 
     @Test
@@ -40,7 +33,7 @@ public class PortfolioTest {
         techPortfolio.addTrade(transaction2);
 
         // assert that the portfolio has 10 shares of Apple and 3150 USD
-        assert techPortfolio.getHoldings().get(appleStock) == 10;
-        assert techPortfolio.getHoldings().get(usd) == 3150;
+        assert techPortfolio.getHoldings().get("AAPL") == 10;
+        assert techPortfolio.getHoldings().get("USD") == 3150;
     }
 }
