@@ -78,8 +78,8 @@ public class APIDataAccessObject {
             String startDateString = dateFormat.format(startDate);
             String endDateString = dateFormat.format(endDate); 
             return String.format(
-                    "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json&startDate=%s&endDate=%s",
-                    BASE_URL, FUNCTION, symbol, apiKey, startDateString, endDateString);
+                    "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
+                    BASE_URL, FUNCTION, symbol, apiKey);
         }
 
 /*
