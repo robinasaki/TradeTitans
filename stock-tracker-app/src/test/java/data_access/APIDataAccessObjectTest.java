@@ -1,11 +1,12 @@
 package app;
 
-import java.util.Date;
 import data_access.APIDataAccessObject;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.Assert.*;
+import java.util.Date;
+
+import static org.junit.Assert.assertNull;
 
 public class APIDataAccessObjectTest {
     private APIDataAccessObject DAO;
