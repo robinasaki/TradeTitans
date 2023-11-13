@@ -2,7 +2,7 @@ package use_case.trade;
 
 import entity.TradeTransaction;
 import entity.User;
-import entity.UserFactory
+import entity.UserFactory;
 import java.time.LocalDateTime;
 
 public class TradeInteractor implements TradeInputBoundary{
@@ -16,6 +16,7 @@ public class TradeInteractor implements TradeInputBoundary{
         this.userFactory = userFactory;
     }
 
+/* Not sure why there are two of these
     @Override
     public void execute(TradeInputData tradeInputData) {
         TradeTransaction tradeTransaction = new TradeTransaction(tradeInputData.getTradingFee(),
@@ -25,6 +26,7 @@ public class TradeInteractor implements TradeInputBoundary{
                                                                  tradeInputData.getAmountOut());
         
     }
+*/
 
     @Override
     public void execute(TradeInputData tradeInputData) {
