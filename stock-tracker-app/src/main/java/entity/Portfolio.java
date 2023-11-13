@@ -2,8 +2,14 @@ package entity;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.io.Serializable;
+import entity.Currency;
+import entity.Transaction;
+import entity.TradeTransaction;
+import entity.BankingTransaction;
+import entity.Tradeable;
 
-public class Portfolio {
+public class Portfolio implements Serializable {
     private final String name;
 
     private Currency currency;
@@ -11,8 +17,6 @@ public class Portfolio {
     private HashMap<Tradeable, Double> holdings;
 
     private ArrayList<Transaction> transactions;
-
-    private ArrayList<Tradeable> watchlist;
 
     private final int portfolioId;
 
@@ -22,6 +26,14 @@ public class Portfolio {
         this.holdings = holdings;
         this.transactions = transactions;
         this.portfolioId = portfolioId;
+    }
+
+    public Portfolio(String name) {
+        this.name = name;
+        this.currency = new Currency("USD");
+        this.holdings = new HashMap<>();
+        this.transactions = new ArrayList<>();
+        this.portfolioId = 0;
     }
 
     public String getName() {
@@ -40,25 +52,37 @@ public class Portfolio {
         return this.transactions;
     }
 
-
-    // these three methods are for the watchlist
+    // for adding to "watchlist"
     public void addAsset(Tradeable asset){
-        watchlist.add(asset);
+        if (!holdings.containsKey(asset))
+            holdings.put(asset, 0.0);
     }
 
+    // users should only be able to do this if they have no holdings of the asset
     public void removeAsset(Tradeable asset){
-        watchlist.remove(asset);
+        holdings.remove(asset);
     }
 
     public ArrayList<Tradeable> getWatchlist(){
-        return watchlist;
+        return new ArrayList<>(holdings.keySet());
     }
 
 
     public void addTrade(TradeTransaction transaction){
-        this.transactions.add(transaction);
-        this.holdings.put(transaction.getAssetIn(), this.holdings.get(transaction.getAssetIn()) + transaction.getAmountIn());
-        this.holdings.put(transaction.getAssetOut(), this.holdings.get(transaction.getAssetOut()) - transaction.getAmountOut());
+        // amounts being traded
+        double amountIn = transaction.getAmountIn();
+        double amountOut = transaction.getAmountOut();
+        
+        // amount there is in holdings after the trade
+        double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
+        double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
+
+        // update holdings
+        holdings.put(transaction.getAssetIn(), assetInAmount);
+        holdings.put(transaction.getAssetOut(), assetOutAmount);
+
+        // record transaction
+        transactions.add(transaction);
     }
 
     public void deposit(BankingTransaction transaction){
