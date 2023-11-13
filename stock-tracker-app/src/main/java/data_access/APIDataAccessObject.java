@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.Versioned;
 import com.fasterxml.jackson.core.TreeNode;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,18 +22,30 @@ import java.util.HashMap;
 //import java.net.URL;
 
 public class APIDataAccessObject {
-        private static final String API_KEY = "key.txt";
         private static final String BASE_URL = "https://www.alphavantage.co/query";
         private static final String FUNCTION = "TIME_SERIES_DAILY";
 
         private final HttpClient httpClient;
         private final ObjectMapper objectMapper;
+        private String apiKey;
 
         public APIDataAccessObject() {
             this.httpClient = HttpClient.newHttpClient();
             this.objectMapper = new ObjectMapper();
+            this.apiKey = readApiKeyFromFile("key.txt");
         }
 
+        private String readApiKeyFromFile(String filename) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(filename));
+                String key = reader.readLine();
+                reader.close();
+                return key;
+            } catch (IOException e) {
+                e.printStackTrace(); // no key in file
+            }
+            return null;
+        }
         public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
             HashMap<Date, Double> quotes = new HashMap<>();
             try {
@@ -63,7 +76,7 @@ public class APIDataAccessObject {
             String endDateString = dateFormat.format(endDate); 
             return String.format(
                     "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json&startDate=%s&endDate=%s",
-                    BASE_URL, FUNCTION, symbol, API_KEY, startDateString, endDateString);
+                    BASE_URL, FUNCTION, symbol, apiKey, startDateString, endDateString);
         }
 
 /*
