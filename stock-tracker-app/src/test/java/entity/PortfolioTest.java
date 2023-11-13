@@ -1,9 +1,6 @@
-import org.junit.Assert.*;
-import entity.Portfolio;
-import entity.Tradeable;
+package entity;
+
 import org.junit.Test;
-import entity.Transaction;
-import entity.TradeTransaction;
 
 public class PortfolioTest {
     private Portfolio techPortfolio;
