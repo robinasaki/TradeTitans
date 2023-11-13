@@ -1,3 +1,5 @@
+package entity;
+
 import org.junit.Assert.*;
 import entity.Portfolio;
 import entity.Tradeable;
