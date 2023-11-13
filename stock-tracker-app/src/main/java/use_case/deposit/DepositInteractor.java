@@ -16,7 +16,13 @@ public class DepositInteractor implements DepositInputBoundary {
 
     @Override
     public void execute(DepositInputData depositInputData) {
-        BankingTransaction bankingTransaction = new BankingTransaction(0, null, true, depositInputData.getAmount());
-        // #TODO: access the trading fee
+        if (dataAccessObject.negativeDeposit()) {
+            userPresenter.prepareFailView("Negative deposit not allowed.");
+        } else {
+            BankingTransaction bankingTransaction = new BankingTransaction(0, null, true, depositInputData.getAmount());
+            // #TODO: fix trading fee
+            DepositOutputData depositOutputData = new DepositOutputData(false, depositInputData.getAmount(), bankingTransaction);
+            userPresenter.prepareSuccessView(depositOutputData);
+        }
     }
 }
