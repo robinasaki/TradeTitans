@@ -26,6 +26,7 @@ public class TradeInteractor implements TradeInputBoundary{
         
     }
 
+/*
     @Override
     public void execute(TradeInputData tradeInputData) {
         if (userDataAccessObject.existsByName(TradeInputData.getAmountIn())) {
@@ -39,4 +40,5 @@ public class TradeInteractor implements TradeInputBoundary{
             userPresenter.prepareSuccessView(tradeOutputData);
         }
     }
+*/
 }
