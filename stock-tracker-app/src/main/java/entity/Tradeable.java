@@ -4,15 +4,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.time.LocalDate;
 
-public abstract class Tradeable {
+public class Tradeable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private HashMap<Date, Double> priceHistory; // price history in USD
 
-    public Tradeable(String name, String symbol, HashMap<Date, Double> priceHistory) {
+    public Tradeable(String name, String symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.priceHistory = priceHistory;
+        this.priceHistory = new HashMap<>();
     }
 
     public String getName() {

@@ -28,6 +28,14 @@ public class Portfolio implements Serializable {
         this.portfolioId = portfolioId;
     }
 
+    public Portfolio(String name) {
+        this.name = name;
+        this.currency = new Currency("USD");
+        this.holdings = new HashMap<>();
+        this.transactions = new ArrayList<>();
+        this.portfolioId = 0;
+    }
+
     public String getName() {
         return this.name;
     }
