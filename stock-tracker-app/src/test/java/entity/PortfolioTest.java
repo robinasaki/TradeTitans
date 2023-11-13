@@ -1,8 +1,8 @@
-import org.junit.Assert.*;
-import java.util.Date;
 import entity.Portfolio;
 import entity.Tradeable;
 import org.junit.Test;
+package entity;
+
 
 public class PortfolioTest {
     private Portfolio techPortfolio;
@@ -10,6 +10,7 @@ public class PortfolioTest {
     private Tradeable appleStock;
     private Tradeable microsoftStock;
     private Tradeable googleStock;
+    private Tradeable outsidePortfolio; // testing whether we really need BankingTransaction or whether we can use this
 
     public void setup() {
         techPortfolio = new Portfolio("Tech Portfolio");
@@ -17,6 +18,8 @@ public class PortfolioTest {
         appleStock = new Tradeable("Apple Inc.", "AAPL");
         microsoftStock = new Tradeable("Microsoft", "MSFT");
         googleStock = new Tradeable("Alphabet Inc.", "GOOGL");
+        outsidePortfolio = new Tradeable("Outside Portfolio", "");
+        
     }
 
     @Test
