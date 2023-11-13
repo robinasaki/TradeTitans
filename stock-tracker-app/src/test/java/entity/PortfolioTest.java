@@ -36,7 +36,7 @@ public class PortfolioTest {
         techPortfolio.addTrade(transaction2);
 
         // assert that the portfolio has 10 shares of Apple and 3150 USD
-        assert techPortfolio.getHoldings().get("AAPL") == 10;
-        assert techPortfolio.getHoldings().get("USD") == 3150;
+        assert techPortfolio.getHoldings().get(appleStock) == 10;
+        assert techPortfolio.getHoldings().get(usd) == 3150;
     }
 }
