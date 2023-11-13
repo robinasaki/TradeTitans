@@ -1,6 +1,9 @@
+import org.junit.Assert.*;
 import entity.Portfolio;
 import entity.Tradeable;
 import org.junit.Test;
+import entity.Transaction;
+import entity.TradeTransaction;
 package entity;
 
 
@@ -19,12 +22,23 @@ public class PortfolioTest {
         microsoftStock = new Tradeable("Microsoft", "MSFT");
         googleStock = new Tradeable("Alphabet Inc.", "GOOGL");
         outsidePortfolio = new Tradeable("Outside Portfolio", "");
-        
+
     }
 
     @Test
-    public void testAddTransaction() {
+    public void testAddTrade() {
         setup();
-        assert(false); // TODO
+
+        // deposit 5000 USD
+        TradeTransaction transaction1 = new TradeTransaction(0,usd, outsidePortfolio, 5000, 0);
+        techPortfolio.addTrade(transaction1);
+
+        // buy 10 shares of Apple for 185 USD each or 1850 USD total
+        TradeTransaction transaction2 = new TradeTransaction(0,appleStock, usd, 10, 1850);
+        techPortfolio.addTrade(transaction2);
+
+        // assert that the portfolio has 10 shares of Apple and 3150 USD
+        assert techPortfolio.getHoldings().get(appleStock) == 10;
+        assert techPortfolio.getHoldings().get(usd) == 3150;
     }
 }
