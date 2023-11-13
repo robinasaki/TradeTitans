@@ -16,7 +16,6 @@ public class TradeInteractor implements TradeInputBoundary{
         this.userFactory = userFactory;
     }
 
-/* Not sure why there are two of these
     @Override
     public void execute(TradeInputData tradeInputData) {
         TradeTransaction tradeTransaction = new TradeTransaction(tradeInputData.getTradingFee(),
@@ -26,8 +25,8 @@ public class TradeInteractor implements TradeInputBoundary{
                                                                  tradeInputData.getAmountOut());
         
     }
-*/
 
+/*
     @Override
     public void execute(TradeInputData tradeInputData) {
         if (userDataAccessObject.existsByName(tradeInputData.getAmountIn())) {
@@ -41,4 +40,5 @@ public class TradeInteractor implements TradeInputBoundary{
             userPresenter.prepareSuccessView(tradeOutputData);
         }
     }
+*/
 }
