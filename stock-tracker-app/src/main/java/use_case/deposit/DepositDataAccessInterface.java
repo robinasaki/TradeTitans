@@ -1,5 +1,7 @@
 package use_case.deposit;
 
 public interface DepositDataAccessInterface {
-    void execute();
+
+    boolean negativeDeposit();
+    void save();
 }
