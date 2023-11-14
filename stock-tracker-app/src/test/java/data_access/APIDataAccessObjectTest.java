@@ -22,6 +22,9 @@ public class APIDataAccessObjectTest {
 
     @Test
     public void testGetHistoricalQuotes() {
+        /**
+         * @Test: General test case
+         */
         setUp();
         String symbol = "AAPL";
         Date startDate = new Date(2023, 11, 1);
@@ -51,7 +54,7 @@ public class APIDataAccessObjectTest {
     public void testGetInvalidHistoricalQuotes() {
         /**
          * Test 2
-         * Provided input startDate < endDate.
+         * @Test: startDate < endDate.
          */
         setUp();
         String symbol = "AAPL";
@@ -69,7 +72,7 @@ public class APIDataAccessObjectTest {
     public void testGetFutureHistoricalQuotes() {
         /**
          * Test 3
-         * Provided input endDate > today.
+         * @Test: endDate > today.
          */
         setUp();
         String symbol = "AAPL";
