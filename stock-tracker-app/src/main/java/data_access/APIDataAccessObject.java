@@ -64,8 +64,10 @@ public class APIDataAccessObject {
                 while(fields.hasNext()) {
                     Map.Entry<String, JsonNode> entry = fields.next();
                     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
-                    double price = entry.getValue().get("4. close").asDouble();
-                    quotes.put(date, price);
+                    if (date.after(startDate) && date.before(endDate)) {
+                        double price = entry.getValue().get("4. close").asDouble();
+                        quotes.put(date, price);
+                    }
                 }
             } catch (IOException | InterruptedException | ParseException e) {
                 e.printStackTrace(); // TODO: handle exception
