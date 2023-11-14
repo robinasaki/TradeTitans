@@ -16,7 +16,7 @@ public class TradeInteractor implements TradeInputBoundary{
         this.userFactory = userFactory;
     }
 
-    @Override
+    /* @Override
     public void execute(TradeInputData tradeInputData) {
         TradeTransaction tradeTransaction = new TradeTransaction(tradeInputData.getTradingFee(),
                                                                  tradeInputData.getAssetIn(),
@@ -24,15 +24,14 @@ public class TradeInteractor implements TradeInputBoundary{
                                                                  tradeInputData.getAmountIn(),
                                                                  tradeInputData.getAmountOut());
         
-    }
+    } */
 
-/*
     @Override
     public void execute(TradeInputData tradeInputData) {
-        if (userDataAccessObject.existsByName(TradeInputData.getAmountIn())) {
-            userPresenter.prepareFailView("PUT SOMETHING HERE");
-        } else {
-            LocalDateTime now =LocalDateTime.now();
+        if (userDataAccessObject.notTradeable()) {
+            userPresenter.prepareFailView("These items are not tradeable.");
+        } else { //TODO: Fix this else statement.
+            LocalDateTime now = LocalDateTime.now();
             User user = userFactory.create(TradeInputData.getAmountIn(), tradeInputData.getTradingFee(), now);
             userDataAccessObject.save(user);
 
@@ -40,5 +39,4 @@ public class TradeInteractor implements TradeInputBoundary{
             userPresenter.prepareSuccessView(tradeOutputData);
         }
     }
-*/
 }
