@@ -53,7 +53,7 @@ public class APIDataAccessObjectTest {
     public void testGetInvalidHistoricalQuotes() {
         /**
          * Test 2
-         * Provided input startDate < endDate.
+         * Provided input startDate is after endDate.
          */
         setUp();
         String symbol = "AAPL";
@@ -73,12 +73,14 @@ public class APIDataAccessObjectTest {
     public void testGetFutureHistoricalQuotes() {
         /**
          * Test 3
-         * Provided input endDate > today.
+         * Provided input endDate is after today.
          */
         setUp();
         String symbol = "AAPL";
-        Date startDate = new Date(2025, 1, 1);
-        Date endDate = new Date(2025, 1, 5);
+
+        // January 1st, 2025 to January 5th, 2025
+        Date startDate = new Date(125, 0, 1);
+        Date endDate = new Date(125, 0, 5);
         try {
             Map<Date, Double> historicalQuotes = DAO.getHistoricalQuotes(symbol, startDate, endDate);
 //            LocalDate localDate = LocalDate.now();
