@@ -1,10 +1,17 @@
 package use_case.trade;
 
-public class TradeOutputData {
-    // TODO: Need to finish this section
-    private boolean useCaseFailed;
+import entity.BankingTransaction;
 
-    public TradeOutputData(boolean useCaseFailed) {
+public class TradeOutputData {
+    private boolean useCaseFailed;
+    private boolean successfulTrade;
+    private BankingTransaction bankingTransaction;
+
+    public TradeOutputData(boolean useCaseFailed, boolean successfulTrade, BankingTransaction bankingTransaction) {
         this.useCaseFailed = useCaseFailed;
+        this.successfulTrade = successfulTrade;
+        this.bankingTransaction = bankingTransaction;
     }
+
+    public boolean getTradeInfo() {return successfulTrade;}
 }
