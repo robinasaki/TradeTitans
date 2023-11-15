@@ -13,5 +13,11 @@ public class TradeOutputData {
         this.bankingTransaction = bankingTransaction;
     }
 
-    public boolean getTradeInfo() {return successfulTrade;}
+    public boolean getTradeInfo() {
+        return successfulTrade;
+    }
+
+    public BankingTransaction getBankingTransaction() {
+        return bankingTransaction;
+    }
 }
