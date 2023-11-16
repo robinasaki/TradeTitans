@@ -20,6 +20,18 @@ public class FileDataAccessObject {
         }
     }
 
+    pulbic void savePortfolio(Portfolio portfolio) {
+        List<Portfolio> portfolios = loadPortfolios();
+        for (int i = 0; i < portfolios.size(); i++) {
+            if (portfolios.get(i).getName().equals(portfolio.getName())) {
+                portfolios.set(i, portfolio);
+                return;
+            }
+        }
+        portfolios.add(portfolio);
+        
+    }
+
     public List<Portfolio> loadPortfolios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (List<Portfolio>) ois.readObject();
