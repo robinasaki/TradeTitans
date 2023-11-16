@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.time.LocalDate;
+import java.io.File;
+
 
 //import java.io.InputStreamReader;
 //import java.net.HttpURLConnection;
@@ -50,7 +52,10 @@ public class APIDataAccessObject {
             }
             return null;
         }
-        public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+
+        // this method will be used in the real program, but for testing purposes we will use the one below
+        // we will have to change the name of this back to getHistoricalQuotes() at some point
+        public HashMap<Date, Double> getHistoricalQuotesReal(String symbol, Date startDate, Date endDate) {
             HashMap<Date, Double> quotes = new HashMap<>();
             try {
                 String urlString = buildApiUrl(symbol, startDate, endDate);
@@ -58,10 +63,8 @@ public class APIDataAccessObject {
                         .uri(URI.create(urlString))
                         .build();
 
-                // The following lines make API requests but are replaced by the getTestJSON() method for testing purposes
-                // HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                // JsonNode root = objectMapper.readTree(response.body());
-                JsonNode root = getTestJSON(symbol);
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                JsonNode root = objectMapper.readTree(response.body());
 
                 JsonNode timeSeries = root.get("Time Series (Daily)");
 
@@ -81,15 +84,43 @@ public class APIDataAccessObject {
         }
 
 
-        // This method is for testing purposes only, so we don't have to keep using API keys
-        private JsonNode getTestJSON(String symbol) {
-            if (symbol.equals("IBM")) {
-                File ibm = new File("test_queries/IBM.json");
-                return objectMapper.readTree(ibm);
+        // this method is for testing purposes only, it reads from a local file instead of making an API call
+        // the real is above and will have to have its name changed to getHistoricalQuotes
+        public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+            HashMap<Date, Double> quotes = new HashMap<>();
+            try {
+                String urlString = buildApiUrl(symbol, startDate, endDate);
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(urlString))
+                        .build();
+
+                JsonNode root;
+                if (symbol.equals("IBM")) {
+                    String filePath = "test_queries/IBM.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+                else {
+                    String filePath = "test_queries/SHOP-TO.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+
+                JsonNode timeSeries = root.get("Time Series (Daily)");
+
+                Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
+                while(fields.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fields.next();
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                    if ((date.after(startDate) || date.equals(startDate)) && (date.before(endDate) || date.equals(endDate))) {
+                        double price = entry.getValue().get("4. close").asDouble();
+                        quotes.put(date, price);
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                e.printStackTrace(); // TODO: handle exception
             }
-            else {
-                File shop_to = new File("test_queries/SHOP-TO.json");
-            }
+            return quotes;
         }
 
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
