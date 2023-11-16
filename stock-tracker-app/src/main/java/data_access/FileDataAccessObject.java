@@ -29,4 +29,16 @@ public class FileDataAccessObject {
 
         return new ArrayList<>();
     }
+
+    public Portfolio loadPortfolio(String portfolioName) {
+        List<Portfolio> portfolios = loadPortfolios();
+
+        for (Portfolio portfolio : portfolios) {
+            if (portfolio.getName().equals(portfolioName)) {
+                return portfolio;
+            }
+        }
+
+        throw new IllegalArgumentException("Portfolio not found");
+    }
 }
