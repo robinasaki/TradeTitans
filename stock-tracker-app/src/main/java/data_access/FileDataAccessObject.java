@@ -12,7 +12,7 @@ import java.util.List;
 public class FileDataAccessObject {
     private static final String FILE_PATH = "portfolioData.ser";
 
-    public void savePortfolios(List<Portfolio> portfolios) {
+    private void savePortfolios(List<Portfolio> portfolios) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
             oos.writeObject(portfolios);
         } catch (IOException e) {
@@ -20,7 +20,7 @@ public class FileDataAccessObject {
         }
     }
 
-    pulbic void savePortfolio(Portfolio portfolio) {
+    public void savePortfolio(Portfolio portfolio) {
         List<Portfolio> portfolios = loadPortfolios();
         for (int i = 0; i < portfolios.size(); i++) {
             if (portfolios.get(i).getName().equals(portfolio.getName())) {
@@ -29,10 +29,10 @@ public class FileDataAccessObject {
             }
         }
         portfolios.add(portfolio);
-        
+        savePortfolios(portfolios);
     }
 
-    public List<Portfolio> loadPortfolios() {
+    private List<Portfolio> loadPortfolios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (List<Portfolio>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
