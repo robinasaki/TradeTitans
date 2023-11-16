@@ -30,7 +30,7 @@ public class FileDataAccessObject {
         return new ArrayList<>();
     }
 
-    public Portfolio loadPortfolio(String portfolioName) {
+    public Portfolio getPortfolio(String portfolioName) {
         List<Portfolio> portfolios = loadPortfolios();
 
         for (Portfolio portfolio : portfolios) {
