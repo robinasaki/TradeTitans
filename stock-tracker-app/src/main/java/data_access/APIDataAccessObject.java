@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.time.LocalDate;
+import java.io.File;
+
 
 //import java.io.InputStreamReader;
 //import java.net.HttpURLConnection;
@@ -50,7 +52,10 @@ public class APIDataAccessObject {
             }
             return null;
         }
-        public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+
+        // this method will be used in the real program, but for testing purposes we will use the one below
+        // we will have to change the name of this back to getHistoricalQuotes() at some point
+        public HashMap<Date, Double> getHistoricalQuotesReal(String symbol, Date startDate, Date endDate) {
             HashMap<Date, Double> quotes = new HashMap<>();
             try {
                 String urlString = buildApiUrl(symbol, startDate, endDate);
@@ -73,6 +78,46 @@ public class APIDataAccessObject {
                     }
                 }
             } catch (IOException | InterruptedException | ParseException e) {
+                e.printStackTrace(); // TODO: handle exception
+            }
+            return quotes;
+        }
+
+
+        // this method is for testing purposes only, it reads from a local file instead of making an API call
+        // the real is above and will have to have its name changed to getHistoricalQuotes
+        public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+            HashMap<Date, Double> quotes = new HashMap<>();
+            try {
+                String urlString = buildApiUrl(symbol, startDate, endDate);
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(urlString))
+                        .build();
+
+                JsonNode root;
+                if (symbol.equals("IBM")) {
+                    String filePath = "test_queries/IBM.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+                else {
+                    String filePath = "test_queries/SHOP-TO.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+
+                JsonNode timeSeries = root.get("Time Series (Daily)");
+
+                Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
+                while(fields.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fields.next();
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                    if ((date.after(startDate) || date.equals(startDate)) && (date.before(endDate) || date.equals(endDate))) {
+                        double price = entry.getValue().get("4. close").asDouble();
+                        quotes.put(date, price);
+                    }
+                }
+            } catch (IOException | ParseException e) {
                 e.printStackTrace(); // TODO: handle exception
             }
             return quotes;
