@@ -82,9 +82,14 @@ public class APIDataAccessObject {
 
 
         // This method is for testing purposes only, so we don't have to keep using API keys
-        private JsonNode getTestJSON() {
-            File ibm = new File("test_queries/IBM.json");
-            return objectMapper.readTree(ibm);
+        private JsonNode getTestJSON(String symbol) {
+            if (symbol.equals("IBM")) {
+                File ibm = new File("test_queries/IBM.json");
+                return objectMapper.readTree(ibm);
+            }
+            else {
+                File shop_to = new File("test_queries/SHOP-TO.json");
+            }
         }
 
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
