@@ -11,7 +11,8 @@ public class TradeInputData {
     private final double amountOut;
     // TODO: add date
 
-    public TradeInputData(double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
+    public TradeInputData(String portfolioName, double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
+        this.portfolioName = portfolioName;
         this.tradingFee = tradingFee;
         this.assetIn = assetIn;
         this.assetOut = assetOut;
