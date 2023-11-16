@@ -58,8 +58,10 @@ public class APIDataAccessObject {
                         .uri(URI.create(urlString))
                         .build();
 
-                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                JsonNode root = objectMapper.readTree(response.body());
+                // The following lines make API requests but are replaced by the getTestJSON() method for testing purposes
+                // HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                // JsonNode root = objectMapper.readTree(response.body());
+                JsonNode root = getTestJSON(symbol);
 
                 JsonNode timeSeries = root.get("Time Series (Daily)");
 
@@ -76,6 +78,13 @@ public class APIDataAccessObject {
                 e.printStackTrace(); // TODO: handle exception
             }
             return quotes;
+        }
+
+
+        // This method is for testing purposes only, so we don't have to keep using API keys
+        private JsonNode getTestJSON() {
+            File ibm = new File("test_queries/IBM.json");
+            return objectMapper.readTree(ibm);
         }
 
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
