@@ -16,10 +16,12 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.Map;
+import java.util.Iterator;
 import java.time.LocalDate;
+import java.io.File;
+
 
 //import java.io.InputStreamReader;
 //import java.net.HttpURLConnection;
@@ -50,8 +52,11 @@ public class APIDataAccessObject {
             }
             return null;
         }
-        public HashMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
-            HashMap<Date, Double> quotes = new HashMap<>();
+
+        // this method will be used in the real program, but for testing purposes we will use the one below
+        // we will have to change the name of this back to getHistoricalQuotes() at some point
+        public TreeMap<Date, Double> getHistoricalQuotesReal(String symbol, Date startDate, Date endDate) {
+            TreeMap<Date, Double> quotes = new TreeMap<>();
             try {
                 String urlString = buildApiUrl(symbol, startDate, endDate);
                 HttpRequest request = HttpRequest.newBuilder()
@@ -78,6 +83,52 @@ public class APIDataAccessObject {
             return quotes;
         }
 
+
+        // this method is for testing purposes only, it reads from a local file instead of making an API call
+        // the real is above and will have to have its name changed to getHistoricalQuotes
+        public TreeMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+            TreeMap<Date, Double> quotes = new TreeMap<>();
+            try {
+                String urlString = buildApiUrl(symbol, startDate, endDate);
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(urlString))
+                        .build();
+
+                JsonNode root;
+                if (symbol.equals("IBM")) {
+                    String filePath = "test_queries/IBM.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+                else {
+                    String filePath = "test_queries/SHOP-TO.json";
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    root = objectMapper.readTree(new File(filePath));
+                }
+
+                JsonNode timeSeries = root.get("Time Series (Daily)");
+
+                Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
+                while(fields.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fields.next();
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                    if ((date.after(startDate) || date.equals(startDate)) && (date.before(endDate) || date.equals(endDate))) {
+                        double price = entry.getValue().get("4. close").asDouble();
+                        quotes.put(date, price);
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                e.printStackTrace(); // TODO: handle exception
+            }
+            return quotes;
+        }
+
+
+        // gets all historical quotes for a given symbol
+        public TreeMap<Date, Double> getHistoricalQuotes(String symbol) {
+            return getHistoricalQuotes(symbol, new Date(0, 0, 1), new Date(Integer.MAX_VALUE, 11, 31));
+        }
+
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String startDateString = dateFormat.format(startDate);
@@ -86,38 +137,4 @@ public class APIDataAccessObject {
                     "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
                     BASE_URL, FUNCTION, symbol, apiKey);
         }
-
-/*
-        }
-
-
-
-        public static String getQuote(String symbol) {
-            String urlString = BASE_URL + String.format(QUOTE_ENDPOINT, symbol, API_KEY);
-            try {
-                URL url = new URL(urlString);            
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-
-                int responseCode = con.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer content = new StringBuffer();
-                    while((inputLine = in.readLine()) != null) {
-                        content.append(inputLine);
-                    }
-                    in.close();
-                    return content.toString();
-                } else {
-                    System.out.println("GET request failed");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-    }
-*/
 }

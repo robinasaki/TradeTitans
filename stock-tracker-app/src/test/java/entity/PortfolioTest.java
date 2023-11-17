@@ -30,11 +30,11 @@ public class PortfolioTest {
         setup();
 
         // deposit 5000 USD
-        TradeTransaction transaction1 = new TradeTransaction(0,usd, outsidePortfolio, 5000, 0);
+        TradeTransaction transaction1 = new TradeTransaction(usd, outsidePortfolio, 5000, 0, 0);
         techPortfolio.addTrade(transaction1);
 
         // buy 10 shares of Apple for 185 USD each or 1850 USD total
-        TradeTransaction transaction2 = new TradeTransaction(0,appleStock, usd, 10, 1850);
+        TradeTransaction transaction2 = new TradeTransaction(appleStock, usd, 10, 1850, 0);
         techPortfolio.addTrade(transaction2);
 
         // assert that the portfolio has 10 shares of Apple and 3150 USD
