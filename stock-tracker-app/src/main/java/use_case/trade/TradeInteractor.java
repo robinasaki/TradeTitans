@@ -15,7 +15,7 @@ public class TradeInteractor implements TradeInputBoundary{
         this.tradePresenter = tradePresenter;
     }
 
-    /* @Override
+    @Override
     public void execute(TradeInputData tradeInputData) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(tradeInputData.getPortfolioName());
         TradeTransaction trade = new TradeTransaction(
@@ -28,9 +28,9 @@ public class TradeInteractor implements TradeInputBoundary{
         portfolio.addTrade(trade);
         fileDataAccessObject.savePortfolio(portfolio);
         
-    } */
+    }
 
-    @Override
+    /* @Override
     public void execute(TradeInputData tradeInputData) {
         if (userDataAccessObject.notTradeable()) {
             userPresenter.prepareFailView("These items are not tradeable.");
@@ -43,5 +43,5 @@ public class TradeInteractor implements TradeInputBoundary{
                     bankingTransaction.getBankingTransaction());
             userPresenter.prepareSuccessView(tradeOutputData);
         }
-    }
+    } */
 }
