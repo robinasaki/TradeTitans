@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.text.SimpleDateFormat;
 
 import data_access.APIDataAccessObject;
@@ -24,7 +24,7 @@ public class APIDataAccessObjectTest {
     @Test
     public void testGetHistoricalQuotes() {
         setUp();
-        String symbol = "AAPL";
+        String symbol = "IBM";
 
         // November 1st, 2023 to November 5th, 2023
         Date startDate = new Date(123, 10, 1);
@@ -40,9 +40,9 @@ public class APIDataAccessObjectTest {
         }
 
         // Manual entered these from values on yahoo finance
-        assert(historicalQuotes.get(new Date(123, 10, 1)) == 173.97);
-        assert(historicalQuotes.get(new Date(123, 10, 2)) == 177.57);
-        assert(historicalQuotes.get(new Date(123, 10, 3)) == 176.65);
+        assert(historicalQuotes.get(new Date(123, 10, 1)) == 145.40);
+        assert(historicalQuotes.get(new Date(123, 10, 2)) == 147.01);
+        assert(historicalQuotes.get(new Date(123, 10, 3)) == 147.90);
 
         // These are weekends, so there should be no data
         assert(historicalQuotes.get(new Date(123, 10, 4)) == null);
@@ -56,7 +56,7 @@ public class APIDataAccessObjectTest {
          * Provided input startDate is after endDate.
          */
         setUp();
-        String symbol = "AAPL";
+        String symbol = "IBM";
 
         // November 3rd, 2023 to November 1st, 2023
         Date startDate = new Date(123, 10, 3);
@@ -76,7 +76,7 @@ public class APIDataAccessObjectTest {
          * Provided input endDate is after today.
          */
         setUp();
-        String symbol = "AAPL";
+        String symbol = "IBM";
 
         // January 1st, 2025 to January 5th, 2025
         Date startDate = new Date(125, 0, 1);
