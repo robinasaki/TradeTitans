@@ -123,6 +123,12 @@ public class APIDataAccessObject {
             return quotes;
         }
 
+
+        // gets all historical quotes for a given symbol
+        public HashMap<Date, Double> getHistoricalQuotes(String symbol) {
+            return getHistoricalQuotes(symbol, new Date(0, 0, 1), new Date(Integer.MAX_VALUE, 11, 31));
+        }
+
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String startDateString = dateFormat.format(startDate);
@@ -131,38 +137,4 @@ public class APIDataAccessObject {
                     "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
                     BASE_URL, FUNCTION, symbol, apiKey);
         }
-
-/*
-        }
-
-
-
-        public static String getQuote(String symbol) {
-            String urlString = BASE_URL + String.format(QUOTE_ENDPOINT, symbol, API_KEY);
-            try {
-                URL url = new URL(urlString);            
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-
-                int responseCode = con.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer content = new StringBuffer();
-                    while((inputLine = in.readLine()) != null) {
-                        content.append(inputLine);
-                    }
-                    in.close();
-                    return content.toString();
-                } else {
-                    System.out.println("GET request failed");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-    }
-*/
 }

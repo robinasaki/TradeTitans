@@ -6,7 +6,7 @@ public class TradeTransaction extends Transaction {
     private double amountIn;
     private double amountOut;
 
-    public TradeTransaction(double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
+    public TradeTransaction(Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut, double tradingFee) {
         super(tradingFee);
         this.assetIn = assetIn;
         this.assetOut = assetOut;
