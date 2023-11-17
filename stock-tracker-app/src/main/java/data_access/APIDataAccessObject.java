@@ -41,24 +41,12 @@ public class APIDataAccessObject {
             this.apiKey = readApiKeyFromFile("key.txt");
         }
 
-        private String readApiKeyFromFile(String filename) {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(filename));
-                String key = reader.readLine();
-                reader.close();
-                return key;
-            } catch (IOException e) {
-                e.printStackTrace(); // no key in file
-            }
-            return null;
-        }
-
         // this method will be used in the real program, but for testing purposes we will use the one below
         // we will have to change the name of this back to getHistoricalQuotes() at some point
-        public TreeMap<Date, Double> getHistoricalQuotesReal(String symbol, Date startDate, Date endDate) {
+        public TreeMap<Date, Double> getHistoricalQuotesReal(String symbol) {
             TreeMap<Date, Double> quotes = new TreeMap<>();
             try {
-                String urlString = buildApiUrl(symbol, startDate, endDate);
+                String urlString = buildApiUrl(symbol);
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(urlString))
                         .build();
@@ -72,10 +60,8 @@ public class APIDataAccessObject {
                 while(fields.hasNext()) {
                     Map.Entry<String, JsonNode> entry = fields.next();
                     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
-                    if ((date.after(startDate) || date.equals(startDate)) && (date.before(endDate) || date.equals(endDate))) {
-                        double price = entry.getValue().get("4. close").asDouble();
-                        quotes.put(date, price);
-                    }
+                    double price = entry.getValue().get("4. close").asDouble();
+                    quotes.put(date, price);
                 }
             } catch (IOException | InterruptedException | ParseException e) {
                 e.printStackTrace(); // TODO: handle exception
@@ -83,13 +69,12 @@ public class APIDataAccessObject {
             return quotes;
         }
 
-
         // this method is for testing purposes only, it reads from a local file instead of making an API call
         // the real is above and will have to have its name changed to getHistoricalQuotes
-        public TreeMap<Date, Double> getHistoricalQuotes(String symbol, Date startDate, Date endDate) {
+        public TreeMap<Date, Double> getHistoricalQuotes(String symbol) {
             TreeMap<Date, Double> quotes = new TreeMap<>();
             try {
-                String urlString = buildApiUrl(symbol, startDate, endDate);
+                String urlString = buildApiUrl(symbol);
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(urlString))
                         .build();
@@ -112,10 +97,8 @@ public class APIDataAccessObject {
                 while(fields.hasNext()) {
                     Map.Entry<String, JsonNode> entry = fields.next();
                     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
-                    if ((date.after(startDate) || date.equals(startDate)) && (date.before(endDate) || date.equals(endDate))) {
-                        double price = entry.getValue().get("4. close").asDouble();
-                        quotes.put(date, price);
-                    }
+                    double price = entry.getValue().get("4. close").asDouble();
+                    quotes.put(date, price);
                 }
             } catch (IOException | ParseException e) {
                 e.printStackTrace(); // TODO: handle exception
@@ -123,16 +106,19 @@ public class APIDataAccessObject {
             return quotes;
         }
 
-
-        // gets all historical quotes for a given symbol
-        public TreeMap<Date, Double> getHistoricalQuotes(String symbol) {
-            return getHistoricalQuotes(symbol, new Date(0, 0, 1), new Date(Integer.MAX_VALUE, 11, 31));
+        private String readApiKeyFromFile(String filename) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(filename));
+                String key = reader.readLine();
+                reader.close();
+                return key;
+            } catch (IOException e) {
+                e.printStackTrace(); // no key in file
+            }
+            return null;
         }
 
-        private String buildApiUrl(String symbol, Date startDate, Date endDate) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String startDateString = dateFormat.format(startDate);
-            String endDateString = dateFormat.format(endDate); 
+        private String buildApiUrl(String symbol) {
             return String.format(
                     "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
                     BASE_URL, FUNCTION, symbol, apiKey);
