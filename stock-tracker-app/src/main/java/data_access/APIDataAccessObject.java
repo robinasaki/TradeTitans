@@ -126,7 +126,7 @@ public class APIDataAccessObject {
 
         // gets all historical quotes for a given symbol
         public HashMap<Date, Double> getHistoricalQuotes(String symbol) {
-            getHistoricalQuotes(symbol, new Date(0, 0, 1), new Date(Integer.MAX_VALUE, 11, 31));
+            return getHistoricalQuotes(symbol, new Date(0, 0, 1), new Date(Integer.MAX_VALUE, 11, 31));
         }
 
         private String buildApiUrl(String symbol, Date startDate, Date endDate) {
