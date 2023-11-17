@@ -27,6 +27,10 @@ public class Tradeable {
         return priceHistory;
     }
 
+    public void setPriceHistory(HashMap<Date, Double> priceHistory) {
+        this.priceHistory = priceHistory;
+    }
+
     public double getCurrentPrice() {
         return this.priceHistory.get(LocalDate.now());
     }
