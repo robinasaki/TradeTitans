@@ -30,12 +30,13 @@ public class TradeInteractor implements TradeInputBoundary{
     public void execute(TradeInputData tradeInputData) {
         if (userDataAccessObject.notTradeable()) {
             userPresenter.prepareFailView("These items are not tradeable.");
-        } else { //TODO: Fix this else statement.
-            LocalDateTime now = LocalDateTime.now();
-            User user = userFactory.create(TradeInputData.getAmountIn(), tradeInputData.getTradingFee(), now);
-            userDataAccessObject.save(user);
-
-            TradeOutputData tradeOutputData = new TradeOutputData(User.getName(), now.toString(), false);
+        } else {
+            TradeTransaction tradeTransaction = new TradeTransaction(tradeInputData.getTradingFee(),
+                    tradeInputData.getAssetIn(), tradeInputData.getAssetOut(), tradeInputData.getAmountIn(),
+                    tradeInputData.getAmountOut());
+            //TODO: fix third input of output data
+            TradeOutputData tradeOutputData = new TradeOutputData(false, true,
+                    bankingTransaction.getBankingTransaction());
             userPresenter.prepareSuccessView(tradeOutputData);
         }
     }
