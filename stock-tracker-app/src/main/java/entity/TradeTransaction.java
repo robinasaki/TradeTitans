@@ -29,9 +29,4 @@ public class TradeTransaction extends Transaction {
     public double getAmountOut() {
         return amountOut;
     }
-
-
-    private void trade() {
-        // #TODO
-    }
 }
