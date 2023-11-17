@@ -1,6 +1,7 @@
 package entity;
+import java.io.Serializable;
 
-public class TradeTransaction extends Transaction {
+public class TradeTransaction extends Transaction implements Serializable {
     private Tradeable assetIn;
     private Tradeable assetOut;
     private double amountIn;
