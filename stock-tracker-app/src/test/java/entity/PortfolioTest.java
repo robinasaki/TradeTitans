@@ -42,7 +42,7 @@ public class PortfolioTest {
         assert techPortfolio.getHoldings().get(usd) == 3150;
 
         // sell 5 shares of IBM for 200 USD each or 1000 USD total, then assert that the portfolio has 5 shares of IBM and 4150 USD
-        TradeTransaction transaction3 = new TradeTransaction(usd, ibm, 5, 0, 1000);
+        TradeTransaction transaction3 = new TradeTransaction(usd, ibm, 1000, 5, 0);
         techPortfolio.addTrade(transaction3);
         assert techPortfolio.getHoldings().get(ibm) == 5;
         assert techPortfolio.getHoldings().get(usd) == 4150;
