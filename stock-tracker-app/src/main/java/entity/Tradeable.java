@@ -32,6 +32,12 @@ public class Tradeable {
     }
 
     public double getCurrentPrice() {
-        return this.priceHistory.get(LocalDate.now());
+        // checks the last 365 days for a price
+        for (int i = 0; i < 365; i++) {
+            if (priceHistory.get(LocalDate.now().minusDays(i)) != null) {
+                return priceHistory.get(LocalDate.now().minusDays(i));
+            }
+        }
+        throw new RuntimeException("No price history found in last year for " + this.symbol);
     }
 }
