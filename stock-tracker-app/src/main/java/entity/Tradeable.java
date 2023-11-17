@@ -1,18 +1,18 @@
 package entity;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.time.LocalDate;
 
 public class Tradeable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
-    private HashMap<Date, Double> priceHistory; // price history in USD
+    private TreeMap<Date, Double> priceHistory; // price history in USD
 
     public Tradeable(String name, String symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.priceHistory = new HashMap<>();
+        this.priceHistory = new TreeMap<>();
     }
 
     public String getName() {
@@ -23,21 +23,18 @@ public class Tradeable {
         return symbol;
     }
 
-    public HashMap<Date, Double> getPriceHistory() {
+    public TreeMap<Date, Double> getPriceHistory() {
         return priceHistory;
     }
 
-    public void setPriceHistory(HashMap<Date, Double> priceHistory) {
+    public void setPriceHistory(TreeMap<Date, Double> priceHistory) {
         this.priceHistory = priceHistory;
     }
 
     public double getCurrentPrice() {
-        // checks the last 365 days for a price
-        for (int i = 0; i < 365; i++) {
-            if (priceHistory.get(LocalDate.now().minusDays(i)) != null) {
-                return priceHistory.get(LocalDate.now().minusDays(i));
-            }
+        if (priceHistory.size() == 0) {
+            throw new RuntimeException("No price history found for " + this.symbol);
         }
-        throw new RuntimeException("No price history found in last year for " + this.symbol);
+        return priceHistory.lastEntry().getValue();
     }
 }
