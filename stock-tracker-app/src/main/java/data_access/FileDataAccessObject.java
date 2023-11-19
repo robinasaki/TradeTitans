@@ -32,7 +32,7 @@ public class FileDataAccessObject {
         savePortfolios(portfolios);
     }
 
-    private List<Portfolio> loadPortfolios() {
+    public List<Portfolio> loadPortfolios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (List<Portfolio>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
