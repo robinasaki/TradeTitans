@@ -35,10 +35,6 @@ public class APIDataAccessObjectTest {
         assertNotNull(historicalQuotes);
         assertFalse(historicalQuotes.isEmpty());
 
-        for (Map.Entry<Date, Double> entry : historicalQuotes.entrySet()) {
-            System.out.println("Date: " + entry.getKey() + " Price: " + entry.getValue());
-        }
-
         // Manual entered these from values on yahoo finance
         assert(historicalQuotes.get(new Date(123, 10, 1)) == 145.40);
         assert(historicalQuotes.get(new Date(123, 10, 2)) == 147.01);

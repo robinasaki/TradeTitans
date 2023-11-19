@@ -3,8 +3,9 @@ package entity;
 import java.util.Date;
 import java.util.TreeMap;
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class Tradeable {
+public class Tradeable implements Serializable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
