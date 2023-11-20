@@ -9,5 +9,7 @@ public class DepositInputData {
         this.amount = amount;
     }
 
-    public double getAmount(){return this.amount;}
+    public double getAmount() {
+        return this.amount;
+    }
 }
