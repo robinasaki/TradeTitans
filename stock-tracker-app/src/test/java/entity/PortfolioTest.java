@@ -3,7 +3,7 @@ package entity;
 import org.junit.Assert.*;
 import entity.Portfolio;
 import entity.Tradeable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import entity.Transaction;
 import entity.TradeTransaction;
 
@@ -15,8 +15,8 @@ public class PortfolioTest {
     private Tradeable outsidePortfolio; // testing whether we really need BankingTransaction or whether we can use this
 
     public void setup() {
-        techPortfolio = new Portfolio("Tech Portfolio");
-        usd = new Tradeable("US Dollar", "USD");
+        usd = new Tradeable("US Dollar", "$USD");
+        techPortfolio = new Portfolio("Tech Portfolio", usd);
         ibm = new Tradeable("International Business Machines Corporation", "IBM");
         shop = new Tradeable("Shopify Inc.", "SHOP");
         outsidePortfolio = new Tradeable("Outside Portfolio", "");
