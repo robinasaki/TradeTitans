@@ -1,7 +1,7 @@
 package entity;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.io.Serializable;
 import entity.Transaction;
 import entity.TradeTransaction;
@@ -41,6 +41,9 @@ public class Portfolio implements Serializable {
 
     public Tradeable getCurrency() {
         return this.currency;
+    }
+    public void SetCurrency(Currency NewCurrency){
+        this.currency = NewCurrency;
     }
 
     public HashMap<Tradeable, Double> getHoldings() {
