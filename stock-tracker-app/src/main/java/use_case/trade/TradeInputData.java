@@ -9,9 +9,9 @@ public class TradeInputData {
     private final Tradeable assetOut;
     private final double amountIn;
     private final double amountOut;
-    // TODO: add date
 
-    public TradeInputData(String portfolioName, double tradingFee, Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut) {
+    public TradeInputData(String portfolioName, double tradingFee, Tradeable assetIn, Tradeable assetOut,
+                          double amountIn, double amountOut) {
         this.portfolioName = portfolioName;
         this.tradingFee = tradingFee;
         this.assetIn = assetIn;
