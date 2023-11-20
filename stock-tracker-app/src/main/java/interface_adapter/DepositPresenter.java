@@ -18,7 +18,9 @@ public class DepositPresenter implements DepositOutputBoundary {
     public void prepareSuccessView(DepositOutputData user) {
         DepositState depositState = depositViewModel.getState();
         // TODO: fix
-        ViewManagerModel.setActiveView(depositViewModel.getViewName());
+        this.depositViewModel.setState(depositState);
+        viewManagerModel.setActiveView(depositViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override
