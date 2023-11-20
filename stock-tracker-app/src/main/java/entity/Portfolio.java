@@ -73,10 +73,10 @@ public class Portfolio implements Serializable {
         double amountIn = transaction.getAmountIn();
         double amountOut = transaction.getAmountOut();
         
-        // if the asset is not in holdings, add it
-        if (holdings.get(transaction.getAssetIn()) == null)
+        // if the asset is not in holdings, add it, unless it is "outside portfolio"
+        if (holdings.get(transaction.getAssetIn()) == null && !transaction.getAssetIn().getSymbol().equals(""))
             holdings.put(transaction.getAssetIn(), 0.0);
-        if (holdings.get(transaction.getAssetOut()) == null)
+        if (holdings.get(transaction.getAssetOut()) == null && !transaction.getAssetOut().getSymbol().equals(""))
             holdings.put(transaction.getAssetOut(), 0.0);
 
         // amount there is in holdings after the trade
