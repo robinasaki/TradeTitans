@@ -27,9 +27,9 @@ public class Portfolio implements Serializable {
         this.portfolioId = portfolioId;
     }
 
-    public Portfolio(String name) {
+    public Portfolio(String name, Tradeable currency) {
         this.name = name;
-        this.currency = new Tradeable("US Dollar", "$USD");
+        this.currency = currency;
         this.holdings = new HashMap<>();
         this.transactions = new ArrayList<>();
         this.portfolioId = 0;
