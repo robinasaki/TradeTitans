@@ -40,7 +40,9 @@ public class APIDataAccessObject {
         public APIDataAccessObject() {
             this.httpClient = HttpClient.newHttpClient();
             this.objectMapper = new ObjectMapper();
-            this.apiKey = readApiKeyFromFile("key.txt");
+            // we will use demo api calls for now, but we will have to uncomment the line below to use the real api
+            this.apiKey = "demo";
+            // this.apiKey = readApiKeyFromFile("key.txt");
         }
 
         // this method will be used in the real program, but for testing purposes we will use the one below
@@ -151,43 +153,6 @@ public class APIDataAccessObject {
                     }
                 }
             } catch (IOException | InterruptedException | ParseException e) {
-                e.printStackTrace(); // TODO: handle exception
-            }
-            return quotes;
-        }
-
-        // this method is for testing purposes only, it reads from a local file instead of making an API call
-        // the real is above and will have to have its name changed to getHistoricalQuotes
-        public TreeMap<Date, Double> getHistoricalQuotes(String symbol) {
-            TreeMap<Date, Double> quotes = new TreeMap<>();
-            try {
-                String urlString = buildApiUrl(symbol);
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(urlString))
-                        .build();
-
-                JsonNode root;
-                if (symbol.equals("IBM")) {
-                    String filePath = "test_queries/IBM.json";
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    root = objectMapper.readTree(new File(filePath));
-                }
-                else {
-                    String filePath = "test_queries/SHOP-TO.json";
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    root = objectMapper.readTree(new File(filePath));
-                }
-
-                JsonNode timeSeries = root.get("Time Series (Daily)");
-
-                Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
-                while(fields.hasNext()) {
-                    Map.Entry<String, JsonNode> entry = fields.next();
-                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
-                    double price = entry.getValue().get("4. close").asDouble();
-                    quotes.put(date, price);
-                }
-            } catch (IOException | ParseException e) {
                 e.printStackTrace(); // TODO: handle exception
             }
             return quotes;
