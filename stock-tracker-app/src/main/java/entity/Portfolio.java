@@ -1,13 +1,8 @@
 package entity;
 
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.io.Serializable;
-import entity.Currency;
-import entity.Transaction;
-import entity.TradeTransaction;
-import entity.BankingTransaction;
-import entity.Tradeable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Portfolio implements Serializable {
     private final String name;
@@ -42,6 +37,9 @@ public class Portfolio implements Serializable {
 
     public Currency getCurrency() {
         return this.currency;
+    }
+    public void SetCurrency(Currency NewCurrency){
+        this.currency = NewCurrency;
     }
 
     public HashMap<Tradeable, Double> getHoldings() {
