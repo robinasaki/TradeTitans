@@ -23,7 +23,7 @@ public class UpdatePricesInteractor {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
 
         for(Tradeable holding : portfolio.getHoldings().keySet()) {
-            holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding.getSymbol()));
+            holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding.getSymbol(), portfolio.getCurrency().getSymbol()));
         }
 
         fileDataAccessObject.savePortfolio(portfolio);
