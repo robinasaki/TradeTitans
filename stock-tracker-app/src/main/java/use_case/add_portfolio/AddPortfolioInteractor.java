@@ -2,6 +2,8 @@ package use_case.add_portfolio;
 
 import entity.Portfolio;
 import data_access.FileDataAccessObject;
+import entity.Tradeable;
+
 import java.util.List;
 
 public class AddPortfolioInteractor {
@@ -11,16 +13,15 @@ public class AddPortfolioInteractor {
         this.fileDataAccessObject = fileDataAccessObject;
     }
 
-    public void execute(String portfolioName) {
-        // TODO: Handle case where portfolioName is already taken
+    public void execute(String portfolioName, Tradeable defaultCurrency) {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
         for (Portfolio ptf : portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                throw new IllegalArgumentException("Portfolio name already used");
+                throw new IllegalArgumentException("Portfolio name already used. Please try another name");
             }
         }
 
-        Portfolio portfolio = new Portfolio(portfolioName);
+        Portfolio portfolio = new Portfolio(portfolioName, defaultCurrency);
         fileDataAccessObject.savePortfolio(portfolio);
     }
 }
