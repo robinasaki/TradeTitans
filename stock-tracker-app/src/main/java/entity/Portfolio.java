@@ -3,7 +3,6 @@ package entity;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.Serializable;
-import entity.Currency;
 import entity.Transaction;
 import entity.TradeTransaction;
 import entity.BankingTransaction;
@@ -12,7 +11,7 @@ import entity.Tradeable;
 public class Portfolio implements Serializable {
     private final String name;
 
-    private Currency currency;
+    private Tradeable currency;
 
     private HashMap<Tradeable, Double> holdings;
 
@@ -20,7 +19,7 @@ public class Portfolio implements Serializable {
 
     private final int portfolioId;
 
-    public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
+    public Portfolio(String name, Tradeable currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
         this.name = name;
         this.currency = currency;
         this.holdings = holdings;
@@ -30,7 +29,7 @@ public class Portfolio implements Serializable {
 
     public Portfolio(String name) {
         this.name = name;
-        this.currency = new Currency("USD");
+        this.currency = new Tradeable("US Dollar", "$USD");
         this.holdings = new HashMap<>();
         this.transactions = new ArrayList<>();
         this.portfolioId = 0;
@@ -40,7 +39,7 @@ public class Portfolio implements Serializable {
         return this.name;
     }
 
-    public Currency getCurrency() {
+    public Tradeable getCurrency() {
         return this.currency;
     }
 
