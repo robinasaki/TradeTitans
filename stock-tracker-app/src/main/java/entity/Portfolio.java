@@ -81,13 +81,17 @@ public class Portfolio implements Serializable {
         if (holdings.get(transaction.getAssetOut()) == null && !transaction.getAssetOut().getSymbol().equals(""))
             holdings.put(transaction.getAssetOut(), 0.0);
 
-        // amount there is in holdings after the trade
-        double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
-        double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
+        if (!transaction.getAssetIn().getSymbol().equals("")){
+            // as long a it's not a withdraw, we calculate amount in holdings after trade, then update holdings
+            double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
+            holdings.put(transaction.getAssetIn(), assetInAmount);
+        }
 
-        // update holdings
-        holdings.put(transaction.getAssetIn(), assetInAmount);
-        holdings.put(transaction.getAssetOut(), assetOutAmount);
+        if (!transaction.getAssetOut().getSymbol().equals("")){
+            // as long a it's not a deposit, we calculate amount in holdings after trade, then update holdings
+            double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
+            holdings.put(transaction.getAssetOut(), assetOutAmount);
+        }
 
         // record transaction
         transactions.add(transaction);
