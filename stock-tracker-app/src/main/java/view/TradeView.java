@@ -42,6 +42,7 @@ public class TradeView extends JPanel implements ActionListener, PropertyChangeL
                         if (evt.getSource() == "trade") {
                             TradeState currentState = tradeViewModel.getState();
                             tradeController.execute(currentState.getTradeValue());
+                            //TODO: Need to fix actionPerformed method, in particular the execute statement.
                         }
                     }
                 }
@@ -70,5 +71,15 @@ public class TradeView extends JPanel implements ActionListener, PropertyChangeL
         this.add(title);
         this.add(amountInfo);
         this.add(buttons);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }
