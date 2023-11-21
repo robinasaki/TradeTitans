@@ -1,13 +1,17 @@
 package entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.Serializable;
+import entity.Transaction;
+import entity.TradeTransaction;
+import entity.BankingTransaction;
+import entity.Tradeable;
 
 public class Portfolio implements Serializable {
     private final String name;
 
-    private Currency currency;
+    private Tradeable currency;
 
     private HashMap<Tradeable, Double> holdings;
 
@@ -15,7 +19,7 @@ public class Portfolio implements Serializable {
 
     private final int portfolioId;
 
-    public Portfolio(String name, Currency currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
+    public Portfolio(String name, Tradeable currency, HashMap<Tradeable, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
         this.name = name;
         this.currency = currency;
         this.holdings = holdings;
@@ -23,9 +27,9 @@ public class Portfolio implements Serializable {
         this.portfolioId = portfolioId;
     }
 
-    public Portfolio(String name) {
+    public Portfolio(String name, Tradeable currency) {
         this.name = name;
-        this.currency = new Currency("USD");
+        this.currency = currency;
         this.holdings = new HashMap<>();
         this.transactions = new ArrayList<>();
         this.portfolioId = 0;
@@ -35,7 +39,7 @@ public class Portfolio implements Serializable {
         return this.name;
     }
 
-    public Currency getCurrency() {
+    public Tradeable getCurrency() {
         return this.currency;
     }
     public void SetCurrency(Currency NewCurrency){
@@ -77,13 +81,17 @@ public class Portfolio implements Serializable {
         if (holdings.get(transaction.getAssetOut()) == null && !transaction.getAssetOut().getSymbol().equals(""))
             holdings.put(transaction.getAssetOut(), 0.0);
 
-        // amount there is in holdings after the trade
-        double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
-        double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
+        if (!transaction.getAssetIn().getSymbol().equals("")){
+            // as long a it's not a withdraw, we calculate amount in holdings after trade, then update holdings
+            double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
+            holdings.put(transaction.getAssetIn(), assetInAmount);
+        }
 
-        // update holdings
-        holdings.put(transaction.getAssetIn(), assetInAmount);
-        holdings.put(transaction.getAssetOut(), assetOutAmount);
+        if (!transaction.getAssetOut().getSymbol().equals("")){
+            // as long a it's not a deposit, we calculate amount in holdings after trade, then update holdings
+            double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
+            holdings.put(transaction.getAssetOut(), assetOutAmount);
+        }
 
         // record transaction
         transactions.add(transaction);
