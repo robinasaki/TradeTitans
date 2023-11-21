@@ -12,6 +12,10 @@ public class DepositState {
     public DepositState() {
     }
 
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public double getAmount() {
         return this.amount;
     }
