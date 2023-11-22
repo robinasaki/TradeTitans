@@ -13,5 +13,4 @@ public class DeletePortfolio {
     public void execute(Portfolio portfolio){
         fileDataAccessObject.removePortfolio(portfolio.getName());
     }
-
 }
