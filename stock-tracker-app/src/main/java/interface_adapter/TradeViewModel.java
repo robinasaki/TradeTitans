@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class TradeViewModel extends ViewModel {
-    public final String TITLE_ABEL = "Trade View";
+    public final String TITLE_LABEL = "Trade View";
     //TODO: fix TRADE_LABEL
     public final String TRADE_LABEL = "Trade amount";
     public final String CONFIRM_BUTTON_LABEL = "Trade now";

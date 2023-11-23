@@ -1,6 +1,6 @@
 package interface_adapter;
 
-//TODO: This class may not fit the 'tradable' schema. Need tests to make sure this is correct.
+//TODO: This class may not fit the 'tradeable' schema. Need tests to make sure this is correct.
 public class TradeState {
     private double tradeValue;
     private String notTradeableError = null;
