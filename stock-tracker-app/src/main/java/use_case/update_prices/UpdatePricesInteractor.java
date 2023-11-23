@@ -22,7 +22,7 @@ public class UpdatePricesInteractor {
     public void execute(String portfolioName) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
 
-        for(Tradeable holding : portfolio.getHoldings().keySet()) {
+        for(String holding : portfolio.getHoldings().keySet()) {
             holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding.getSymbol(), portfolio.getCurrency().getSymbol()));
         }
 

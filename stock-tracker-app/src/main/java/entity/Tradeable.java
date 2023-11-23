@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.io.Serializable;
 
 public class Tradeable implements Serializable {
-    private String name; // e.g. "Apple Inc."
-    private String symbol; // e.g. "AAPL"
+    private final String name; // e.g. "Apple Inc."
+    private final String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
 
     public Tradeable(String name, String symbol) {
@@ -33,9 +33,13 @@ public class Tradeable implements Serializable {
     }
 
     public double getCurrentPrice() {
-        if (priceHistory.size() == 0) {
+        if (priceHistory.isEmpty()) {
             throw new RuntimeException("No price history found for " + this.symbol);
         }
         return priceHistory.lastEntry().getValue();
+    }
+
+    public double toDouble() {
+        return 0.00;
     }
 }
