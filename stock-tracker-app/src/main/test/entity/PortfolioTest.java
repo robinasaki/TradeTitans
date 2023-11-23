@@ -1,4 +1,4 @@
-package entity;
+package java.entity;
 
 import org.junit.Assert.*;
 import entity.Portfolio;
