@@ -9,9 +9,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionListener;
 
-import interface_adapter.TradeController;
-import interface_adapter.TradeState;
-import interface_adapter.TradeViewModel;
+import interface_adapter.trade.TradeController;
+import interface_adapter.trade.TradeState;
+import interface_adapter.trade.TradeViewModel;
 
 public class TradeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "trade";
