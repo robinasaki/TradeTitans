@@ -4,10 +4,12 @@ package interface_adapter.trade;
 public class TradeState {
     private double tradeValue;
     private String notTradeableError = null;
+    private String message = null;
 
     public TradeState(TradeState copy) {
         this.tradeValue = copy.tradeValue;
         this.notTradeableError = copy.notTradeableError;
+        this.message = copy.message;
     }
 
     public TradeState() {}
@@ -23,4 +25,6 @@ public class TradeState {
     public  String getNotTradeableError() {
         return this.notTradeableError;
     }
+
+    public String getClearMessage() {return message;}
 }
