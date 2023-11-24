@@ -1,5 +1,6 @@
-package interface_adapter;
+package interface_adapter.trade;
 
+import interface_adapter.ViewManagerModel;
 import use_case.trade.TradeOutputBoundary;
 import use_case.trade.TradeOutputData;
 

@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.trade;
 
 //TODO: This class may not fit the 'tradeable' schema. Need tests to make sure this is correct.
 public class TradeState {

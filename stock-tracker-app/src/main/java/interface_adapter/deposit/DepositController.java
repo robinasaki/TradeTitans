@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.deposit;
 
 import use_case.deposit.DepositInputBoundary;
 import use_case.deposit.DepositInputData;
