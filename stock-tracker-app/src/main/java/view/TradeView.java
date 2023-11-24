@@ -80,6 +80,12 @@ public class TradeView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        TradeState state = (TradeState) evt.getNewValue();
+        if (state.getNotTradeableError() != null) {
+            JOptionPane.showMessageDialog(this, state.getNotTradeableError());
+        }
+        if (state.getClearMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getClearMessage());
+        }
     }
 }
