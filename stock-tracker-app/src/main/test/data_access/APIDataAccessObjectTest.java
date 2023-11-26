@@ -1,4 +1,4 @@
-package java.data_access;
+package data_access;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import java.text.SimpleDateFormat;
 
 import data_access.APIDataAccessObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -29,8 +30,8 @@ public class APIDataAccessObjectTest {
 
         Map<Date, Double> historicalQuotes = DAO.getHistoricalQuotes(symbol, currency);
 
-        assertNotNull(historicalQuotes);
-        assertFalse(historicalQuotes.isEmpty());
+        Assertions.assertNotNull(historicalQuotes);
+        Assertions.assertFalse(historicalQuotes.isEmpty());
 
         // Manual entered these from values on yahoo finance
         assert(historicalQuotes.get(new Date(123, 10, 1)) == 145.40);
