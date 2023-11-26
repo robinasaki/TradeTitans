@@ -1,5 +1,6 @@
 package use_case.deposit;
 
+import data_access.DepositDataAccessInterface;
 import entity.BankingTransaction;
 import entity.UserFactory;
 
