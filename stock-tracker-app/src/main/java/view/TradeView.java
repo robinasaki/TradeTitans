@@ -9,9 +9,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionListener;
 
-import interface_adapter.TradeController;
-import interface_adapter.TradeState;
-import interface_adapter.TradeViewModel;
+import interface_adapter.trade.TradeController;
+import interface_adapter.trade.TradeState;
+import interface_adapter.trade.TradeViewModel;
 
 public class TradeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "trade";
@@ -80,6 +80,12 @@ public class TradeView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        TradeState state = (TradeState) evt.getNewValue();
+        if (state.getNotTradeableError() != null) {
+            JOptionPane.showMessageDialog(this, state.getNotTradeableError());
+        }
+        if (state.getClearMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getClearMessage());
+        }
     }
 }

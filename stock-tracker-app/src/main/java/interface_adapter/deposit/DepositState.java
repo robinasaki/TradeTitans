@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.deposit;
 
 public class DepositState {
     private double amount = 0.00;
