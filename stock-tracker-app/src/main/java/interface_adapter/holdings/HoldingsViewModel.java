@@ -15,7 +15,7 @@ public class HoldingsViewModel extends ViewModel {
     
     public HoldingsState state = new HoldingsState();
 
-    pulibc HoldingsViewModel() {
+    public HoldingsViewModel() {
         super("holdings");
     }
 
@@ -25,7 +25,7 @@ public class HoldingsViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void firePropertyChange() {
+    public void firePropertyChanged() {
         support.firePropertyChange("state", null, state);
     }
 
@@ -33,7 +33,7 @@ public class HoldingsViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public LoginState getState() {
+    public HoldingsState getState() {
         return state;
     }
 
