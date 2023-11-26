@@ -1,6 +1,6 @@
 package app;
 
-import interface_adapter.DepositViewModel;
+import interface_adapter.deposit.DepositViewModel;
 import interface_adapter.ViewManagerModel;
 import view.ViewManager;
 

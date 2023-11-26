@@ -14,11 +14,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.*;
 import java.text.ParseException;
-import java.util.TreeMap;
-import java.util.Map;
-import java.util.Iterator;
 import java.time.LocalDate;
 import java.io.File;
 
@@ -73,7 +70,7 @@ public class APIDataAccessObject {
             Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
             while (fields.hasNext()) {
                 Map.Entry<String, JsonNode> entry = fields.next();
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(entry.getKey());
                 double price = entry.getValue().get("4. close").asDouble();
                 quotes.put(date, price);
             }
@@ -99,7 +96,7 @@ public class APIDataAccessObject {
             Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
             while (fields.hasNext()) {
                 Map.Entry<String, JsonNode> entry = fields.next();
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
+                Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(entry.getKey());
                 double price = entry.getValue().get("4. close").asDouble();
                 quotes.put(date, price);
             }
