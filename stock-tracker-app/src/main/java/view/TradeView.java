@@ -39,9 +39,12 @@ public class TradeView extends JPanel implements ActionListener, PropertyChangeL
         trade.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource() == "trade") {
+                        if (evt.getSource().equals("trade")) {
                             TradeState currentState = tradeViewModel.getState();
-                            tradeController.execute(currentState.getTradeValue());
+
+                            tradeController.execute(currentState.getPortfolioName(), currentState.getTradeValue(),
+                                    currentState.getAssetInSymbol(), currentState.getAssetOutSymbol(),
+                                    currentState.getAmountIn(), currentState.getAmountOut());
                             //TODO: Need to fix actionPerformed method, in particular the execute statement.
                         }
                     }
