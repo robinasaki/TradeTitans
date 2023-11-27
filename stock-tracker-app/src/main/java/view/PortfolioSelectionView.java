@@ -48,6 +48,5 @@ public class PortfolioSelectionView extends JFrame {
         }
 
     }
-
 }
 
