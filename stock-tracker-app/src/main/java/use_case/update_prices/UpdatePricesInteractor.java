@@ -23,8 +23,8 @@ public class UpdatePricesInteractor {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
 
         for(String holding : portfolio.getHoldings().keySet()) {
-            // TODO: fix the code below
-            holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol()));
+            Tradeable assetTradeable = Tradeable.getTradeable(holding);
+            assetTradeable.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol()));
         }
 
         fileDataAccessObject.savePortfolio(portfolio);
