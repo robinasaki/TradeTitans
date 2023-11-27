@@ -19,11 +19,12 @@ public class UpdatePricesInteractor {
 
 
     // Note that this only updates prices for one portfolio
-    public void execute(String portfolioName) {
+     public void execute(String portfolioName) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
 
-        for(Tradeable holding : portfolio.getHoldings().keySet()) {
-            holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding.getSymbol(), portfolio.getCurrency().getSymbol()));
+        for(String holding : portfolio.getHoldings().keySet()) {
+            // TODO: fix the code below
+            holding.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol()));
         }
 
         fileDataAccessObject.savePortfolio(portfolio);

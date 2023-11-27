@@ -33,7 +33,7 @@ public class Tradeable implements Serializable {
     }
 
     public double getCurrentPrice() {
-        if (priceHistory.size() == 0) {
+        if (priceHistory.isEmpty()) {
             throw new RuntimeException("No price history found for " + this.symbol);
         }
         return priceHistory.lastEntry().getValue();
