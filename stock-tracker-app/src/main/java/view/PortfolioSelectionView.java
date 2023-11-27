@@ -46,6 +46,7 @@ public class PortfolioSelectionView extends JFrame {
         public void actionPerformed(ActionEvent e) {
             viewModel.switchToHoldingsView(portfolioName);
         }
+
     }
 }
 
