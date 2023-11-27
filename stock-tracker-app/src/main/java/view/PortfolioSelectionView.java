@@ -1,3 +1,6 @@
+package view.portfolio_selection;
+
+import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,6 +46,7 @@ public class PortfolioSelectionView extends JFrame {
         public void actionPerformed(ActionEvent e) {
             viewModel.switchToHoldingsView(portfolioName);
         }
+
     }
 
 }
