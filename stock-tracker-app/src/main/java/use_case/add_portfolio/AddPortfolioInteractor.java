@@ -6,14 +6,14 @@ import entity.Tradeable;
 
 import java.util.List;
 
-public class AddPortfolioInteractor {
+public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
     private final FileDataAccessObject fileDataAccessObject;
 
     public AddPortfolioInteractor(FileDataAccessObject fileDataAccessObject) {
         this.fileDataAccessObject = fileDataAccessObject;
     }
 
-    public void execute(String portfolioName, Tradeable defaultCurrency) {
+    public void execute(String portfolioName, String defaultCurrency) {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
         for (Portfolio ptf : portfolios) {
             if (portfolioName.equals(ptf.getName())) {
@@ -21,7 +21,16 @@ public class AddPortfolioInteractor {
             }
         }
 
-        Portfolio portfolio = new Portfolio(portfolioName, defaultCurrency);
+        Tradeable currencyTradeable;
+        if (Tradeable.getTradeable(defaultCurrency) == null) {
+            currencyTradeable = new Tradeable("TODO", defaultCurrency);
+            Tradeable.addTradeable(currencyTradeable);
+        }
+        else {
+            currencyTradeable = Tradeable.getTradeable(defaultCurrency);
+        }
+    
+        Portfolio portfolio = new Portfolio(portfolioName, currencyTradeable);
         fileDataAccessObject.savePortfolio(portfolio);
     }
 }

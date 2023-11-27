@@ -31,21 +31,21 @@ public class PortfolioTest {
         assert techPortfolio.getHoldings().isEmpty();
 
         // deposit 5000 USD
-        TradeTransaction transaction1 = new TradeTransaction("usd", "outsidePortfolio", 5000, 0, 0);
+        TradeTransaction transaction1 = new TradeTransaction("$USD", "", 5000, 0, 0);
         techPortfolio.addTrade(transaction1);
-        assert techPortfolio.getHoldings().get(usd) == 5000;
+        assert techPortfolio.getHoldings().get("$USD") == 5000;
 
         // buy 10 shares of IBM for 185 USD each or 1850 USD total, then assert that the portfolio has 10 shares of IBM and 3150 USD
-        TradeTransaction transaction2 = new TradeTransaction("ibm", "usd", 10, 1850, 0);
+        TradeTransaction transaction2 = new TradeTransaction("IBM", "$USD", 10, 1850, 0);
         techPortfolio.addTrade(transaction2);
-        assert techPortfolio.getHoldings().get(ibm) == 10;
-        assert techPortfolio.getHoldings().get(usd) == 3150;
+        assert techPortfolio.getHoldings().get("IBM") == 10;
+        assert techPortfolio.getHoldings().get("$USD") == 3150;
 
         // sell 5 shares of IBM for 200 USD each or 1000 USD total, then assert that the portfolio has 5 shares of IBM and 4150 USD
-        TradeTransaction transaction3 = new TradeTransaction("usd", "ibm", 1000, 5, 0);
+        TradeTransaction transaction3 = new TradeTransaction("$USD", "IBM", 1000, 5, 0);
         techPortfolio.addTrade(transaction3);
-        assert techPortfolio.getHoldings().get(ibm) == 5;
-        assert techPortfolio.getHoldings().get(usd) == 4150;
+        assert techPortfolio.getHoldings().get("IBM") == 5;
+        assert techPortfolio.getHoldings().get("$USD") == 4150;
     }
 
     @Test
@@ -56,16 +56,16 @@ public class PortfolioTest {
         assert(techPortfolio.getWatchlist().isEmpty());
 
         // deposit 5000 USD and now watchlist should have 1 item
-        TradeTransaction transaction1 = new TradeTransaction("usd", "outsidePortfolio", 5000, 0, 0);
+        TradeTransaction transaction1 = new TradeTransaction("$USD", "", 5000, 0, 0);
         techPortfolio.addTrade(transaction1);
         assert(techPortfolio.getWatchlist().size() == 1);
-        assert(techPortfolio.getWatchlist().contains(usd));
+        assert(techPortfolio.getWatchlist().contains("$USD"));
 
         // buy 10 shares of IBM for 185 USD each or 1850 USD total and now watchlist should have 2 items
-        TradeTransaction transaction2 = new TradeTransaction("ibm", "usd", 10, 1850, 0);
+        TradeTransaction transaction2 = new TradeTransaction("IBM", "$USD", 10, 1850, 0);
         techPortfolio.addTrade(transaction2);
         assert(techPortfolio.getWatchlist().size() == 2);
-        assert(techPortfolio.getWatchlist().contains(usd));
-        assert(techPortfolio.getWatchlist().contains(ibm));
+        assert(techPortfolio.getWatchlist().contains("$USD"));
+        assert(techPortfolio.getWatchlist().contains("IBM"));
     }
 }
