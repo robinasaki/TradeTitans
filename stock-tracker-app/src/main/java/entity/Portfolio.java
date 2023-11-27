@@ -112,8 +112,8 @@ public class Portfolio implements Serializable {
     public double getPortfolioValue(){
         double value = 0;
         for (String asset : this.holdings.keySet()){
-            // TODO: fix the below
-            value += asset.getCurrentPrice() * this.holdings.get(asset);
+            Tradeable assetTradeable = Tradeable.getTradeable(asset);
+            value += assetTradeable.getCurrentPrice() * this.holdings.get(asset);
         }
         return value;
     }
