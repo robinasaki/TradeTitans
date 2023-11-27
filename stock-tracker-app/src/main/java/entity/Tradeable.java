@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.TreeMap;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Tradeable implements Serializable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
+    private static Map<String, Tradeable> tradeables = new HashMap<>();
 
     public Tradeable(String name, String symbol) {
         this.name = name;
@@ -30,6 +33,10 @@ public class Tradeable implements Serializable {
 
     public void setPriceHistory(TreeMap<Date, Double> priceHistory) {
         this.priceHistory = priceHistory;
+    }
+
+    public static Tradeable getTradeable(String symbol) {
+        return tradeables.get(symbol);
     }
 
     public double getCurrentPrice() {
