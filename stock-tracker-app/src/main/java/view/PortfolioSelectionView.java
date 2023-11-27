@@ -1,4 +1,4 @@
-package view.portfolio_selection;
+package view;
 
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import javax.swing.*;
