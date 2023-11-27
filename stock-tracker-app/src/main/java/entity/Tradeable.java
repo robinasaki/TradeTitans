@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.TreeMap;
 import java.time.LocalDate;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ public class Tradeable implements Serializable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
+    private static Map<String, Tradeable> stringTradeableMap;
 
     public Tradeable(String name, String symbol) {
         this.name = name;
@@ -37,5 +39,9 @@ public class Tradeable implements Serializable {
             throw new RuntimeException("No price history found for " + this.symbol);
         }
         return priceHistory.lastEntry().getValue();
+    }
+
+    public static Tradeable getTradeable(String tradeableSymbol) {
+        return stringTradeableMap.get(tradeableSymbol);
     }
 }
