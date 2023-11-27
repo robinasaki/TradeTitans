@@ -15,7 +15,7 @@ public class BankingTransactionTest {
     private double fee;
 
     @BeforeEach
-    public void __init__() {
+    public void init() {
         usd = new Tradeable("US Dollar", "$USD");
         deposit = false;
         amount = 500;
