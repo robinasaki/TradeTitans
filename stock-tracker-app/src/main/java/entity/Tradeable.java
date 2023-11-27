@@ -39,6 +39,10 @@ public class Tradeable implements Serializable {
         return tradeables.get(symbol);
     }
 
+    public static void addTradeable(Tradeable tradeable) {
+        tradeables.put(tradeable.getSymbol(), tradeable);
+    }
+
     public double getCurrentPrice() {
         if (priceHistory.isEmpty()) {
             throw new RuntimeException("No price history found for " + this.symbol);
