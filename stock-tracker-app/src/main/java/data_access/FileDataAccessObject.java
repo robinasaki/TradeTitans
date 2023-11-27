@@ -21,6 +21,11 @@ public class FileDataAccessObject {
         }
     }
 
+    public void removePortfolio(String PortfolioName){
+        List<Portfolio> portfolios = loadPortfolios();
+        portfolios.removeIf(portfolio -> portfolio.getName().equals(PortfolioName));
+    }
+
     public void savePortfolio(Portfolio portfolio) {
         List<Portfolio> portfolios = loadPortfolios();
         for (int i = 0; i < portfolios.size(); i++) {

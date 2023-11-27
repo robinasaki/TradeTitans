@@ -9,9 +9,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionListener;
 
-import interface_adapter.DepositController;
-import interface_adapter.DepositState;
-import interface_adapter.DepositViewModel;
+import interface_adapter.deposit.DepositController;
+import interface_adapter.deposit.DepositState;
+import interface_adapter.deposit.DepositViewModel;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 

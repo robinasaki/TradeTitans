@@ -2,25 +2,25 @@ package entity;
 import java.io.Serializable;
 
 public class TradeTransaction extends Transaction implements Serializable {
-    private Tradeable assetIn;
-    private Tradeable assetOut;
+    private String assetInSymbol;
+    private String assetOutSymbol;
     private double amountIn;
     private double amountOut;
 
-    public TradeTransaction(Tradeable assetIn, Tradeable assetOut, double amountIn, double amountOut, double tradingFee) {
+    public TradeTransaction(String assetInSymbol, String assetOutSymbol, double amountIn, double amountOut, double tradingFee) {
         super(tradingFee);
-        this.assetIn = assetIn;
-        this.assetOut = assetOut;
+        this.assetInSymbol = assetInSymbol;
+        this.assetOutSymbol = assetOutSymbol;
         this.amountIn = amountIn;
         this.amountOut = amountOut;
     }
 
-    public Tradeable getAssetIn() {
-        return assetIn;
+    public String getAssetIn() {
+        return assetInSymbol;
     }
 
-    public Tradeable getAssetOut() {
-        return assetOut;
+    public String getAssetOut() {
+        return assetOutSymbol;
     }
 
     public double getAmountIn() {

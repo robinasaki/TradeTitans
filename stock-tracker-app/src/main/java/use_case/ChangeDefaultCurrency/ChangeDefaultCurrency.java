@@ -7,14 +7,16 @@ import entity.Portfolio;
 
 public class ChangeDefaultCurrency {
 
-    private final FileDataAccessObject fileDataAccessObject;
     private final APIDataAccessObject apiDataAccessObject;
+    private final FileDataAccessObject fileDataAccessObject;
 
-    public ChangeDefaultCurrency(FileDataAccessObject fileDataAccessObject, APIDataAccessObject apiDataAccessObject) {
-        this.fileDataAccessObject = fileDataAccessObject;
+
+    public ChangeDefaultCurrency(APIDataAccessObject apiDataAccessObject, FileDataAccessObject fileDataAccessObject) {
         this.apiDataAccessObject = apiDataAccessObject;
+        this.fileDataAccessObject = fileDataAccessObject;
     }
-    public void execute (Portfolio portfolio, Currency NewCurrency){
-        portfolio.SetCurrency(NewCurrency);
+
+    public void execute (Portfolio portfolio, Currency Newcurrency){
+        portfolio.setCurrency(Newcurrency);
     }
 }

@@ -1,5 +1,6 @@
-package interface_adapter;
+package interface_adapter.deposit;
 
+import interface_adapter.ViewManagerModel;
 import use_case.deposit.DepositOutputBoundary;
 import use_case.deposit.DepositOutputData;
 
