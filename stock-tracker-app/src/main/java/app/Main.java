@@ -44,7 +44,7 @@ public class Main {
         for (Portfolio portfolio : portfolios) {
             portfolioNames.add(portfolio.getName());
         }
-        portfolioSelectionViewModel.getState().setPortfolioNames(portfolioNames);
+        portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
 
         PortfolioSelectionView portfolioSelectionView = new PortfolioSelectionView(portfolioSelectionViewModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);

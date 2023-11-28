@@ -26,7 +26,7 @@ public class PortfolioSelectionView extends JPanel {
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
         // Add buttons for each portfolio
-        List<String> portfolioNames = viewModel.getState().getPortfolioNames();
+        List<String> portfolioNames = viewModel.getPortfolioNames();
         for (String portfolioName : portfolioNames) {
             JButton button = new JButton(portfolioName);
             button.addActionListener(new PortfolioButtonListener(portfolioName));
@@ -46,7 +46,8 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewModel.switchToHoldingsView(portfolioName);
+            // TODO: switch to holdings view
+            viewModel.setViewName("portfolio");
         }
 
     }
