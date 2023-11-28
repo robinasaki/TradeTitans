@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class PortfolioSelectionView extends JFrame {
+public class PortfolioSelectionView extends JPanel {
     public final String viewName = "potfolio_selection";
 
     private PortfolioSelectionViewModel viewModel;
@@ -19,8 +19,8 @@ public class PortfolioSelectionView extends JFrame {
     }
 
     private void initView() {
-        setTitle("Portfolio Selection");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setTitle("Portfolio Selection");
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
