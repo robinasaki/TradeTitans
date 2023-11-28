@@ -2,10 +2,11 @@ package entity;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Currency extends Tradeable {
 
-    public Currency(String name, String symbol, HashMap<Date, Double> priceHistory) {
+    public Currency(String name, String symbol, TreeMap<Date, Double> priceHistory) {
         super(name, symbol);
     }
 
@@ -13,7 +14,5 @@ public class Currency extends Tradeable {
         this(name, null, null);
     }
 
-    public void trade() {
-        // TODO: Complete trade method.
-    }
+    // TODO: test Trade()
 }

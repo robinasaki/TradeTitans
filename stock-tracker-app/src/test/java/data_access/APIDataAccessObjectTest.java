@@ -24,6 +24,10 @@ public class APIDataAccessObjectTest {
 
     @Test
     public void testGetHistoricalQuotes() {
+        /**
+         * Note that if you fail the test, check if you have already uncommented line 46 in the APIDataAccessObject class.
+         * We have commented that line to prevent reaching the daily max API call count.
+         */
         setUp();
         String symbol = "IBM";
         String currency = "$USD";
