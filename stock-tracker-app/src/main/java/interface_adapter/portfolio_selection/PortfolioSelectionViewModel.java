@@ -4,36 +4,32 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 public class PortfolioSelectionViewModel extends ViewModel {
 
-    public final String TITLE_LABEL = "Portfolio Selection View";
-    public final String CONFIRM_BUTTON = "Confirm";
-    public final String CANCEL_BUTTON = "Cancel";
+    public static final String TITLE_LABEL = "Portfolio Selection View";
+    public static final String ADD_PORTFOLIO_BUTTON_LABEL = "Add Portfolio";
 
-    PortfolioSelectionState state = new PortfolioSelectionState();
+    public List<String> portfolioNames;
 
     public PortfolioSelectionViewModel() {
         super("portfolioSelection");
     }
 
-    public void setState(PortfolioSelectionState state) {
-        this.state = state;
+    public List<String> getPortfolioNames() {
+        return portfolioNames;
     }
 
-    public PortfolioSelectionState getState() {
-        return this.state;
-    }
-
-    public void switchToHoldingsView(String viewName) {
-        // TODO: implement this
+    public void setPortfolioNames(List<String> portfolioNames) {
+        this.portfolioNames = portfolioNames;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("state", null, state);
+        support.firePropertyChange("portfolioNames", null, portfolioNames);    
     }
 
     @Override
