@@ -110,13 +110,43 @@ public class Portfolio implements Serializable {
     }
 
     public void deposit(BankingTransaction transaction) {
-        this.transactions.add(transaction);
-        this.holdings.put(String.valueOf(transaction.getAsset()), this.holdings.get(String.valueOf(transaction.getAsset())) + transaction.getAmount());
+        if (transaction.getIfDeposit()) {
+            if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
+                // if the user already has the inputted asset
+                this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) + transaction.getAmount());
+                this.transactions.add(transaction);
+            } else {
+                // no existing asset
+                this.holdings.put(transaction.getAsset().getSymbol(), transaction.getAmount());
+                this.transactions.add(transaction);
+            }
+        } else {
+            throw new RuntimeException("This transaction is not a deposit transaction");
+        }
     }
 
     public void withdraw(BankingTransaction transaction) {
-        this.transactions.add(transaction);
-        this.holdings.put(String.valueOf(transaction.getAsset()), this.holdings.get(String.valueOf(transaction.getAsset())) - transaction.getAmount());
+        if (!transaction.getIfDeposit()) {
+            if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
+                if (this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount() >= 0) {
+                    this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount());
+                    this.transactions.add(transaction);
+                } else {
+                    throw new RuntimeException("You do not have enough assets for this withdraw.");
+                }
+            } else {
+                throw new RuntimeException("You do not have the corresponding asset in your holding.");
+            }
+        } else {
+            throw new RuntimeException("This transaction is not a withdraw transaction");
+        }
+
+        // if the portfolio have an empty asset, remove it
+        for (String s: holdings.keySet()) {
+            if (holdings.get(s) == 0) {
+                holdings.remove(s);
+            }
+        }
     }
 
     public double getPortfolioValue() {

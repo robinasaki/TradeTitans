@@ -20,4 +20,6 @@ public class BankingTransaction extends Transaction {
         return amount;
     }
 
+    public boolean getIfDeposit() {return this.deposit;}
+
 }
