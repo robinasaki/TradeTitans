@@ -29,7 +29,7 @@ public class APIDataAccessObjectTest {
          * We have commented that line to prevent reaching the daily max API call count.
          */
         setUp();
-        String symbol = "IBM";
+        String symbol = "MBG.DEX";
         String currency = "$USD";
 
         Map<Date, Double> historicalQuotes = DAO.getHistoricalQuotes(symbol, currency);
@@ -37,10 +37,11 @@ public class APIDataAccessObjectTest {
         Assertions.assertNotNull(historicalQuotes);
         Assertions.assertFalse(historicalQuotes.isEmpty());
 
-        // Manual entered these from values on yahoo finance
-        assert(historicalQuotes.get(new Date(123, 10, 1)) == 145.40);
-        assert(historicalQuotes.get(new Date(123, 10, 2)) == 147.01);
-        assert(historicalQuotes.get(new Date(123, 10, 3)) == 147.90);
+        // Manual entered these from values on yahoo finance, then converted from euro to us dollar
+        // making sure we are not off by more than 0.01
+        assertEquals(59.14, historicalQuotes.get(new Date(123, 10, 1)), 0.01);
+        assertEquals(61.09, historicalQuotes.get(new Date(123, 10, 2)), 0.01);
+        assertEquals(62.13, historicalQuotes.get(new Date(123, 10, 3)), 0.01);
 
         // These are weekends, so there should be no data
         assert(historicalQuotes.get(new Date(123, 10, 4)) == null);
