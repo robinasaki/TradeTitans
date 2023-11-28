@@ -15,6 +15,10 @@ public class PortfolioViewModel extends ViewModel {
         super("Portfolio");
     }
 
+    public void setState(PortfolioViewState state) {
+        this.state = state;
+    }
+
     public PortfolioViewState state = new PortfolioViewState();
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -27,5 +31,9 @@ public class PortfolioViewModel extends ViewModel {
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    public PortfolioViewState getState() {
+        return state;
     }
 }
