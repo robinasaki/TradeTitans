@@ -4,9 +4,16 @@ import java.util.List;
 
 public class PortfolioSelectionState {
 
-    private List<String> portfolioName;
+    private List<String> portfolioNames;
+
+    public PortfolioSelectionState(PortfolioSelectionState copy) {
+        this.portfolioNames = copy.getPortfolioNames();
+    }
+
+    public PortfolioSelectionState() {
+    }
 
     public List<String> getPortfolioNames() {
-        return this.portfolioName;
+        return this.portfolioNames;
     }
 }

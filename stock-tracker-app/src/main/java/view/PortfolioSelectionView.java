@@ -1,6 +1,7 @@
-package view.portfolio_selection;
+package view;
 
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
+import interface_adapter.portfolio_selection.AddPortfolioController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PortfolioSelectionView extends JFrame {
+    public final String viewName = "potfolio_selection";
 
     private PortfolioSelectionViewModel viewModel;
 
