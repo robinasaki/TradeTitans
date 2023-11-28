@@ -61,8 +61,7 @@ public class TradeableTest {
 
     @Test
     public void getTradeableTest() {
-        Tradeable ibm = new Tradeable("International Business Machine", "ibm");
-        addTradeable(ibm);
-        assert (getTradeable("ibm").equals(ibm));
+        addTradeable("IBM");
+        assert (getTradeable("IBM").getSymbol().equals("IBM"));
     }
 }
