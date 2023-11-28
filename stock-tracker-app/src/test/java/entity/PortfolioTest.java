@@ -9,6 +9,8 @@ import entity.TradeTransaction;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TreeMap;
 
 public class PortfolioTest {
     private Portfolio techPortfolio;
@@ -21,7 +23,7 @@ public class PortfolioTest {
         usd = new Tradeable("US Dollar", "$USD");
         techPortfolio = new Portfolio("Tech Portfolio", usd);
         ibm = new Tradeable("International Business Machines Corporation", "IBM");
-        shop = new Tradeable("Shopify Inc.", "SHOP");
+        shop = new Tradeable("Shopify Inc.", "SHOP.TRT");
         outsidePortfolio = new Tradeable("Outside Portfolio", "");
 
     }
@@ -78,7 +80,7 @@ public class PortfolioTest {
          * Tests on the longer constructor.
          */
         HashMap<String, Double> hypoHoldings = new HashMap<>();
-        hypoHoldings.put("SHOP", 5.00);
+        hypoHoldings.put("SHOP.TRT", 5.00);
         ArrayList<Transaction> hypoTransaction = new ArrayList<>();
         hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
         Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
@@ -98,7 +100,7 @@ public class PortfolioTest {
          * Tests on getCurrency(), getName(), and all the basic get methods.
          */
         HashMap<String, Double> hypoHoldings = new HashMap<>();
-        hypoHoldings.put("SHOP", 5.00);
+        hypoHoldings.put("SHOP.TRT", 5.00);
         ArrayList<Transaction> hypoTransaction = new ArrayList<>();
         hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
         Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
@@ -117,7 +119,7 @@ public class PortfolioTest {
          * Tests on methods such as addAsset(), removeAsset(), etc.
          */
         HashMap<String, Double> hypoHoldings = new HashMap<>();
-        hypoHoldings.put("SHOP", 5.00);
+        hypoHoldings.put("SHOP.TRT", 5.00);
         ArrayList<Transaction> hypoTransaction = new ArrayList<>();
         hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
         Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
@@ -126,14 +128,34 @@ public class PortfolioTest {
 
     @Test
     public void getPortfolioValueTest() {
-        HashMap<String, Double> hypoHoldings = new HashMap<>();
-        hypoHoldings.put("SHOP", 5.00);
-        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
-        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
-        Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
-        // TODO: debug here
-        double assertionPortfolioValue = new Tradeable("Shopify", "SHOP").getCurrentPrice() * 5.00;
-        System.out.println(assertionPortfolioValue);
-//        assert (test.getPortfolioValue() == assertionPortfolioValue);
+        // relevant tradeables
+        Tradeable.addTradeable("$CAD");
+        Tradeable cad = Tradeable.getTradeable("$CAD");
+
+        // initialize portfolio
+        Portfolio robinsPortfolio = new Portfolio("robin", cad);
+
+        // deposit 5000 CAD
+        TradeTransaction deposit = new TradeTransaction("$CAD", "", 5000, 0, 0);
+        robinsPortfolio.addTrade(deposit);
+
+        // buy 10 shares of IBM for 155 CAD each or 1550 CAD total
+        TradeTransaction buyIBM = new TradeTransaction("IBM", "$CAD", 10, 1550, 0);
+        robinsPortfolio.addTrade(buyIBM);
+
+        // setting price historys
+        Tradeable.getTradeable("$CAD").setPriceHistory(new TreeMap<Date, Double>() {{
+            put(new Date(123, 10, 27), 1.0);
+            put(new Date(123, 10, 28), 1.0);
+        }});
+        Tradeable.getTradeable("IBM").setPriceHistory(new TreeMap<Date, Double>() {{
+            put(new Date(123, 10, 27), 190.0);
+            put(new Date(123, 10, 28), 200.0);
+        }});
+
+        // Portfolio value should be (5000 - 1550 = 3450) + (10 * 200 = 2000) = 5450 CAD
+        double expectedPortfolioValue = 5450;
+        System.out.println(robinsPortfolio.getPortfolioValue());
+        assert (robinsPortfolio.getPortfolioValue() == expectedPortfolioValue);
     }
 }
