@@ -167,19 +167,19 @@ public class APIDataAccessObject {
 
     private String buildApiUrl(String symbol) {
         return String.format(
-                "%s?function=%s&symbol=%s&apikey=%s&outputsize=full&datatype=json",
+                "%s?function=%s&symbol=%s&outputsize=full&apikey=%s",
                 BASE_URL, FUNCTION, symbol, apiKey);
     }
 
     private String buildApiUrlForFX(String fromCurrency, String toCurrency) {
         return String.format(
-                "%s?function=%s&from_symbol=%s&to_symbol=%s&apikey=%s&outputsize=full&datatype=json",
+                "%s?function=%s&from_symbol=%s&to_symbol=%s&outputsize=full&apikey=%s",
                 BASE_URL, FX_FUNCTION, fromCurrency, toCurrency, apiKey);
     }
 
     private String buildApiUrlForCrypto(String symbol, String market) {
         return String.format(
-                "%s?function=%s&from_symbol=%s&to_symbol=%s&apikey=%s&outputsize=full&datatype=json",
+                "%s?function=%s&from_symbol=%s&to_symbol=%s&outputsize=full&apikey=%s",
                 BASE_URL, CRYPTO_FUNCTION, symbol, market, apiKey);
     }
 }
