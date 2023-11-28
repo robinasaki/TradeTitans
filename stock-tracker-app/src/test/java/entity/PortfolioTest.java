@@ -219,7 +219,7 @@ public class PortfolioTest {
             assert (true);
         }
 
-        // test withdraw() with a BankingTransaction that is not a withdraw
+        // test withdraw() with a BankingTransaction that is not a withdrawal
         BankingTransaction transaction2 = new BankingTransaction(2.00, new Tradeable("Canadian Dollars", "$CAD"), true, 200);
         try {
             test3.withdraw(transaction2);

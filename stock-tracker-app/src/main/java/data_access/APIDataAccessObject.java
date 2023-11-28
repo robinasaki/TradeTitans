@@ -95,13 +95,14 @@ public class APIDataAccessObject {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             JsonNode root = objectMapper.readTree(response.body());
 
-            JsonNode timeSeries = root.get("Time Series FX (Daily)");
+            JsonNode timeSeries = root.get("Time Series (Digital Currency Daily)");
 
             Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
             while (fields.hasNext()) {
                 Map.Entry<String, JsonNode> entry = fields.next();
                 Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(entry.getKey());
-                double price = entry.getValue().get("4. close").asDouble();
+                // TODO: potential bugs here
+                double price = entry.getValue().get("4a. close (" + targetCurrency.substring(1) + ")").asDouble();
                 quotes.put(date, price);
             }
         } catch (IOException | InterruptedException | ParseException e) {
@@ -179,7 +180,7 @@ public class APIDataAccessObject {
 
     private String buildApiUrlForCrypto(String symbol, String market) {
         return String.format(
-                "%s?function=%s&from_symbol=%s&to_symbol=%s&outputsize=full&apikey=%s",
+                "%s?function=%s&symbol=%s&market=%s&apikey=%s",
                 BASE_URL, CRYPTO_FUNCTION, symbol, market, apiKey);
     }
 }
