@@ -16,4 +16,8 @@ public class PortfolioSelectionState {
     public List<String> getPortfolioNames() {
         return this.portfolioNames;
     }
+
+    public void setPortfolioNames(List<String> portfolioNames) {
+        this.portfolioNames = portfolioNames;
+    }
 }

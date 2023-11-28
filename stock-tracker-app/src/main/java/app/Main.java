@@ -10,21 +10,24 @@ import interface_adapter.trade.TradeViewModel;
 import view.TradeView;
 import view.ViewManager;
 import data_access.FileDataAccessObject;
+import entity.Portfolio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         JFrame application = new JFrame("Trade Titans");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
+        //CardLayout cardLayout = new CardLayout();
+        //JPanel views = new JPanel(cardLayout);
+        //application.add(views);
 
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
+        //ViewManagerModel viewManagerModel = new ViewManagerModel();
+        //new ViewManager(views, cardLayout, viewManagerModel);
 
         PortfolioSelectionViewModel portfolioSelectionViewModel = new PortfolioSelectionViewModel();
         //HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
@@ -32,18 +35,29 @@ public class Main {
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
 
+        // Loading portfolios from file
+        List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
+
+        // Adding portfolios to portfolio selection state
+        List<String> portfolioNames = new java.util.ArrayList<>();
+        for (Portfolio portfolio : portfolios) {
+            portfolioNames.add(portfolio.getName());
+        }
+        portfolioSelectionViewModel.getState().setPortfolioNames(portfolioNames);
+
         PortfolioSelectionView portfolioSelectionView = new PortfolioSelectionView(portfolioSelectionViewModel);
-        views.add(portfolioSelectionView, portfolioSelectionView.viewName);
+        //views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         //HoldingsView holdingsView = new HoldingsView(holdingsViewModel);
         //views.add(holdingsView, "holdingsView");
         //TradeView tradeView = new TradeView(tradeViewModel);
         //views.add(tradeView, "tradeView");
 
-        viewManagerModel.setActiveView(portfolioSelectionView.viewName);
-        viewManagerModel.firePropertyChanged();
+        //viewManagerModel.setActiveView(portfolioSelectionView.viewName);
+        //viewManagerModel.firePropertyChanged();
 
 
+        application.add(portfolioSelectionView);
         application.pack();
         application.setVisible(true);
     }
