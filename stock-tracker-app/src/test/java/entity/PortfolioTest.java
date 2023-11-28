@@ -129,24 +129,8 @@ public class PortfolioTest {
     @Test
     public void getPortfolioValueTest() {
         // relevant tradeables
-        Tradeable cad = new Tradeable("Canadian Dollars", "$CAD");
-        //Tradeable ibm = new Tradeable("International Business Machines Corporation", "IBM");
-        //Tradeable shop = new Tradeable("Shopify Inc.", "SHOP.TRT");
-
-        /* setting price historys
-        cad.setPriceHistory(new TreeMap<Date, Double>() {{
-            put(new Date(123, 10, 27), 1.0);
-            put(new Date(123, 10, 28), 1.0);
-        }});
-        ibm.setPriceHistory(new TreeMap<Date, Double>() {{
-            put(new Date(123, 10, 27), 190.0);
-            put(new Date(123, 10, 28), 200.0);
-        }});
-        shop.setPriceHistory(new TreeMap<Date, Double>() {{
-            put(new Date(123, 10, 27), 110.0);
-            put(new Date(123, 10, 28), 100.0);
-        }});
-        */
+        Tradeable.addTradeable("$CAD");
+        Tradeable cad = Tradeable.getTradeable("$CAD");
 
         // initialize portfolio
         Portfolio robinsPortfolio = new Portfolio("robin", cad);
