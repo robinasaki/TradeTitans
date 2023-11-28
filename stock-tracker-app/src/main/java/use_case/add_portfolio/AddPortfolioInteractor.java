@@ -21,14 +21,8 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
             }
         }
 
-        Tradeable currencyTradeable;
-        if (Tradeable.getTradeable(defaultCurrency) == null) {
-            currencyTradeable = new Tradeable("TODO", defaultCurrency);
-            Tradeable.addTradeable(currencyTradeable);
-        }
-        else {
-            currencyTradeable = Tradeable.getTradeable(defaultCurrency);
-        }
+        Tradeable.addTradeable(defaultCurrency);
+        Tradeable currencyTradeable = Tradeable.getTradeable(defaultCurrency);
     
         Portfolio portfolio = new Portfolio(portfolioName, currencyTradeable);
         fileDataAccessObject.savePortfolio(portfolio);
