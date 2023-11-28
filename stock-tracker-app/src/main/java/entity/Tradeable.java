@@ -39,8 +39,13 @@ public class Tradeable implements Serializable {
         return tradeables.get(symbol);
     }
 
-    public static void addTradeable(Tradeable tradeable) {
-        tradeables.put(tradeable.getSymbol(), tradeable);
+    // adds tradeable to map if not already there
+    // this should be the only place tradeables are instantiated
+    public static void addTradeable(String symbol) {
+        if (!tradeables.containsKey(symbol)) {
+            Tradeable tradeable = new Tradeable("tradeable_name_todo", symbol);
+            tradeables.put(symbol, tradeable);
+        }
     }
 
     public double getCurrentPrice() {
