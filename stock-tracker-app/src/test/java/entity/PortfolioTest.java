@@ -123,7 +123,15 @@ public class PortfolioTest {
         ArrayList<Transaction> hypoTransaction = new ArrayList<>();
         hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
         Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
-        // TODO: do more coverage
+
+        // test the addAsset() method
+        test.addAsset("$CNY");
+        assert (test.getHoldings().containsKey("$CNY"));
+        assert (! test.getHoldings().containsKey("Candace Who"));
+
+        // test the removeAsset() method
+        test.removeAsset("$CNY");
+        assert (! test.getHoldings().containsKey("$CNY"));
     }
 
     @Test
@@ -157,5 +165,77 @@ public class PortfolioTest {
         double expectedPortfolioValue = 5450;
         System.out.println(robinsPortfolio.getPortfolioValue());
         assert (robinsPortfolio.getPortfolioValue() == expectedPortfolioValue);
+    }
+
+    @Test
+    public void transactionTest() {
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP.TRT", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test2 = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+
+        // test deposit()
+        // suppose if the user deposits $USD 200 into the portfolio
+        BankingTransaction transaction1 = new BankingTransaction(2.00, new Tradeable("US Dollar", "$USD"), true, 200);
+        test2.deposit(transaction1);
+        assert (test2.getHoldings().containsKey("$USD"));
+        assert (test2.getTransactions().contains(transaction1));
+        BankingTransaction withdrawTransaction1 = new BankingTransaction(0, new Tradeable("US Dollar", "$USD"), false, 200);
+        test2.withdraw(withdrawTransaction1);
+        assert (! test2.getHoldings().containsKey("$USD"));
+    }
+
+    @Test
+    public void invalidDepositTest() {
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP.TRT", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test2 = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+
+        // test deposit() using a non-deposit BankingTransaction
+        BankingTransaction transaction1 = new BankingTransaction(2.00, new Tradeable("US Dollar", "$USD"), false, 200);
+        try {
+            test2.deposit(transaction1);
+        } catch (RuntimeException e) {
+            assert (true);
+        }
+    }
+
+    @Test
+    public void invalidWithdrawTest() {
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP.TRT", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test3 = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+
+        // test withdraw() on an asset that the portfolio do not have
+        BankingTransaction transaction1 = new BankingTransaction(2.00, new Tradeable("US Dollar", "$USD"), false, 200);
+        try {
+            test3.withdraw(transaction1);
+        } catch (RuntimeException e) {
+            assert (true);
+        }
+
+        // test withdraw() with a BankingTransaction that is not a withdraw
+        BankingTransaction transaction2 = new BankingTransaction(2.00, new Tradeable("Canadian Dollars", "$CAD"), true, 200);
+        try {
+            test3.withdraw(transaction2);
+        } catch (RuntimeException e) {
+            assert (true);
+        }
+
+        // test withdraw() with withdrawing more of your current holding
+        BankingTransaction transaction3 = new BankingTransaction(2.00, new Tradeable("Canadian Dollars", "$CAD"), false, 10000);
+        try {
+            test3.withdraw(transaction3);
+        } catch (RuntimeException e) {
+            assert (true);
+        }
+
+        // make sure failed Transaction are not recorded
+        assert (test3.getTransactions().size() == 1);
     }
 }
