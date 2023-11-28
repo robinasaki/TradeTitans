@@ -21,13 +21,14 @@ public class Main {
     public static void main(String[] args) {
         JFrame application = new JFrame("Trade Titans");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        application.setPreferredSize(new Dimension(800, 600));
 
-        //CardLayout cardLayout = new CardLayout();
-        //JPanel views = new JPanel(cardLayout);
-        //application.add(views);
+        CardLayout cardLayout = new CardLayout();
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
 
-        //ViewManagerModel viewManagerModel = new ViewManagerModel();
-        //new ViewManager(views, cardLayout, viewManagerModel);
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
 
         PortfolioSelectionViewModel portfolioSelectionViewModel = new PortfolioSelectionViewModel();
         //HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
@@ -46,7 +47,7 @@ public class Main {
         portfolioSelectionViewModel.getState().setPortfolioNames(portfolioNames);
 
         PortfolioSelectionView portfolioSelectionView = new PortfolioSelectionView(portfolioSelectionViewModel);
-        //views.add(portfolioSelectionView, portfolioSelectionView.viewName);
+        views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         //HoldingsView holdingsView = new HoldingsView(holdingsViewModel);
         //views.add(holdingsView, "holdingsView");
@@ -57,7 +58,6 @@ public class Main {
         //viewManagerModel.firePropertyChanged();
 
 
-        application.add(portfolioSelectionView);
         application.pack();
         application.setVisible(true);
     }
