@@ -8,7 +8,7 @@ import java.util.List;
 public class PortfolioViewState {
     private List<Portfolio> portfolioList;
 
-    private Sting FailportfolioView = null;
+    private String FailportfolioView = null;
 
     public PortfolioViewState(PortfolioViewState copy) {
             this.portfolioList = copy.portfolioList;
@@ -17,7 +17,7 @@ public class PortfolioViewState {
     public PortfolioViewState(){
     }
 
-    public Sting getFailportfolioView() {
+    public String getFailportfolioView() {
         return FailportfolioView;
     }
 
