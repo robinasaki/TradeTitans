@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
+
 import entity.Transaction;
 import entity.TradeTransaction;
 import entity.BankingTransaction;
@@ -20,12 +21,15 @@ public class Portfolio implements Serializable {
 
     private final int portfolioId;
 
-    public Portfolio(String name, Tradeable currency, HashMap<String, Double> holdings, ArrayList<Transaction> transactions, int portfolioId) {
+    public Portfolio(String name, Tradeable currency, HashMap<String, Double> holdings, ArrayList<Transaction> transactions) {
         this.name = name;
         this.currency = currency;
         this.holdings = holdings;
         this.transactions = transactions;
-        this.portfolioId = portfolioId;
+        // TODO: implement portfolio id as the following:
+        // portfolioId = currentPortfolioCount + 1
+        // with the initial portfolio id = 1
+        this.portfolioId = 1;
     }
 
     public Portfolio(String name, Tradeable currency) {
@@ -33,7 +37,7 @@ public class Portfolio implements Serializable {
         this.currency = currency;
         this.holdings = new HashMap<>();
         this.transactions = new ArrayList<>();
-        this.portfolioId = 0;
+        this.portfolioId = 1;
     }
 
     public String getName() {
@@ -57,39 +61,39 @@ public class Portfolio implements Serializable {
     }
 
     // for adding to "watchlist"
-    public void addAsset(String asset){
+    public void addAsset(String asset) {
         if (!holdings.containsKey(asset))
             holdings.put(asset, 0.0);
     }
 
     // users should only be able to do this if they have no holdings of the asset
-    public void removeAsset(String asset){
+    public void removeAsset(String asset) {
         holdings.remove(asset);
     }
 
-    public ArrayList<String> getWatchlist(){
+    public ArrayList<String> getWatchlist() {
         return new ArrayList<>(holdings.keySet());
     }
 
 
-    public void addTrade(TradeTransaction transaction){
+    public void addTrade(TradeTransaction transaction) {
         // amounts being traded
         double amountIn = transaction.getAmountIn();
         double amountOut = transaction.getAmountOut();
-        
+
         // if the asset is not in holdings, add it, unless it is "outside portfolio"
         if (holdings.get(transaction.getAssetIn()) == null && !transaction.getAssetIn().isEmpty())
             holdings.put(transaction.getAssetIn(), 0.0);
         if (holdings.get(transaction.getAssetOut()) == null && !transaction.getAssetOut().isEmpty())
             holdings.put(transaction.getAssetOut(), 0.0);
 
-        if (!transaction.getAssetIn().isEmpty()){
+        if (!transaction.getAssetIn().isEmpty()) {
             // as long a it's not a withdraw, we calculate amount in holdings after trade, then update holdings
             double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
             holdings.put(transaction.getAssetIn(), assetInAmount);
         }
 
-        if (!transaction.getAssetOut().isEmpty()){
+        if (!transaction.getAssetOut().isEmpty()) {
             // as long a it's not a deposit, we calculate amount in holdings after trade, then update holdings
             double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
             holdings.put(transaction.getAssetOut(), assetOutAmount);
@@ -99,22 +103,26 @@ public class Portfolio implements Serializable {
         transactions.add(transaction);
     }
 
-    public void deposit(BankingTransaction transaction){
+    public void deposit(BankingTransaction transaction) {
         this.transactions.add(transaction);
         this.holdings.put(String.valueOf(transaction.getAsset()), this.holdings.get(String.valueOf(transaction.getAsset())) + transaction.getAmount());
     }
 
-    public void withdraw(BankingTransaction transaction){
+    public void withdraw(BankingTransaction transaction) {
         this.transactions.add(transaction);
         this.holdings.put(String.valueOf(transaction.getAsset()), this.holdings.get(String.valueOf(transaction.getAsset())) - transaction.getAmount());
     }
 
-    public double getPortfolioValue(){
+    public double getPortfolioValue() {
         double value = 0;
-        for (String asset : this.holdings.keySet()){
+        for (String asset : this.holdings.keySet()) {
             Tradeable assetTradeable = Tradeable.getTradeable(asset);
             value += assetTradeable.getCurrentPrice() * this.holdings.get(asset);
         }
         return value;
+    }
+
+    public int getPortfolioId() {
+        return this.portfolioId;
     }
 }

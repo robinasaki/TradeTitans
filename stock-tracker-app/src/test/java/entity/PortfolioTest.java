@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import entity.Transaction;
 import entity.TradeTransaction;
 
+import java.util.HashMap;
+import java.util.ArrayList;
+
 public class PortfolioTest {
     private Portfolio techPortfolio;
     private Tradeable usd;
@@ -20,7 +23,7 @@ public class PortfolioTest {
         ibm = new Tradeable("International Business Machines Corporation", "IBM");
         shop = new Tradeable("Shopify Inc.", "SHOP");
         outsidePortfolio = new Tradeable("Outside Portfolio", "");
-        
+
     }
 
     @Test
@@ -53,19 +56,84 @@ public class PortfolioTest {
         setup();
 
         // assert that the watchlist is empty
-        assert(techPortfolio.getWatchlist().isEmpty());
+        assert (techPortfolio.getWatchlist().isEmpty());
 
         // deposit 5000 USD and now watchlist should have 1 item
         TradeTransaction transaction1 = new TradeTransaction("$USD", "", 5000, 0, 0);
         techPortfolio.addTrade(transaction1);
-        assert(techPortfolio.getWatchlist().size() == 1);
-        assert(techPortfolio.getWatchlist().contains("$USD"));
+        assert (techPortfolio.getWatchlist().size() == 1);
+        assert (techPortfolio.getWatchlist().contains("$USD"));
 
         // buy 10 shares of IBM for 185 USD each or 1850 USD total and now watchlist should have 2 items
         TradeTransaction transaction2 = new TradeTransaction("IBM", "$USD", 10, 1850, 0);
         techPortfolio.addTrade(transaction2);
-        assert(techPortfolio.getWatchlist().size() == 2);
-        assert(techPortfolio.getWatchlist().contains("$USD"));
-        assert(techPortfolio.getWatchlist().contains("IBM"));
+        assert (techPortfolio.getWatchlist().size() == 2);
+        assert (techPortfolio.getWatchlist().contains("$USD"));
+        assert (techPortfolio.getWatchlist().contains("IBM"));
+    }
+
+    @Test
+    public void constructorTestLong() {
+        /**
+         * Tests on the longer constructor.
+         */
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+    }
+
+    @Test
+    public void constructorTestShort() {
+        /**
+         * Test on the shortened constructor.
+         */
+        Portfolio testShort = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"));
+    }
+
+    @Test
+    public void basicGetsTests() {
+        /**
+         * Tests on getCurrency(), getName(), and all the basic get methods.
+         */
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+        assert (test.getName().equals("robin"));
+        assert (test.getCurrency().equals(new Tradeable("Canadian Dollars", "$CAD")));
+        test.setCurrency(new Tradeable("US Dollars", "$USD"));
+        assert (test.getCurrency().equals(new Tradeable("US Dollars", "$USD")));
+        assert (test.getHoldings().equals(hypoHoldings));
+        assert (test.getTransactions().equals(hypoTransaction));
+        assert (test.getPortfolioId() == 1);
+    }
+
+    @Test
+    public void assetModificationTest() {
+        /**
+         * Tests on methods such as addAsset(), removeAsset(), etc.
+         */
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+        // TODO: do more coverage
+    }
+
+    @Test
+    public void getPortfolioValueTest() {
+        HashMap<String, Double> hypoHoldings = new HashMap<>();
+        hypoHoldings.put("SHOP", 5.00);
+        ArrayList<Transaction> hypoTransaction = new ArrayList<>();
+        hypoTransaction.add(new TradeTransaction("$CAD", "IBM", 155, 1, 2));
+        Portfolio test = new Portfolio("robin", new Tradeable("Canadian Dollars", "$CAD"), hypoHoldings, hypoTransaction);
+        // TODO: debug here
+        double assertionPortfolioValue = new Tradeable("Shopify", "SHOP").getCurrentPrice() * 5.00;
+        System.out.println(assertionPortfolioValue);
+//        assert (test.getPortfolioValue() == assertionPortfolioValue);
     }
 }

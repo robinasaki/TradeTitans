@@ -14,7 +14,6 @@ public class BankingTransactionTest {
 
     private double fee;
 
-    @BeforeEach
     public void init() {
         usd = new Tradeable("US Dollar", "$USD");
         deposit = false;
@@ -24,6 +23,7 @@ public class BankingTransactionTest {
 
     @Test
     public void testTransaction() {
+        init();
         BankingTransaction testing = new BankingTransaction(fee, usd, deposit, amount);
         assert (testing.getAsset() == usd);
         assert (testing.getAmount() == amount);

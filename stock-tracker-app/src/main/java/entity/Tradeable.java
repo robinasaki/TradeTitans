@@ -49,4 +49,8 @@ public class Tradeable implements Serializable {
         }
         return priceHistory.lastEntry().getValue();
     }
+
+    public boolean equals(Tradeable compare) {
+        return (this.symbol.equals(compare.symbol));
+    }
 }
