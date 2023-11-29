@@ -16,7 +16,7 @@ public class DeletePortfolioViewModel extends ViewModel {
         this.state = state;
     }
 
-    public DeletePortfolioView(){
+    public DeletePortfolioViewModel(){
         super("Delete Portfolio");
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
