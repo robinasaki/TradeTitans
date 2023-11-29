@@ -49,7 +49,7 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewManagerModel.setActiveView("holdings_" + portfolioName);
+            viewManagerModel.setActiveView("holdings");
         }
     }
 }
