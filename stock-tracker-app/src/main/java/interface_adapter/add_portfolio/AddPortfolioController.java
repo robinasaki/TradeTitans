@@ -1,6 +1,7 @@
-package interface_adapter.portfolio_selection;
+package interface_adapter.add_portfolio;
 
 import use_case.add_portfolio.AddPortfolioInputBoundary;
+import use_case.add_portfolio.AddPortfolioInputData;
 
 public class AddPortfolioController {
     private final AddPortfolioInputBoundary addPortfolioInteractor;
