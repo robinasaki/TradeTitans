@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoldingsView extends JFrame {
+public class HoldingsView extends JPanel {
 
     public final String viewName = "holdings";
     private final HoldingsViewModel holdingsViewModel;
