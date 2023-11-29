@@ -37,13 +37,7 @@ public class APIDataAccessObject {
     public APIDataAccessObject() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
-        // we will use demo api calls for now, but we will have to uncomment the line below to use the real api
-        this.apiKey = "demo";
-        /**
-         * Uncomment the line below to actually use the API.
-         * Note that you can only call the API up to 100 times daily.
-         */
-        // this.apiKey = readApiKeyFromFile("key.txt");
+        this.apiKey = readApiKeyFromFile("key.txt");
     }
 
     // this method will be used in the real program, but for testing purposes we will use the one below
