@@ -51,7 +51,7 @@ public class Main {
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel);
-        views.add(holdingsView, "holdings_Portfolio1");
+        views.add(holdingsView, "holdings");
         //TradeView tradeView = new TradeView(tradeViewModel);
         //views.add(tradeView, "tradeView");
 
