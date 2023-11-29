@@ -31,7 +31,7 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         PortfolioSelectionViewModel portfolioSelectionViewModel = new PortfolioSelectionViewModel();
-        //HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
+        HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
         //TradeViewModel tradeViewModel = new TradeViewModel();
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
@@ -46,15 +46,15 @@ public class Main {
         }
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
 
-        PortfolioSelectionView portfolioSelectionView = new PortfolioSelectionView(portfolioSelectionViewModel);
+        viewManagerModel.setActiveView("portfolio_selection");
+        PortfolioSelectionView portfolioSelectionView = new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
-        //HoldingsView holdingsView = new HoldingsView(holdingsViewModel);
-        //views.add(holdingsView, "holdingsView");
+        HoldingsView holdingsView = new HoldingsView(holdingsViewModel);
+        views.add(holdingsView, "holdings_Portfolio1");
         //TradeView tradeView = new TradeView(tradeViewModel);
         //views.add(tradeView, "tradeView");
 
-        //viewManagerModel.setActiveView(portfolioSelectionView.viewName);
         //viewManagerModel.firePropertyChanged();
 
 
