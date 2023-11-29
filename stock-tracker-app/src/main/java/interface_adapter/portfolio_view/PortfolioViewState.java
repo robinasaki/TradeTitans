@@ -17,7 +17,7 @@ public class PortfolioViewState {
     public PortfolioViewState(){
     }
 
-    public Sting getFailportfolioView() {
+    public String getFailportfolioView() {
         return FailportfolioView;
     }
 
