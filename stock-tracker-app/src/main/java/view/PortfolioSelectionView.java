@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
-import interface_adapter.portfolio_selection.AddPortfolioController;
+import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.ViewManagerModel;
 import javax.swing.*;
 import java.awt.*;
