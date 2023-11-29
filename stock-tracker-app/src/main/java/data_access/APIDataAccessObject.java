@@ -40,8 +40,6 @@ public class APIDataAccessObject {
         this.apiKey = readApiKeyFromFile("key.txt");
     }
 
-    // this method will be used in the real program, but for testing purposes we will use the one below
-    // we will have to change the name of this back to getHistoricalQuotes() at some point
     public TreeMap<Date, Double> getHistoricalQuotes(String symbol, String targetCurrency) {
         if (symbol.startsWith("$")) {
             return getHistoricalForexQuotes(symbol, targetCurrency);
