@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import interface_adapter.portfolio_selection.AddPortfolioController;
+import interface_adapter.ViewManagerModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,12 +10,14 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PortfolioSelectionView extends JPanel {
-    public final String viewName = "potfolio_selection";
+    public final String viewName = "portfolio_selection";
 
     private PortfolioSelectionViewModel viewModel;
+    private ViewManagerModel viewManagerModel;
 
-    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel) {
+    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel, ViewManagerModel viewManagerModel) {
         this.viewModel = viewModel;
+        this.viewManagerModel = viewManagerModel;
         initView();
     }
 
@@ -46,10 +49,8 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO: switch to holdings view
-            viewModel.setViewName("portfolio");
+            viewManagerModel.setActiveView("holdings_" + portfolioName);
         }
-
     }
 }
 
