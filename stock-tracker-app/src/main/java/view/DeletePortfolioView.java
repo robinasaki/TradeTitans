@@ -34,9 +34,15 @@ public class DeletePortfolioView extends JFrame implements ActionListener{
         // TODO: not finished yet
     }
 
+<<<<<<< HEAD
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO
+=======
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+>>>>>>> 631f4bed0ab641d538122d352ab658dcc1134a98
     }
 }
