@@ -64,14 +64,9 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
-        JButton creditButton = new JButton("Credit");
+        JButton creditButton = new JButton("About the program");
         creditButton.addActionListener(new creditButtonListener());
         panel.add(creditButton);
-
-        JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
-        description1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        description1.setForeground(Color.gray);
-        panel.add(description1);
 
         add(panel);
     }
