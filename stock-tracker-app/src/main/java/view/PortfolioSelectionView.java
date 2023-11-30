@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class PortfolioSelectionView extends JPanel {
@@ -32,8 +32,15 @@ public class PortfolioSelectionView extends JPanel {
 
     private void initView() {
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        ImageIcon icon = new ImageIcon("logo.jpg");
-        panel.add(new JLabel(icon));
+//        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/logo.jpg")));
+//        panel.add(new JLabel(icon));
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("stock-tracker-app/src/images/logo.jpg"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            panel.add(picLabel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // set the view border
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -58,6 +65,7 @@ public class PortfolioSelectionView extends JPanel {
         JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
         description1.setFont(new Font("Georgia", Font.PLAIN, 12));
         description1.setForeground(Color.gray);
+        panel.add(description1);
 
         add(panel);
     }
