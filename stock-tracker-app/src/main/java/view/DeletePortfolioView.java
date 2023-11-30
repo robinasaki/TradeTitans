@@ -13,7 +13,7 @@ import java.beans.PropertyChangeListener;
 public class DeletePortfolioView extends JFrame implements ActionListener,PropertyChangeListener{
     private final String ViewName = "Delete Portfolio";
     private final DeletePortfolioViewModel deletePortfolioViewModel;
-
+    DeletePortfolioState currentState;
     final JButton confirm;
     final JButton cancel;
 
@@ -45,7 +45,7 @@ public class DeletePortfolioView extends JFrame implements ActionListener,Proper
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "Portfolio deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, currentState.getPortfolioName(), " deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
