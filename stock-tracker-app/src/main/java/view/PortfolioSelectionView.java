@@ -8,8 +8,7 @@ import interface_adapter.holdings.UpdatePricesController;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -40,6 +39,10 @@ public class PortfolioSelectionView extends JPanel {
             System.out.println("Logo compiling error, please open the project as `Trade Titans`.");
             e.printStackTrace();
         }
+
+        // Add vertical panel
+        JScrollPane scrollPane = new JScrollPane(panel);
+        JScrollBar scrollBar = new JScrollBar();
 
         // set the view border
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
