@@ -52,9 +52,15 @@ public class HoldingsView extends JPanel {
 
         panel.add(scrollPane);
 
+        // Create back button for going back to portfolio selection
         JButton backButton = new JButton("Back to Portfolio Selection");
         backButton.addActionListener(new BackButtonListener());
         panel.add(backButton);
+
+        // Create button for adding trade
+        JButton addTradeButton = new JButton("Add Trade");
+        addTradeButton.addActionListener(new AddTradeButtonListener());
+        panel.add(addTradeButton);
 
         add(panel);
     }
@@ -65,7 +71,11 @@ public class HoldingsView extends JPanel {
         }
     }
 
-
+    private class AddTradeButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // TODO: Switch to add trade view
+        }
+    }
     
 }
 
