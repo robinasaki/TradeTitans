@@ -58,7 +58,6 @@ public class PortfolioSelectionView extends JPanel {
         JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
         description1.setFont(new Font("Georgia", Font.PLAIN, 12));
         description1.setForeground(Color.gray);
-        panel.add(description1);
 
         add(panel);
     }
