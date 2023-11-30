@@ -2,10 +2,10 @@ package interface_adapter.holdings;
 import java.util.ArrayList;
 
 public class HoldingsState {
-    private ArrayList<String> symbols = new ArrayList<String>();
-    private ArrayList<Double> quotes = new ArrayList<Double>();
-    private ArrayList<Double> shares = new ArrayList<Double>();
-    private ArrayList<Double> values = new ArrayList<Double>();
+    private ArrayList<String> symbols;
+    private ArrayList<Double> quotes;
+    private ArrayList<Double> shares;
+    private ArrayList<Double> values;
 
     public HoldingsState(HoldingsState copy) {
         this.symbols = copy.symbols;
@@ -15,6 +15,12 @@ public class HoldingsState {
     }
 
     public HoldingsState() {
+        this.symbols = new ArrayList<String>();
+        this.symbols.add("Total");
+        this.quotes = new ArrayList<Double>();
+        this.shares = new ArrayList<Double>();
+        this.values = new ArrayList<Double>();
+        this.values.add(0.0);
     }
 
     public ArrayList<String> getSymbols() {
@@ -37,7 +43,7 @@ public class HoldingsState {
         this.symbols = symbols;
     }
 
-    public void setQuotes(ArrayList<Double> quotes) {
+    public void setPrices(ArrayList<Double> quotes) {
         this.quotes = quotes;
     }
 
