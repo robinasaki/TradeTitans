@@ -1,16 +1,19 @@
 package use_case.add_portfolio;
 
+import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import entity.Portfolio;
-import data_access.FileDataAccessObject;
 import entity.Tradeable;
+import data_access.FileDataAccessObject;
 
 import java.util.List;
 
 public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
     private final FileDataAccessObject fileDataAccessObject;
+    private AddPortfolioOutputBoundary presenter;
 
-    public AddPortfolioInteractor(FileDataAccessObject fileDataAccessObject) {
+    public AddPortfolioInteractor(FileDataAccessObject fileDataAccessObject, AddPortfolioOutputBoundary addPortfolioPresenter) {
         this.fileDataAccessObject = fileDataAccessObject;
+        this.presenter = addPortfolioPresenter;
     }
 
     public void execute(String portfolioName, String defaultCurrency) {
@@ -26,5 +29,6 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
     
         Portfolio portfolio = new Portfolio(portfolioName, currencyTradeable);
         fileDataAccessObject.savePortfolio(portfolio);
+        presenter.prepareSuccessView(portfolio.getName());
     }
 }
