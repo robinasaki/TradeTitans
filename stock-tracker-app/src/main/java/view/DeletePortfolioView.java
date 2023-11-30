@@ -45,6 +45,7 @@ public class DeletePortfolioView extends JFrame implements ActionListener,Proper
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "Portfolio deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
