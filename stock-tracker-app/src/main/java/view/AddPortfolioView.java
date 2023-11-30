@@ -56,7 +56,8 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         @Override
         public void actionPerformed(ActionEvent e) {
             String portfolioName = portfolioInputField.getText();
-            String defaultCurrency = defaultCurrencyField.getText();
+            // we have to add the $ sign to the default currency string
+            String defaultCurrency = "$" + defaultCurrencyField.getText();
             addPortfolioController.execute(portfolioName, defaultCurrency);
         }
     }
