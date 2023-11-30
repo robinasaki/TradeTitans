@@ -32,13 +32,12 @@ public class PortfolioSelectionView extends JPanel {
 
     private void initView() {
         JPanel panel = new JPanel(new GridLayout(0, 1));
-//        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/logo.jpg")));
-//        panel.add(new JLabel(icon));
         try {
-            BufferedImage myPicture = ImageIO.read(new File("stock-tracker-app/src/images/logo.jpg"));
+            BufferedImage myPicture = ImageIO.read(new File("src/images/logo.jpg"));
             JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             panel.add(picLabel);
         } catch (Exception e) {
+            System.out.println("Logo compiling error, please open the project as `Trade Titans`.");
             e.printStackTrace();
         }
 
