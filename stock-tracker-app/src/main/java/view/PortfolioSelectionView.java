@@ -43,6 +43,12 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
+        // Button to the right of portfolio to delete
+        /* List<String> deletePortfolios =
+        JButton deletePortfolioButton = new JButton("Delete");
+        deletePortfolioButton.addActionListener(new DeletePortfolioViewListener());
+        panel.add(deletePortfolioButton); */
+
         add(panel);
     }
 
