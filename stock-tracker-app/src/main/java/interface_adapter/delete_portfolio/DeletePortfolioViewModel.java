@@ -1,4 +1,4 @@
-package interface_adapter.DeletePortfolio;
+package interface_adapter.delete_portfolio;
 
 import interface_adapter.ViewModel;
 
@@ -25,6 +25,8 @@ public class DeletePortfolioViewModel extends ViewModel {
     public DeletePortfolioViewModel(){
         super("Delete Portfolio");
     }
+
+
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged(){

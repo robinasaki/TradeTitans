@@ -10,7 +10,8 @@ public class DeletePortfolioInteractor {
         this.fileDataAccessObject = fileDataAccessObject;
     }
 
-    public void execute(Portfolio portfolio){
-        fileDataAccessObject.removePortfolio(portfolio.getName());
+    public void execute(String portfolioName){
+
+        fileDataAccessObject.removePortfolio(portfolioName);
     }
 }

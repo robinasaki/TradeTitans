@@ -5,12 +5,14 @@ import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.holdings.UpdatePricesController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class PortfolioSelectionView extends JPanel {
@@ -29,6 +31,25 @@ public class PortfolioSelectionView extends JPanel {
 
     private void initView() {
         JPanel panel = new JPanel(new GridLayout(0, 1));
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/images/logo.jpg"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            panel.add(picLabel);
+        } catch (Exception e) {
+            System.out.println("Logo compiling error, please open the project as `Trade Titans`.");
+            e.printStackTrace();
+        }
+
+        // Add vertical panel
+        JScrollPane scrollPane = new JScrollPane(panel);
+        JScrollBar scrollBar = new JScrollBar();
+
+        // set the view border
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel portfolioSelectionInstruction = new JLabel("Select one portfolio below to begin with.");
+        portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
+        panel.add(portfolioSelectionInstruction);
 
         // Add buttons for each portfolio
         List<String> portfolioNames = viewModel.getPortfolioNames();
@@ -43,11 +64,10 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
-        // Button to the right of portfolio to delete
-        /* List<String> deletePortfolios =
-        JButton deletePortfolioButton = new JButton("Delete");
-        deletePortfolioButton.addActionListener(new DeletePortfolioViewListener());
-        panel.add(deletePortfolioButton); */
+        JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
+        description1.setFont(new Font("Georgia", Font.PLAIN, 12));
+        description1.setForeground(Color.gray);
+        panel.add(description1);
 
         add(panel);
     }
