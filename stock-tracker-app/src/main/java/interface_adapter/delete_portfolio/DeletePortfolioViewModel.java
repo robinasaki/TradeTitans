@@ -1,4 +1,4 @@
-package interface_adapter.DeletePortfolio;
+package interface_adapter.delete_portfolio;
 
 import interface_adapter.ViewModel;
 
