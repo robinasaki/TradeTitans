@@ -1,10 +1,7 @@
 package app;
 
-import view.PortfolioSelectionView;
-import view.HoldingsView;
-import view.TradeView;
-import view.AddPortfolioView;
-import view.ViewManager;
+import interface_adapter.credit.CreditViewModel;
+import view.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import interface_adapter.add_portfolio.AddPortfolioViewModel;
@@ -49,6 +46,7 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         PortfolioSelectionViewModel portfolioSelectionViewModel = new PortfolioSelectionViewModel();
+        CreditViewModel creditViewModel = new CreditViewModel();
 
         HoldingsState emptyHoldingsState = new HoldingsState();
         HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
@@ -84,6 +82,9 @@ public class Main {
         TradeView tradeView = createTradeView(tradeViewModel, viewManagerModel, holdingsViewModel);
         views.add(tradeView, "trade");
 
+        CreditView creditView = createCreditView(creditViewModel, viewManagerModel);
+        views.add(creditView, "credit");
+
         application.pack();
         application.setVisible(true);
     }
@@ -111,5 +112,9 @@ public class Main {
         TradeInputBoundary TradeInputBoundary = new TradeInteractor(fileDataAccessObject, TradeOutputBoundary);
         TradeController tradeController = new TradeController(TradeInputBoundary);
         return new TradeView(tradeViewModel, viewManagerModel, tradeController);
+    }
+
+    private static CreditView createCreditView(CreditViewModel creditViewModel, ViewManagerModel viewManagerModel) {
+        return new CreditView(creditViewModel, viewManagerModel);
     }
 }
