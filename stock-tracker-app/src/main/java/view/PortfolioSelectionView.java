@@ -76,6 +76,10 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
+        JButton creditButton = new JButton("Credit");
+        creditButton.addActionListener(new creditButtonListener());
+        panel.add(creditButton);
+
         JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
         description1.setFont(new Font("Georgia", Font.PLAIN, 12));
         description1.setForeground(Color.gray);
@@ -112,8 +116,17 @@ public class PortfolioSelectionView extends JPanel {
     }
 
     private class AddPortfolioButtonListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             viewManagerModel.setActiveView("add_portfolio");
+        }
+    }
+
+    private class creditButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("credit");
         }
     }
 
