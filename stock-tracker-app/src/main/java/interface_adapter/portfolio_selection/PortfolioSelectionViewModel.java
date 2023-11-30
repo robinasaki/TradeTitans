@@ -8,9 +8,9 @@ import java.util.List;
 
 public class PortfolioSelectionViewModel extends ViewModel {
 
+    public static final String PROGRAM_TITLE_LABEL = "Trade Titans";
     public static final String TITLE_LABEL = "Portfolio Selection View";
     public static final String ADD_PORTFOLIO_BUTTON_LABEL = "Add Portfolio";
-
     public List<String> portfolioNames;
 
     public PortfolioSelectionViewModel() {
@@ -29,7 +29,7 @@ public class PortfolioSelectionViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("portfolioNames", null, portfolioNames);    
+        support.firePropertyChange("portfolioNames", null, portfolioNames);
     }
 
     @Override
