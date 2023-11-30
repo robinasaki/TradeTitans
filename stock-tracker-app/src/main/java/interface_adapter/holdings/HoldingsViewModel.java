@@ -4,6 +4,7 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 public class HoldingsViewModel extends ViewModel {
 
@@ -13,7 +14,7 @@ public class HoldingsViewModel extends ViewModel {
     public final String SHARES_LABEL = "Shares";
     public final String VALUE_LABEL = "Value";
     
-    public HoldingsState state = new HoldingsState();
+    private HoldingsState state;
 
     public HoldingsViewModel() {
         super("holdings");
