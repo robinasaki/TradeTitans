@@ -47,4 +47,25 @@ public class APIDataAccessObjectTest {
         assert(historicalQuotes.get(new Date(123, 10, 4)) == null);
         assert(historicalQuotes.get(new Date(123, 10, 5)) == null);
     }
+
+    @Test
+    public void testGetHistoricalCryptoQuotes() {
+        /**
+         * Test getHistoricalCryptoQuotes()
+         */
+        setUp();
+        String symbol = "#BTC";
+        String currency = "$CNY";
+
+        // the alpha vantage demo returns the data in $CNY
+        Map<Date, Double> historicalQuotesCrypto = DAO.getHistoricalQuotes(symbol,currency);
+
+        Assertions.assertNotNull(historicalQuotesCrypto);
+        Assertions.assertFalse(historicalQuotesCrypto.isEmpty());
+
+        // manually input data from the API demo
+        Assertions.assertEquals(269361.119688, historicalQuotesCrypto.get(new Date(123, 10, 28)), 0.01);
+
+        assert (historicalQuotesCrypto.get(new Date(99999, 10, 5)) == null);
+    }
 }
