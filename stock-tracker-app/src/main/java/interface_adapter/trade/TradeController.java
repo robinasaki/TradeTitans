@@ -11,10 +11,9 @@ public class TradeController {
         this.tradeInteractor = tradeInteractor;
     }
 
-    public void execute(String portfolioName, double tradingFee, String assetInSymbol, String assetOutSymbol,
-                        double amountIn, double amountOut) {
-        TradeInputData tradeInputData = new TradeInputData(portfolioName, tradingFee, assetInSymbol, assetOutSymbol,
-                amountIn, amountOut);
+    public void execute(String portfolioName, String assetInSymbol, String assetOutSymbol,
+                        double amountIn, double amountOut, double tradingFee) {
+        TradeInputData tradeInputData = new TradeInputData(portfolioName, tradingFee, assetInSymbol, assetOutSymbol, amountIn, amountOut);
         tradeInteractor.execute(tradeInputData);
     }
 }

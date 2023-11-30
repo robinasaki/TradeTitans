@@ -15,12 +15,17 @@ import interface_adapter.holdings.UpdatePricesPresenter;
 import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
+import interface_adapter.trade.TradePresenter;
+import interface_adapter.trade.TradeController;
 import use_case.add_portfolio.AddPortfolioInteractor;
 import use_case.add_portfolio.AddPortfolioInputBoundary;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import use_case.update_prices.UpdatePricesInteractor;
 import use_case.update_prices.UpdatePricesInputBoundary;
 import use_case.update_prices.UpdatePricesOutputBoundary;
+import use_case.trade.TradeInteractor;
+import use_case.trade.TradeInputBoundary;
+import use_case.trade.TradeOutputBoundary;
 import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
@@ -51,7 +56,7 @@ public class Main {
 
         AddPortfolioViewModel addPortfolioViewModel = new AddPortfolioViewModel();
 
-        //TradeViewModel tradeViewModel = new TradeViewModel();
+        TradeViewModel tradeViewModel = new TradeViewModel();
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
 
@@ -76,7 +81,8 @@ public class Main {
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
         views.add(addPortfolioView, "add_portfolio");
 
-        //TradeView tradeView = new TradeView(tradeViewModel);
+        TradeView tradeView = createTradeView(tradeViewModel, viewManagerModel, holdingsViewModel);
+        views.add(tradeView, "trade");
 
         application.pack();
         application.setVisible(true);
@@ -97,5 +103,13 @@ public class Main {
         AddPortfolioInputBoundary addPortfolioInputBoundary = new AddPortfolioInteractor(fileDataAccessObject, addPortfolioOutputBoundary);
         AddPortfolioController addPortfolioController = new AddPortfolioController(addPortfolioInputBoundary);
         return new AddPortfolioView(addPortfolioViewModel, viewManagerModel, addPortfolioController);
+    }
+
+    private static TradeView createTradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, HoldingsViewModel holdingsViewModel) {
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        TradeOutputBoundary TradeOutputBoundary = new TradePresenter(viewManagerModel, holdingsViewModel);
+        TradeInputBoundary TradeInputBoundary = new TradeInteractor(fileDataAccessObject, TradeOutputBoundary);
+        TradeController tradeController = new TradeController(TradeInputBoundary);
+        return new TradeView(tradeViewModel, viewManagerModel, tradeController);
     }
 }

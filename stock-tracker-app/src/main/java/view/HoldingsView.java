@@ -73,7 +73,8 @@ public class HoldingsView extends JPanel {
 
     private class AddTradeButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // TODO: Switch to add trade view
+            // TODO: we have to pass the portfolio name and default currency
+            viewManagerModel.setActiveView("trade");
         }
     }
     
