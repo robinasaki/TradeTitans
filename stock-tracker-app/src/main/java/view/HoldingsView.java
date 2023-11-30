@@ -7,6 +7,8 @@ import interface_adapter.ViewManagerModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,17 @@ public class HoldingsView extends JPanel {
 
         panel.add(scrollPane);
 
+        JButton backButton = new JButton("Back to Portfolio Selection");
+        backButton.addActionListener(new BackButtonListener());
+        panel.add(backButton);
+
         add(panel);
+    }
+
+    private class BackButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("portfolio_selection");
+        }
     }
 
 
