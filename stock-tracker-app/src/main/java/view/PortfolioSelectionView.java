@@ -3,21 +3,27 @@ package view;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.holdings.UpdatePricesController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+
+
 public class PortfolioSelectionView extends JPanel {
     public final String viewName = "portfolio_selection";
 
     private PortfolioSelectionViewModel viewModel;
     private ViewManagerModel viewManagerModel;
+    private UpdatePricesController updatePricesController;
 
-    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel, ViewManagerModel viewManagerModel) {
+    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel, ViewManagerModel viewManagerModel, UpdatePricesController updatePricesController) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
+        this.updatePricesController = updatePricesController;
         initView();
     }
 
@@ -49,7 +55,7 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewManagerModel.setActiveView("holdings");
+            updatePricesController.execute(portfolioName);
         }
     }
 }
