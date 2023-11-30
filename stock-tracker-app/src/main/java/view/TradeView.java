@@ -62,12 +62,21 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         JPanel buttons = new JPanel();
 
         JButton cancelButton = new JButton(tradeViewModel.CANCEL_BUTTON_LABEL);
-        cancelButton.addActionListener(new ConfirmButtonListener());
+        cancelButton.addActionListener(new CancelButtonListener());
         buttons.add(cancelButton);
 
         JButton confirmButton = new JButton(tradeViewModel.CONFIRM_BUTTON_LABEL);
         confirmButton.addActionListener(new ConfirmButtonListener());
         buttons.add(confirmButton);
+
+        showRelevantFields();
+
+        tradeTypeComboBox.addActionListener(new TradeTypeComboBoxListener());
+
+        panel.add(buttons);
+        panel.add(tradeTypeComboBox);
+
+        add(panel);
 
 /*
         trade.addActionListener(
