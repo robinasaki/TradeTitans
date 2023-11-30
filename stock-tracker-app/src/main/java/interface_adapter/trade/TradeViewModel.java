@@ -7,9 +7,14 @@ import java.beans.PropertyChangeSupport;
 
 public class TradeViewModel extends ViewModel {
     public final String TITLE_LABEL = "Trade View";
-    //TODO: fix TRADE_LABEL
-    public final String TRADE_LABEL = "Trade amount";
-    public final String CONFIRM_BUTTON_LABEL = "Trade now";
+    public final String TRADE_TYPE_LABEL = "Trade type";
+    public final String AMOUNT_LABEL = "Amount";
+    public final String CURRENCY_LABEL = "Currency";
+    public final String SHARES_LABEL = "Shares";
+    public final String SYMBOL_LABEL = "Symbol";
+    public final String PRICE_LABEL = "Price";
+    
+    public final String CONFIRM_BUTTON_LABEL = "Confirm Trade";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
     private TradeState state = new TradeState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
