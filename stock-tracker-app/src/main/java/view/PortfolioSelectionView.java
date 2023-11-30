@@ -68,6 +68,10 @@ public class PortfolioSelectionView extends JPanel {
         creditButton.addActionListener(new creditButtonListener());
         panel.add(creditButton);
 
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        add(scrollPane);
+
         add(panel);
     }
 
