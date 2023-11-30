@@ -3,10 +3,10 @@ package use_case.DeletePortfolio;
 import entity.Portfolio;
 import data_access.FileDataAccessObject;
 
-public class DeletePortfolio {
+public class DeletePortfolioInteractor {
     private final FileDataAccessObject fileDataAccessObject;
 
-    public DeletePortfolio(FileDataAccessObject fileDataAccessObject) {
+    public DeletePortfolioInteractor(FileDataAccessObject fileDataAccessObject) {
         this.fileDataAccessObject = fileDataAccessObject;
     }
 

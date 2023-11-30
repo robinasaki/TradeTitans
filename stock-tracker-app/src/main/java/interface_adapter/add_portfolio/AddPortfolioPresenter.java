@@ -1,31 +1,38 @@
 package interface_adapter.add_portfolio;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.trade.TradePresenter;
+import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import use_case.add_portfolio.AddPortfolioOutputData;
 
-public class AddPortfolioPresenter implements AddPortfolioOutputBoundary {
-    private final AddPortfolioViewModel addPortfolioViewModel;
-    private ViewManagerModel viewManagerModel;
+import java.util.List;
 
-    public AddPortfolioPresenter(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel) {
-        this.addPortfolioViewModel = addPortfolioViewModel;
+public class AddPortfolioPresenter implements AddPortfolioOutputBoundary {
+    private final ViewManagerModel viewManagerModel;
+    private final PortfolioSelectionViewModel portfolioSelectionViewModel;
+
+    public AddPortfolioPresenter(ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
+        this.portfolioSelectionViewModel = portfolioSelectionViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
-    public void prepareSuccessView(AddPortfolioOutputData user) {
-        AddPortfolioState addPortfolioState = addPortfolioViewModel.getState();
-        this.addPortfolioViewModel.setState(addPortfolioState);
-        viewManagerModel.setActiveView(addPortfolioViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+    public void prepareSuccessView(String portfolioName) {
+        // These would be different if we use a state for portfolio selection
+        List<String> portfolioNames = portfolioSelectionViewModel.getPortfolioNames();
+        portfolioNames.add(portfolioName);
+        portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
+        portfolioSelectionViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView("portfolio_selection");
     }
 
     @Override
     public void prepareFailView(String error) {
-        AddPortfolioState addPortfolioState = addPortfolioViewModel.getState();
+        // addPortfolioViewModel is not relevant because we are switching to portfolio_selection
+
+        // AddPortfolioState addPortfolioState = addPortfolioViewModel.getState();
         // TODO: COMPLETE THIS -> addPortfolioState.
-        addPortfolioViewModel.firePropertyChanged();
+        // addPortfolioViewModel.firePropertyChanged();
     }
 }

@@ -3,94 +3,69 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.awt.event.ActionListener;
 
 import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.add_portfolio.AddPortfolioState;
 import interface_adapter.add_portfolio.AddPortfolioViewModel;
+import interface_adapter.ViewManagerModel;
 
-public class AddPortfolioView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "add portfolio";
+public class AddPortfolioView extends JPanel { // implements ActionListener, PropertyChangeListener {
+    public final String viewName = "add_portfolio";
+
     private final AddPortfolioViewModel addPortfolioViewModel;
+    private final ViewManagerModel viewManagerModel;
     private final AddPortfolioController addPortfolioController;
-    private final JTextField portfolioInputField = new JTextField(15);
-    private final JButton cancel;
-    private final JButton addPortfolio;
 
-    public AddPortfolioView(AddPortfolioController addPortfolioController, AddPortfolioViewModel addPortfolioViewModel){
-        this.addPortfolioController = addPortfolioController;
+    private final JTextField portfolioInputField = new JTextField(15);
+    private final JTextField defaultCurrencyField = new JTextField(5);
+
+    private JButton cancel;
+    private JButton addPortfolio;
+
+    public AddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, AddPortfolioController addPortfolioController) {
         this.addPortfolioViewModel = addPortfolioViewModel;
-        addPortfolioViewModel.addPropertyChangeListener(this);
+        this.viewManagerModel = viewManagerModel;
+        this.addPortfolioController = addPortfolioController;
+        initView();
+    }
+
+    private void initView() {
+        JPanel panel = new JPanel();
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(title);
 
-        LabelTextPanel amountInfo = new LabelTextPanel(new JLabel(addPortfolioViewModel.ADD_PORTFOLIO_LABEL),
-                portfolioInputField);
-        JPanel buttons = new JPanel();
+        panel.add(new LabelTextPanel(new JLabel("Portfolio Name"), portfolioInputField));
+        panel.add(new LabelTextPanel(new JLabel("Default Currency"), defaultCurrencyField));
+
         cancel = new JButton(addPortfolioViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
         addPortfolio = new JButton(addPortfolioViewModel.CONFIRM_BUTTON_LABEL);
-        addPortfolio.add(addPortfolio);
 
-        addPortfolio.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals("add portfolio")) {
-                            AddPortfolioState currentState = addPortfolioViewModel.getState();
+        addPortfolio.addActionListener(new ConfirmButtonListener());
+        cancel.addActionListener(new CancelButtonListener());
 
-                            addPortfolioController.execute(currentState.getPortfolioName(),
-                                    currentState.getDefaultCurrency());
-                        }
-                    }
-                }
-        );
-        cancel.addActionListener(this);
+        panel.add(addPortfolio);
+        panel.add(cancel);
 
-        portfolioInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        AddPortfolioState currentState = addPortfolioViewModel.getState();
-                        String text = portfolioInputField.getText() + e.getKeyChar();
-                        currentState.setPortfolioName(text);
-                        addPortfolioViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(amountInfo);
-        this.add(buttons);
+        add(panel);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {}
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        AddPortfolioState state = (AddPortfolioState) evt.getNewValue();
-        if (state.getPortfolioCreationError() != null) {
-            JOptionPane.showMessageDialog(this, state.getPortfolioCreationError());
+    private class ConfirmButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String portfolioName = portfolioInputField.getText();
+            // we have to add the $ sign to the default currency string
+            String defaultCurrency = "$" + defaultCurrencyField.getText();
+            addPortfolioController.execute(portfolioName, defaultCurrency);
         }
-        if (state.getClearMessage() != null) {
-            JOptionPane.showMessageDialog(this, state.getClearMessage());
+    }
+
+    private class CancelButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("portfolio_selection");
         }
     }
 }

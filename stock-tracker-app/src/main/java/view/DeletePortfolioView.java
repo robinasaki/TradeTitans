@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.DeletePortfolio.DeletePortfolioState;
-import interface_adapter.DeletePortfolio.DeletePortfolioViewModel;
+import interface_adapter.delete_portfolio.DeletePortfolioState;
+import interface_adapter.delete_portfolio.DeletePortfolioViewModel;
 
 import javax.swing.*;
 import java.awt.*;

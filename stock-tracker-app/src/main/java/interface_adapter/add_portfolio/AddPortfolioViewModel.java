@@ -14,7 +14,7 @@ public class AddPortfolioViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public AddPortfolioViewModel() {
-        super("add portfolio");
+        super("add_portfolio");
     }
 
     public void setState(AddPortfolioState state) {

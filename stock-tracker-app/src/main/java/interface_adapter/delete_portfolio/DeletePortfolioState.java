@@ -1,6 +1,4 @@
-package interface_adapter.DeletePortfolio;
-
-import interface_adapter.deposit.DepositState;
+package interface_adapter.delete_portfolio;
 
 public class DeletePortfolioState {
     private String confirm;

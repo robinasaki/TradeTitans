@@ -3,28 +3,27 @@ package interface_adapter.trade;
 import interface_adapter.ViewManagerModel;
 import use_case.trade.TradeOutputBoundary;
 import use_case.trade.TradeOutputData;
+import interface_adapter.holdings.HoldingsViewModel;
 
 public class TradePresenter implements TradeOutputBoundary {
-    private final TradeViewModel tradeViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final HoldingsViewModel holdingsViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public TradePresenter(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel) {
-        this.tradeViewModel = tradeViewModel;
+    public TradePresenter(ViewManagerModel viewManagerModel, HoldingsViewModel holdingsViewModel) {
+        this.holdingsViewModel = holdingsViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
-    public void prepareSuccessView(TradeOutputData user) {
-        TradeState tradeState = tradeViewModel.getState();
-        this.tradeViewModel.setState(tradeState);
-        viewManagerModel.setActiveView(tradeViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+    public void present() {
+        // TODO: could be nice to update holdingsState here
+        viewManagerModel.setActiveView("holdings");
     }
 
     @Override
     public void prepareFailView(String error) {
-        TradeState tradeState = tradeViewModel.getState();
-        tradeState.getNotTradeableError();
-        tradeViewModel.firePropertyChanged();
+        //TradeState tradeState = tradeViewModel.getState();
+        //tradeState.getNotTradeableError();
+        //tradeViewModel.firePropertyChanged();
     }
 }
