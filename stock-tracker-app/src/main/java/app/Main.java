@@ -3,14 +3,21 @@ package app;
 import view.PortfolioSelectionView;
 import view.HoldingsView;
 import view.TradeView;
+import view.AddPortfolioView;
 import view.ViewManager;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
+import interface_adapter.add_portfolio.AddPortfolioViewModel;
+import interface_adapter.add_portfolio.AddPortfolioPresenter;
+import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.holdings.HoldingsViewModel;
 import interface_adapter.holdings.UpdatePricesPresenter;
 import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
+import use_case.add_portfolio.AddPortfolioInteractor;
+import use_case.add_portfolio.AddPortfolioInputBoundary;
+import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import use_case.update_prices.UpdatePricesInteractor;
 import use_case.update_prices.UpdatePricesInputBoundary;
 import use_case.update_prices.UpdatePricesOutputBoundary;
@@ -37,9 +44,13 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         PortfolioSelectionViewModel portfolioSelectionViewModel = new PortfolioSelectionViewModel();
+
         HoldingsState emptyHoldingsState = new HoldingsState();
         HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
         holdingsViewModel.setState(emptyHoldingsState);
+
+        AddPortfolioViewModel addPortfolioViewModel = new AddPortfolioViewModel();
+
         //TradeViewModel tradeViewModel = new TradeViewModel();
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
@@ -61,11 +72,11 @@ public class Main {
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
         views.add(holdingsView, "holdings");
+
+        AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
+        views.add(addPortfolioView, "add_portfolio");
+
         //TradeView tradeView = new TradeView(tradeViewModel);
-        //views.add(tradeView, "tradeView");
-
-        //viewManagerModel.firePropertyChanged();
-
 
         application.pack();
         application.setVisible(true);
@@ -78,5 +89,13 @@ public class Main {
         UpdatePricesInputBoundary updatePricesInputBoundary = new UpdatePricesInteractor(fileDataAccessObject, apiDataAccessObject, updatePricesOutputBoundary);
         UpdatePricesController updatePricesController = new UpdatePricesController(updatePricesInputBoundary);
         return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController);
+    }
+
+    private static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        AddPortfolioOutputBoundary addPortfolioOutputBoundary = new AddPortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
+        AddPortfolioInputBoundary addPortfolioInputBoundary = new AddPortfolioInteractor(fileDataAccessObject, addPortfolioOutputBoundary);
+        AddPortfolioController addPortfolioController = new AddPortfolioController(addPortfolioInputBoundary);
+        return new AddPortfolioView(addPortfolioViewModel, viewManagerModel, addPortfolioController);
     }
 }

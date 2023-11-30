@@ -28,10 +28,6 @@ public class PortfolioSelectionView extends JPanel {
     }
 
     private void initView() {
-        //setTitle("Portfolio Selection");
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
-
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
         // Add buttons for each portfolio
@@ -41,6 +37,11 @@ public class PortfolioSelectionView extends JPanel {
             button.addActionListener(new PortfolioButtonListener(portfolioName));
             panel.add(button);
         }
+
+        // Add button to add a new portfolio
+        JButton addPortfolioButton = new JButton("Add Portfolio");
+        addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
+        panel.add(addPortfolioButton);
 
         add(panel);
     }
@@ -58,5 +59,12 @@ public class PortfolioSelectionView extends JPanel {
             updatePricesController.execute(portfolioName);
         }
     }
+
+    private class AddPortfolioButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("add_portfolio");
+        }
+    }
+
 }
 

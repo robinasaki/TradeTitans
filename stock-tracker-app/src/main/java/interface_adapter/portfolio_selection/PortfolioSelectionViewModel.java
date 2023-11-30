@@ -14,7 +14,7 @@ public class PortfolioSelectionViewModel extends ViewModel {
     public List<String> portfolioNames;
 
     public PortfolioSelectionViewModel() {
-        super("portfolioSelection");
+        super("portfolio_selection");
     }
 
     public List<String> getPortfolioNames() {
