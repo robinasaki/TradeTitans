@@ -7,12 +7,11 @@ import java.time.LocalDateTime;
 
 public class TradeInteractor implements TradeInputBoundary{
     private final FileDataAccessObject fileDataAccessObject;
+    private final TradeOutputBoundary presenter;
 
-    final TradeOutputBoundary tradePresenter;
-
-    public TradeInteractor(FileDataAccessObject fileDataAccessObject, TradeOutputBoundary tradePresenter) {
+    public TradeInteractor(FileDataAccessObject fileDataAccessObject, TradeOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
-        this.tradePresenter = tradePresenter;
+        this.presenter = presenter;
     }
 
     @Override
@@ -27,6 +26,7 @@ public class TradeInteractor implements TradeInputBoundary{
 
         portfolio.addTrade(trade);
         fileDataAccessObject.savePortfolio(portfolio);
+        presenter.present();
         
     }
 
