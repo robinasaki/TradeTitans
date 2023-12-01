@@ -19,7 +19,9 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
     private final AddPortfolioController addPortfolioController;
 
     private final JTextField portfolioInputField = new JTextField(15);
-    private final JComboBox<String> defaultCurrencyField = new JComboBox<>(new String[]{"CAD", "USD", "GBP", "EUR", "CNY", "INR"});
+    private final JComboBox<String> defaultCurrencyField = new JComboBox<>(new String[]{"CAD", "USD", "GBP", "EUR", "CNY", "CHF", "AUD", "other"});
+
+    private final JTextField otherCurrencyField = new JTextField(5);
 
     private JButton cancel;
     private JButton addPortfolio;
@@ -42,6 +44,12 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
 
         panel.add(new LabelTextPanel(new JLabel("Portfolio Name"), portfolioInputField));
         panel.add(new LabelTextPanel(new JLabel("Default Currency"), defaultCurrencyField));
+
+        // TODO: add more
+        JLabel currencyInstruction = new JLabel("<html>" + "CAD: the Canadian Dollar <br/>USD: the United States Dollar <br/>GRP: the Great Britain Pound <br/>EUR: the Euro <br/>CNY: the Chinese Yuan <br/> ... " + "<html/>");
+        currencyInstruction.setForeground(Color.gray);
+        panel.add(currencyInstruction);
+        panel.add(new LabelTextPanel(new JLabel("If you select `others`, please specify its abbreviation"), otherCurrencyField));
 
         cancel = new JButton(addPortfolioViewModel.CANCEL_BUTTON_LABEL);
         addPortfolio = new JButton(addPortfolioViewModel.CONFIRM_BUTTON_LABEL);
@@ -67,18 +75,20 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
             else {
                 // we have to add the $ sign to the default currency string
                 String defaultCurrency = "$" + defaultCurrencyField.getSelectedItem();
-                ArrayList<String> possibleCurrencyOptions = new ArrayList<>();
-                possibleCurrencyOptions.add("$GBP");
-                possibleCurrencyOptions.add("$CAD");
-                possibleCurrencyOptions.add("$EUR");
-                possibleCurrencyOptions.add("$INR");
-                possibleCurrencyOptions.add("$CNY");
-                possibleCurrencyOptions.add("$USD");
-                if (possibleCurrencyOptions.contains(defaultCurrency)) {
-                    addPortfolioController.execute(portfolioName, defaultCurrency);
+
+                if (!(defaultCurrency.equals("$other")) && !(otherCurrencyField.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(panel, "<html> If you want to choose other currencies, <br/> please elect `other` in the dropdown menu <html/>", "Failed to select a currency", JOptionPane.INFORMATION_MESSAGE);
                 }
-                else {
-                    JOptionPane.showMessageDialog(panel, "<html> Invalid currency, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
+
+                // selected other, wrong currency
+                if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
+                    JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again<html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                // use the other currency input field
+                else if (defaultCurrency.equals("$other") && !(otherCurrencyField.getText().isEmpty())) {
+                    defaultCurrency = "$" + otherCurrencyField.getText();
+                    JOptionPane.showMessageDialog(panel, "Portfolio created successfully!", "Portfolio created successfully", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
