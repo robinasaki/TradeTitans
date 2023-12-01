@@ -39,7 +39,7 @@ public class HoldingsView extends JPanel {
         List<Double> quotes = viewModel.getState().getQuotes();
         List<Double> shares = viewModel.getState().getShares();
         List<Double> values = viewModel.getState().getValues();
-        for (int i = 0; i < symbols.size() - 1; i++) {
+        for (int i = 0; i < symbols.size(); i++) {
             Object[] row = {symbols.get(i), quotes.get(i), shares.get(i), values.get(i)};
             tableModel.addRow(row);
         }

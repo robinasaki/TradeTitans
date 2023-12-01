@@ -4,6 +4,8 @@ import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.Date;
 
 import entity.Portfolio;
 import entity.Tradeable;
@@ -30,14 +32,20 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         ArrayList<Double> values = new ArrayList<>();
 
         for(String holding : portfolio.getHoldings().keySet()) {
-            Tradeable assetTradeable = Tradeable.getTradeable(holding);
-            assetTradeable.setPriceHistory(apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol()));
-            holdings.add(holding);
+            Tradeable assetTradeable = portfolio.getHoldings().get(holding);
+            TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol());
+
+            assetTradeable.setPriceHistory(priceHistory);
+
+            holdings.add(assetTradeable.getSymbol());
             prices.add(assetTradeable.getCurrentPrice());
-            shares.add(portfolio.getHoldings().get(holding));
-            values.add(assetTradeable.getCurrentPrice() * portfolio.getHoldings().get(holding));
+            shares.add(assetTradeable.getSharesHeld());
+            values.add(assetTradeable.getCurrentValue());
         }
         holdings.add("Total");
+        // TODO: should be something meaningful like N/A for total price and shares
+        prices.add(0.0);
+        shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
 
         fileDataAccessObject.savePortfolio(portfolio);

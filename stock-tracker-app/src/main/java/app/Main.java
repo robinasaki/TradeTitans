@@ -79,7 +79,7 @@ public class Main {
 
         viewManagerModel.setActiveView("portfolio_selection");
         
-        PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, viewManagerModel);
+        PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
@@ -101,13 +101,13 @@ public class Main {
         application.setVisible(true);
     }
 
-    private static PortfolioSelectionView createPortfolioSelectionView(PortfolioSelectionViewModel portfolioSelectionViewModel, HoldingsViewModel holdingsViewModel, ViewManagerModel viewManagerModel) {
+    private static PortfolioSelectionView createPortfolioSelectionView(PortfolioSelectionViewModel portfolioSelectionViewModel, HoldingsViewModel holdingsViewModel, DeletePortfolioViewModel deletePortfolioViewModel, ViewManagerModel viewManagerModel) {
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
         APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
         UpdatePricesOutputBoundary updatePricesOutputBoundary = new UpdatePricesPresenter(viewManagerModel, holdingsViewModel);
         UpdatePricesInputBoundary updatePricesInputBoundary = new UpdatePricesInteractor(fileDataAccessObject, apiDataAccessObject, updatePricesOutputBoundary);
         UpdatePricesController updatePricesController = new UpdatePricesController(updatePricesInputBoundary);
-        return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController);
+        return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController, deletePortfolioViewModel);
     }
 
     private static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {

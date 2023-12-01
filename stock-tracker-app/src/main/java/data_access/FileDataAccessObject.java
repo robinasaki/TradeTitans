@@ -3,6 +3,7 @@ package data_access;
 import entity.Portfolio;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
@@ -42,6 +43,8 @@ public class FileDataAccessObject {
     public List<Portfolio> loadPortfolios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (List<Portfolio>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

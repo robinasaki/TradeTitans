@@ -15,13 +15,13 @@ public class Portfolio implements Serializable {
 
     private Tradeable currency;
 
-    private HashMap<String, Double> holdings;
+    private HashMap<String, Tradeable> holdings;
 
-    private ArrayList<Transaction> transactions;
+    private ArrayList<TradeTransaction> transactions;
 
     private final int portfolioId;
 
-    public Portfolio(String name, Tradeable currency, HashMap<String, Double> holdings, ArrayList<Transaction> transactions) {
+    public Portfolio(String name, Tradeable currency, HashMap<String, Tradeable> holdings, ArrayList<TradeTransaction> transactions) {
         this.name = name;
         this.currency = currency;
         this.holdings = holdings;
@@ -52,18 +52,20 @@ public class Portfolio implements Serializable {
         return this.currency;
     }
 
-    public HashMap<String, Double> getHoldings() {
+    public HashMap<String, Tradeable> getHoldings() {
         return this.holdings;
     }
 
-    public ArrayList<Transaction> getTransactions() {
+    public ArrayList<TradeTransaction> getTransactions() {
         return this.transactions;
     }
 
     // for adding to "watchlist"
     public void addAsset(String asset) {
-        if (!holdings.containsKey(asset))
-            holdings.put(asset, 0.0);
+        if (!holdings.containsKey(asset)) {
+            Tradeable assetTradeable = new Tradeable("name", asset);
+            holdings.put(asset, assetTradeable);
+        }
     }
 
     // users should only be able to do this if they have no holdings of the asset
@@ -78,47 +80,46 @@ public class Portfolio implements Serializable {
 
     public void addTrade(TradeTransaction transaction) {
         // amounts being traded
+        String assetIn = transaction.getAssetIn();
+        String assetOut = transaction.getAssetOut();
         double amountIn = transaction.getAmountIn();
         double amountOut = transaction.getAmountOut();
 
         // if the asset is not in holdings, add it, unless it is "outside portfolio"
-        if (holdings.get(transaction.getAssetIn()) == null && !transaction.getAssetIn().isEmpty())
-            holdings.put(transaction.getAssetIn(), 0.0);
-        if (holdings.get(transaction.getAssetOut()) == null && !transaction.getAssetOut().isEmpty())
-            holdings.put(transaction.getAssetOut(), 0.0);
+        if (holdings.get(assetIn) == null && !assetIn.isEmpty())
+            addAsset(assetIn);
+        if (holdings.get(assetOut) == null && !assetOut.isEmpty())
+            addAsset(assetOut);
 
         if (!transaction.getAssetIn().isEmpty()) {
             // as long a it's not a withdraw, we calculate amount in holdings after trade, then update holdings
-            double assetInAmount = holdings.get(transaction.getAssetIn()) + amountIn;
-            holdings.put(transaction.getAssetIn(), assetInAmount);
-
-            // add asset to tradeable list
-            Tradeable.addTradeable(transaction.getAssetIn());
+            double assetInAmount = holdings.get(assetIn).getSharesHeld() + amountIn;
+            holdings.get(assetIn).setSharesHeld(assetInAmount);
         }
 
         if (!transaction.getAssetOut().isEmpty()) {
             // as long a it's not a deposit, we calculate amount in holdings after trade, then update holdings
-            double assetOutAmount = holdings.get(transaction.getAssetOut()) - amountOut;
-            holdings.put(transaction.getAssetOut(), assetOutAmount);
+            double assetOutAmount = holdings.get(assetOut).getSharesHeld() - amountOut;
+            holdings.get(assetOut).setSharesHeld(assetOutAmount);
 
-            // add asset to tradeable list
-            Tradeable.addTradeable(transaction.getAssetOut());
         }
 
         // record transaction
         transactions.add(transaction);
     }
-
+/*
     public void deposit(BankingTransaction transaction) {
         if (transaction.getIfDeposit()) {
             if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
                 // if the user already has the inputted asset
                 this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) + transaction.getAmount());
-                this.transactions.add(transaction);
+                // TODO: how to add BankingTransaction to transactions, and do we need to?
+                //this.transactions.add(transaction);
             } else {
                 // no existing asset
                 this.holdings.put(transaction.getAsset().getSymbol(), transaction.getAmount());
-                this.transactions.add(transaction);
+                // TODO: how to add BankingTransaction to transactions, and do we need to?
+                //this.transactions.add(transaction);
             }
         } else {
             throw new RuntimeException("This transaction is not a deposit transaction");
@@ -130,7 +131,8 @@ public class Portfolio implements Serializable {
             if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
                 if (this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount() >= 0) {
                     this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount());
-                    this.transactions.add(transaction);
+                    // TODO: how to add BankingTransaction to transactions, and do we need to?
+                    // this.transactions.add(transaction);
                 } else {
                     throw new RuntimeException("You do not have enough assets for this withdraw.");
                 }
@@ -148,12 +150,11 @@ public class Portfolio implements Serializable {
             }
         }
     }
-
+*/
     public double getPortfolioValue() {
         double value = 0;
         for (String asset : this.holdings.keySet()) {
-            Tradeable assetTradeable = Tradeable.getTradeable(asset);
-            value += assetTradeable.getCurrentPrice() * this.holdings.get(asset);
+            value += holdings.get(asset).getSharesHeld() * holdings.get(asset).getCurrentPrice();
         }
         return value;
     }

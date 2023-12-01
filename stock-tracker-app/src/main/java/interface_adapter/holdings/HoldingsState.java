@@ -16,11 +16,9 @@ public class HoldingsState {
 
     public HoldingsState() {
         this.symbols = new ArrayList<String>();
-        this.symbols.add("Total");
         this.quotes = new ArrayList<Double>();
         this.shares = new ArrayList<Double>();
         this.values = new ArrayList<Double>();
-        this.values.add(0.0);
     }
 
     public ArrayList<String> getSymbols() {

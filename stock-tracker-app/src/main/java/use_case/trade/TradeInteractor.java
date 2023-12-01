@@ -25,23 +25,12 @@ public class TradeInteractor implements TradeInputBoundary{
                                                       tradeInputData.getTradingFee());
 
         portfolio.addTrade(trade);
+
+        // Probably not the cleanest way to do this but it works
+        fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
+
         presenter.present();
         
     }
-
-    /* @Override
-    public void execute(TradeInputData tradeInputData) {
-        if (userDataAccessObject.notTradeable()) {
-            userPresenter.prepareFailView("These items are not tradeable.");
-        } else {
-            TradeTransaction tradeTransaction = new TradeTransaction(tradeInputData.getTradingFee(),
-                    tradeInputData.getAssetIn(), tradeInputData.getAssetOut(), tradeInputData.getAmountIn(),
-                    tradeInputData.getAmountOut());
-            //TODO: fix third input of output data
-            TradeOutputData tradeOutputData = new TradeOutputData(false, true,
-                    bankingTransaction.getBankingTransaction());
-            userPresenter.prepareSuccessView(tradeOutputData);
-        }
-    } */
 }
