@@ -27,9 +27,18 @@ public class PortfolioSelectionView extends JPanel {
         this.viewManagerModel = viewManagerModel;
         this.updatePricesController = updatePricesController;
         initView();
+
+        viewModel.addPropertyChangeListener(evt -> {
+            if ("portfolioNames".equals(evt.getPropertyName())) {
+                initView();
+            }
+        });
     }
 
     private void initView() {
+        // Clear the panel
+        removeAll();
+
         JPanel panel = new JPanel(new GridLayout(0, 1));
         try {
             BufferedImage myPicture = ImageIO.read(new File("src/images/logo.jpg"));
