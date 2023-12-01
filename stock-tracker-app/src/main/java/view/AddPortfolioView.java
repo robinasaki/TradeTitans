@@ -30,8 +30,9 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         initView();
     }
 
+    JPanel panel;
     private void initView() {
-        JPanel panel = new JPanel(new GridLayout(0,1));
+         panel = new JPanel(new GridLayout(0,1));
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -56,9 +57,14 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         @Override
         public void actionPerformed(ActionEvent e) {
             String portfolioName = portfolioInputField.getText();
-            // we have to add the $ sign to the default currency string
-            String defaultCurrency = "$" + defaultCurrencyField.getText();
-            addPortfolioController.execute(portfolioName, defaultCurrency);
+            if (!portfolioName.matches("\\S+")){
+                JOptionPane.showMessageDialog(panel, "Invalid name", "Fail to create a Portfolio",1 );
+            }
+            else {
+                // we have to add the $ sign to the default currency string
+                String defaultCurrency = "$" + defaultCurrencyField.getText();
+                addPortfolioController.execute(portfolioName, defaultCurrency);
+            }
         }
     }
 
