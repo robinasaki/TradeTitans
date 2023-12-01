@@ -25,7 +25,11 @@ public class TradeInteractor implements TradeInputBoundary{
                                                       tradeInputData.getTradingFee());
 
         portfolio.addTrade(trade);
+
+        // Probably not the cleanest way to do this but it works
+        fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
+
         presenter.present();
         
     }
