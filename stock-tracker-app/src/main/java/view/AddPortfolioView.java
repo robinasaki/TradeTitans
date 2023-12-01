@@ -57,7 +57,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         @Override
         public void actionPerformed(ActionEvent e) {
             String portfolioName = portfolioInputField.getText();
-            if (!portfolioName.matches("\\S+")){
+            if (portfolioName.length() == 0 || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
                 JOptionPane.showMessageDialog(panel, "Invalid name", "Fail to create a Portfolio",1 );
             }
             else {
