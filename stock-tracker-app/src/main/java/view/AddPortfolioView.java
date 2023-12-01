@@ -19,7 +19,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
     private final AddPortfolioController addPortfolioController;
 
     private final JTextField portfolioInputField = new JTextField(15);
-    private final JTextField defaultCurrencyField = new JTextField(5);
+    private final JComboBox<String> defaultCurrencyField = new JComboBox<>(new String[]{"CAD", "USD", "GBP", "EUR", "CNY", "INR"});
 
     private JButton cancel;
     private JButton addPortfolio;
@@ -65,7 +65,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
             }
             else {
                 // we have to add the $ sign to the default currency string
-                String defaultCurrency = "$" + defaultCurrencyField.getText();
+                String defaultCurrency = "$" + defaultCurrencyField.getSelectedItem();
                 ArrayList<String> possibleCurrencyOptions = new ArrayList<>();
                 possibleCurrencyOptions.add("$GBP");
                 possibleCurrencyOptions.add("$CAD");
