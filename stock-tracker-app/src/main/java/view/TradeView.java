@@ -44,7 +44,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private void initView() {
         //tradeViewModel.addPropertyChangeListener(this);
 
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new GridLayout(0, 1));
 
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
