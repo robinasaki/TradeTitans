@@ -1,19 +1,30 @@
 package interface_adapter.delete_portfolio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DeletePortfolioState {
     private String confirm;
-    private String portfolioName;
-    private String Cancel;
+    private ArrayList<String> portfolioNames;
+    private String cancel;
+
+    private int deletionIndex;
 
     public DeletePortfolioState(DeletePortfolioState deletePortfolioState){
-        this.Cancel = deletePortfolioState.Cancel;
+        this.cancel = deletePortfolioState.cancel;
         this.confirm = deletePortfolioState.confirm;
-        this.portfolioName = deletePortfolioState.portfolioName;
+        this.portfolioNames = deletePortfolioState.portfolioNames;
     }
 
-    public DeletePortfolioState(){}
+    public DeletePortfolioState(){
+        this.portfolioNames = new ArrayList<>();
+    }
 
-    public String getPortfolioName() {
-        return portfolioName;
+    public void addPortfolioName(String portfolioName) {
+        this.portfolioNames.add(portfolioName);
+    }
+
+    public List<String> getPortfolioNames() {
+        return portfolioNames;
     }
 }

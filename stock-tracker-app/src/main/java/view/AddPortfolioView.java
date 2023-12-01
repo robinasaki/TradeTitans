@@ -86,7 +86,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
                 // TODO: we could potentially allow lengths that aren't 3, if we want to support default currencies that aren't actually currencies
                 else
                 if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
-                    JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again<html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again. <html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
                 }
 
                 // use the other currency input field

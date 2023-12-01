@@ -61,8 +61,6 @@ public class Main {
 
         AddPortfolioViewModel addPortfolioViewModel = new AddPortfolioViewModel();
 
-        DeletePortfolioViewModel deletePortfolioViewModel = new DeletePortfolioViewModel();
-
         TradeViewModel tradeViewModel = new TradeViewModel();
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
@@ -77,8 +75,14 @@ public class Main {
         }
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
 
+        // TODO: EXPERIMENTAL
+        DeletePortfolioViewModel deletePortfolioViewModel = new DeletePortfolioViewModel();
+        for (Portfolio portfolio : portfolios) {
+            deletePortfolioViewModel.getState().addPortfolioName(portfolio.getName());
+        }
+
         viewManagerModel.setActiveView("portfolio_selection");
-        
+
         PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 

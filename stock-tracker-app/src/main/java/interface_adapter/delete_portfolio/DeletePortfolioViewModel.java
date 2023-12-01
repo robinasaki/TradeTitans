@@ -22,17 +22,18 @@ public class DeletePortfolioViewModel extends ViewModel {
         this.state = state;
     }
 
-    public DeletePortfolioViewModel(){
-        super("Delete Portfolio");
+    public DeletePortfolioViewModel() {
+        super("delete_portfolio");
     }
-
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void firePropertyChanged(){
-        support.firePropertyChange("state", null,this.state );
+    public void firePropertyChanged() {
+        support.firePropertyChange("state", null, this.state);
     }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
 }
