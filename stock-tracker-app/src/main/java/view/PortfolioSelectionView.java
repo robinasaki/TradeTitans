@@ -36,7 +36,7 @@ public class PortfolioSelectionView extends JPanel {
             JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             panel.add(picLabel);
         } catch (Exception e) {
-            System.out.println("Logo compiling error, please open the project as `Trade Titans`.");
+            System.out.println("Logo compiling error.");
             e.printStackTrace();
         }
 
@@ -76,14 +76,13 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
-        JButton creditButton = new JButton("Credit");
+        JButton creditButton = new JButton("About the program");
         creditButton.addActionListener(new creditButtonListener());
         panel.add(creditButton);
 
-        JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
-        description1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        description1.setForeground(Color.gray);
-        panel.add(description1);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        add(scrollPane);
 
         add(panel);
     }
