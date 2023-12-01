@@ -52,8 +52,7 @@ public class DeletePortfolioView extends JPanel {// implements ActionListener,Pr
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO: add specific portfolio name to question
-            String portfolioName = "Portfolio2";
+            String portfolioName = deletePortfolioViewModel.getPortfolioName();
             deletePortfolioController.execute(portfolioName);
         }
     }
