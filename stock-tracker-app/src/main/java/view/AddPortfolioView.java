@@ -32,7 +32,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
 
     JPanel panel;
     private void initView() {
-         panel = new JPanel();
+         panel = new JPanel(new GridLayout(0,1));
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

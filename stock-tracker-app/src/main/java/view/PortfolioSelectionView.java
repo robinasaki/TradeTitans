@@ -8,12 +8,11 @@ import interface_adapter.holdings.UpdatePricesController;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class PortfolioSelectionView extends JPanel {
@@ -28,12 +27,31 @@ public class PortfolioSelectionView extends JPanel {
         this.viewManagerModel = viewManagerModel;
         this.updatePricesController = updatePricesController;
         initView();
+
+        viewModel.addPropertyChangeListener(evt -> {
+            if ("portfolioNames".equals(evt.getPropertyName())) {
+                initView();
+            }
+        });
     }
 
     private void initView() {
+        // Clear the panel
+        removeAll();
+
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        ImageIcon icon = new ImageIcon("logo.jpg");
-        panel.add(new JLabel(icon));
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/images/logo.jpg"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            panel.add(picLabel);
+        } catch (Exception e) {
+            System.out.println("Logo compiling error.");
+            e.printStackTrace();
+        }
+
+        // Add vertical panel
+        JScrollPane scrollPane = new JScrollPane(panel);
+        JScrollBar scrollBar = new JScrollBar();
 
         // set the view border
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -45,9 +63,21 @@ public class PortfolioSelectionView extends JPanel {
         // Add buttons for each portfolio
         List<String> portfolioNames = viewModel.getPortfolioNames();
         for (String portfolioName : portfolioNames) {
-            JButton button = new JButton(portfolioName);
-            button.addActionListener(new PortfolioButtonListener(portfolioName));
-            panel.add(button);
+            // Create a new panel for each portfolio
+            JPanel portfolioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+            // Add portfolio button
+            JButton portfolioButton = new JButton(portfolioName);
+            portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));
+            portfolioPanel.add(portfolioButton);
+
+            // Add delete button
+            JButton deleteButton = new JButton("x");
+            deleteButton.addActionListener(new DeletePortfolioButtonListener(portfolioName));
+            portfolioPanel.add(deleteButton);
+
+            // Add portfolio panel to the main panel
+            panel.add(portfolioPanel);
         }
 
         // Add button to add a new portfolio
@@ -55,9 +85,13 @@ public class PortfolioSelectionView extends JPanel {
         addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
         panel.add(addPortfolioButton);
 
-        JLabel description1 = new JLabel("A CSC207 project @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton, Abdulrahman Mubarak");
-        description1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        description1.setForeground(Color.gray);
+        JButton creditButton = new JButton("About the program");
+        creditButton.addActionListener(new creditButtonListener());
+        panel.add(creditButton);
+
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        add(scrollPane);
 
         add(panel);
     }
@@ -76,9 +110,31 @@ public class PortfolioSelectionView extends JPanel {
         }
     }
 
+    private class DeletePortfolioButtonListener implements ActionListener {
+        private String portfolioName;
+
+        public DeletePortfolioButtonListener(String portfolioName) {
+            this.portfolioName = portfolioName;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("delete_portfolio");
+        }
+    }
+
     private class AddPortfolioButtonListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             viewManagerModel.setActiveView("add_portfolio");
+        }
+    }
+
+    private class creditButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("credit");
         }
     }
 
