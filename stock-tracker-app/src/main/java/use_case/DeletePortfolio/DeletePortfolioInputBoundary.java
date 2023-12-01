@@ -1,4 +1,4 @@
-package use_case.DeletePortfolio;
+package use_case.delete_portfolio;
 
 import entity.Portfolio;
 
