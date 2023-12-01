@@ -36,7 +36,7 @@ public class PortfolioSelectionView extends JPanel {
             JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             panel.add(picLabel);
         } catch (Exception e) {
-            System.out.println("Logo compiling error, please open the project as `Trade Titans`.");
+            System.out.println("Logo compiling error.");
             e.printStackTrace();
         }
 
