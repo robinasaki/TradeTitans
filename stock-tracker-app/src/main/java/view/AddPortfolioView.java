@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.add_portfolio.AddPortfolioState;
@@ -18,7 +19,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
     private final AddPortfolioController addPortfolioController;
 
     private final JTextField portfolioInputField = new JTextField(15);
-    private final JTextField defaultCurrencyField = new JTextField(5);
+    private final JComboBox<String> defaultCurrencyField = new JComboBox<>(new String[]{"CAD", "USD", "GBP", "EUR", "CNY", "INR"});
 
     private JButton cancel;
     private JButton addPortfolio;
@@ -35,6 +36,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
          panel = new JPanel(new GridLayout(0,1));
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
+        title.setFont(new Font("Georgia", Font.BOLD, 20));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);
 
@@ -57,13 +59,27 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         @Override
         public void actionPerformed(ActionEvent e) {
             String portfolioName = portfolioInputField.getText();
+          
+            // to prevent an empty name or name with spaces at end
             if (portfolioName.length() == 0 || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
-                JOptionPane.showMessageDialog(panel, "Invalid name", "Fail to create a Portfolio",1 );
+                JOptionPane.showMessageDialog(panel, "<html> Invalid name, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
             }
             else {
                 // we have to add the $ sign to the default currency string
-                String defaultCurrency = "$" + defaultCurrencyField.getText();
-                addPortfolioController.execute(portfolioName, defaultCurrency);
+                String defaultCurrency = "$" + defaultCurrencyField.getSelectedItem();
+                ArrayList<String> possibleCurrencyOptions = new ArrayList<>();
+                possibleCurrencyOptions.add("$GBP");
+                possibleCurrencyOptions.add("$CAD");
+                possibleCurrencyOptions.add("$EUR");
+                possibleCurrencyOptions.add("$INR");
+                possibleCurrencyOptions.add("$CNY");
+                possibleCurrencyOptions.add("$USD");
+                if (possibleCurrencyOptions.contains(defaultCurrency)) {
+                    addPortfolioController.execute(portfolioName, defaultCurrency);
+                }
+                else {
+                    JOptionPane.showMessageDialog(panel, "<html> Invalid currency, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
     }

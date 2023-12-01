@@ -29,13 +29,13 @@ public class CreditView extends JPanel {
 
         // TODO: write more
         JLabel portfolioSelectionInstruction = new JLabel("<html>" +
-                "Trade Titans is designed for you to explore the stock market with real-life stock data without paying." +
+                "Trade Titans is designed for you to explore the stock market <br/> with real-life stock data without paying." +
                 "</html>");
         portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
         panel.add(portfolioSelectionInstruction);
 
         JLabel creditInfo = new JLabel("<html>" +
-                "Made for csc207 @UofT by Chenxu Robin Mao, Jarod Palubiski, Colin Walton and Abdulrahman Mubarak" +
+                "Made for csc207 @UofT by Chenxu Robin Mao, Jarod Palubiski, <br/> Colin Walton and Abdulrahman Mubarak" +
                 "<html/>"
         );
         creditInfo.setFont(new Font("Georgia", Font.ITALIC, 10));
