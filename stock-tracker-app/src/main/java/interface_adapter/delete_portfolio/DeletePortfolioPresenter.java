@@ -2,7 +2,7 @@ package interface_adapter.delete_portfolio;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
-import use_case.DeletePortfolio.DeletePortfolioOutputBoundary;
+import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
 import view.DeletePortfolioView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class DeletePortfolioPresenter implements DeletePortfolioOutputBoundary {
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
         portfolioSelectionViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView("Delete Portfolio");
+        viewManagerModel.setActiveView("portfolio_selection");
 
     }
 
