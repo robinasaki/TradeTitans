@@ -54,9 +54,21 @@ public class PortfolioSelectionView extends JPanel {
         // Add buttons for each portfolio
         List<String> portfolioNames = viewModel.getPortfolioNames();
         for (String portfolioName : portfolioNames) {
-            JButton button = new JButton(portfolioName);
-            button.addActionListener(new PortfolioButtonListener(portfolioName));
-            panel.add(button);
+            // Create a new panel for each portfolio
+            JPanel portfolioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+            // Add portfolio button
+            JButton portfolioButton = new JButton(portfolioName);
+            portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));
+            portfolioPanel.add(portfolioButton);
+
+            // Add delete button
+            JButton deleteButton = new JButton("x");
+            deleteButton.addActionListener(new DeletePortfolioButtonListener(portfolioName));
+            portfolioPanel.add(deleteButton);
+
+            // Add portfolio panel to the main panel
+            panel.add(portfolioPanel);
         }
 
         // Add button to add a new portfolio
@@ -86,6 +98,19 @@ public class PortfolioSelectionView extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             updatePricesController.execute(portfolioName);
+        }
+    }
+
+    private class DeletePortfolioButtonListener implements ActionListener {
+        private String portfolioName;
+
+        public DeletePortfolioButtonListener(String portfolioName) {
+            this.portfolioName = portfolioName;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("delete_portfolio");
         }
     }
 
