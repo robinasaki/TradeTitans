@@ -83,10 +83,10 @@ public class Main {
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
-        views.add(holdingsView, "holdings");
+        views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
-        views.add(addPortfolioView, "add_portfolio");
+        views.add(addPortfolioView, addPortfolioView.viewName);
 
         DeletePortfolioView deletePortfolioView = createDeletePortfolioView(deletePortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
         views.add(deletePortfolioView, deletePortfolioView.viewName);
