@@ -4,6 +4,7 @@ import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.holdings.UpdatePricesController;
+import interface_adapter.delete_portfolio.DeletePortfolioViewModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,11 +22,13 @@ public class PortfolioSelectionView extends JPanel {
     private PortfolioSelectionViewModel viewModel;
     private ViewManagerModel viewManagerModel;
     private UpdatePricesController updatePricesController;
+    private DeletePortfolioViewModel deletePortfolioViewModel;
 
-    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel, ViewManagerModel viewManagerModel, UpdatePricesController updatePricesController) {
+    public PortfolioSelectionView(PortfolioSelectionViewModel viewModel, ViewManagerModel viewManagerModel, UpdatePricesController updatePricesController, DeletePortfolioViewModel deletePortfolioViewModel) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         this.updatePricesController = updatePricesController;
+        this.deletePortfolioViewModel = deletePortfolioViewModel;
         initView();
 
         viewModel.addPropertyChangeListener(evt -> {
@@ -119,6 +122,7 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            deletePortfolioViewModel.setPortfolioName(portfolioName);
             viewManagerModel.setActiveView("delete_portfolio");
         }
     }

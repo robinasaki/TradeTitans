@@ -127,15 +127,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             // gets trade type
             String tradeType = (String) tradeTypeComboBox.getSelectedItem();
 
-            // for deposit/withdraw
-            double amount = Double.parseDouble(amountField.getText());
-            String currency = currencyField.getText();
-
-            // for buy/sell
-            double shares = Double.parseDouble(sharesField.getText());
-            String symbol = symbolField.getText();
-            double price = Double.parseDouble(priceField.getText());
-
             // TODO: trading fee is set to 0.0 right now
 
             // TODO: "Portfolio 1" should be a general portfolio name
@@ -144,12 +135,22 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             String defaultCurrency = "$USD";
 
             if (tradeType.equals("Deposit")) {
+                double amount = Double.parseDouble(amountField.getText());
+                String currency = currencyField.getText();
                 tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
             } else if (tradeType.equals("Withdraw")) {
+                double amount = Double.parseDouble(amountField.getText());
+                String currency = currencyField.getText();
                 tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
             } else if (tradeType.equals("Buy")) {
+                double shares = Double.parseDouble(sharesField.getText());
+                String symbol = symbolField.getText();
+                double price = Double.parseDouble(priceField.getText());
                 tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
             } else if (tradeType.equals("Sell")) {
+                double shares = Double.parseDouble(sharesField.getText());
+                String symbol = symbolField.getText();
+                double price = Double.parseDouble(priceField.getText());
                 tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
             } else if (tradeType.equals("Exchange")) {
                 // TODO

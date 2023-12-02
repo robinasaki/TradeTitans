@@ -61,6 +61,8 @@ public class Main {
 
         AddPortfolioViewModel addPortfolioViewModel = new AddPortfolioViewModel();
 
+        DeletePortfolioViewModel deletePortfolioViewModel = new DeletePortfolioViewModel();
+
         TradeViewModel tradeViewModel = new TradeViewModel();
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
@@ -75,22 +77,16 @@ public class Main {
         }
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
 
-        // TODO: EXPERIMENTAL
-        DeletePortfolioViewModel deletePortfolioViewModel = new DeletePortfolioViewModel();
-        for (Portfolio portfolio : portfolios) {
-            deletePortfolioViewModel.getState().setPortfolioName(portfolio.getName());
-        }
-
         viewManagerModel.setActiveView("portfolio_selection");
-
-        PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, viewManagerModel);
+        
+        PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
-        views.add(holdingsView, holdingsView.viewName);
+        views.add(holdingsView, "holdings");
 
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
-        views.add(addPortfolioView, addPortfolioView.viewName);
+        views.add(addPortfolioView, "add_portfolio");
 
         DeletePortfolioView deletePortfolioView = createDeletePortfolioView(deletePortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
         views.add(deletePortfolioView, deletePortfolioView.viewName);
@@ -105,13 +101,13 @@ public class Main {
         application.setVisible(true);
     }
 
-    private static PortfolioSelectionView createPortfolioSelectionView(PortfolioSelectionViewModel portfolioSelectionViewModel, HoldingsViewModel holdingsViewModel, ViewManagerModel viewManagerModel) {
+    private static PortfolioSelectionView createPortfolioSelectionView(PortfolioSelectionViewModel portfolioSelectionViewModel, HoldingsViewModel holdingsViewModel, DeletePortfolioViewModel deletePortfolioViewModel, ViewManagerModel viewManagerModel) {
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
         APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
         UpdatePricesOutputBoundary updatePricesOutputBoundary = new UpdatePricesPresenter(viewManagerModel, holdingsViewModel);
         UpdatePricesInputBoundary updatePricesInputBoundary = new UpdatePricesInteractor(fileDataAccessObject, apiDataAccessObject, updatePricesOutputBoundary);
         UpdatePricesController updatePricesController = new UpdatePricesController(updatePricesInputBoundary);
-        return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController);
+        return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController, deletePortfolioViewModel);
     }
 
     private static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {

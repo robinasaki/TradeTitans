@@ -11,11 +11,13 @@ public class Tradeable implements Serializable {
     private String name; // e.g. "Apple Inc."
     private String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
-    private static Map<String, Tradeable> tradeables = new HashMap<>();
+    private double sharesHeld; // number of shares held in portfolio
+//    private static Map<String, Tradeable> tradeables = new HashMap<>();
 
     public Tradeable(String name, String symbol) {
         this.name = name;
         this.symbol = symbol;
+        this.sharesHeld = 0;
         this.priceHistory = new TreeMap<>();
     }
 
@@ -27,6 +29,10 @@ public class Tradeable implements Serializable {
         return symbol;
     }
 
+    public double getSharesHeld() {
+        return sharesHeld;
+    }
+
     public TreeMap<Date, Double> getPriceHistory() {
         return priceHistory;
     }
@@ -34,7 +40,7 @@ public class Tradeable implements Serializable {
     public void setPriceHistory(TreeMap<Date, Double> priceHistory) {
         this.priceHistory = priceHistory;
     }
-
+/*
     public static Tradeable getTradeable(String symbol) {
         return tradeables.get(symbol);
     }
@@ -47,6 +53,10 @@ public class Tradeable implements Serializable {
             tradeables.put(symbol, tradeable);
         }
     }
+*/
+    public void setSharesHeld(double sharesHeld) {
+        this.sharesHeld = sharesHeld;
+    }
 
     public double getCurrentPrice() {
         if (priceHistory.isEmpty()) {
@@ -57,5 +67,9 @@ public class Tradeable implements Serializable {
 
     public boolean equals(Tradeable compare) {
         return (this.symbol.equals(compare.symbol));
+    }
+
+    public double getCurrentValue() {
+        return getCurrentPrice() * sharesHeld;
     }
 }
