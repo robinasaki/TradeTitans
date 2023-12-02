@@ -25,7 +25,6 @@ public class HoldingsView extends JPanel {
 
         viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())) {
-                System.out.println("HoldingsView: state changed");
                 initView();
             }
         });
@@ -36,6 +35,10 @@ public class HoldingsView extends JPanel {
         removeAll();
 
         JPanel panel = new JPanel();
+
+        // Create title
+        JLabel title = new JLabel(viewModel.getState().getPortfolioName());
+        panel.add(title);
 
         // Create table model
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -56,7 +59,7 @@ public class HoldingsView extends JPanel {
 
         // Create table
         JTable table = new JTable(tableModel);
-        this.add(table);
+        panel.add(table);
 
         JScrollPane scrollPane = new JScrollPane(table);
 
