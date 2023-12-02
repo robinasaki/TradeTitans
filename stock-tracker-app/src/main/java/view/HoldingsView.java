@@ -59,9 +59,9 @@ public class HoldingsView extends JPanel {
 
         // Create table
         JTable table = new JTable(tableModel);
+        panel.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane);
-        panel.add(table);
 
         // display default currency
         JLabel currency = new JLabel("Currency: " + viewModel.getState().getDefaultCurrency());
