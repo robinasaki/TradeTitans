@@ -23,6 +23,7 @@ public class PortfolioSelectionViewModel extends ViewModel {
 
     public void setPortfolioNames(List<String> portfolioNames) {
         this.portfolioNames = portfolioNames;
+        firePropertyChanged();
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
