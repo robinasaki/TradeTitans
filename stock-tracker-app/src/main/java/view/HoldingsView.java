@@ -22,9 +22,19 @@ public class HoldingsView extends JPanel {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         initView();
+
+        viewModel.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())) {
+                System.out.println("HoldingsView: state changed");
+                initView();
+            }
+        });
     }
 
     private void initView() {
+        // Clear panel
+        removeAll();
+
         JPanel panel = new JPanel();
 
         // Create table model

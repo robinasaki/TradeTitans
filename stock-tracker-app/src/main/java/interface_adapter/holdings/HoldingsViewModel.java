@@ -22,6 +22,7 @@ public class HoldingsViewModel extends ViewModel {
 
     public void setState(HoldingsState state) {
         this.state = state;
+        firePropertyChanged();
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

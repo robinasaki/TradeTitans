@@ -41,6 +41,16 @@ public class APIDataAccessObject {
     }
 
     public TreeMap<Date, Double> getHistoricalQuotes(String symbol, String targetCurrency) {
+        // if symbol and targetCurrency are the same, return tree map of 1's for every day since 1900
+        if (symbol.equals(targetCurrency)) {
+            TreeMap<Date, Double> quotes = new TreeMap<>();
+            LocalDate date = LocalDate.of(1900, 1, 1);
+            while (date.isBefore(LocalDate.now())) {
+                quotes.put(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), 1.0);
+                date = date.plusDays(1);
+            }
+            return quotes;
+        }
         if (symbol.startsWith("$")) {
             return getHistoricalForexQuotes(symbol, targetCurrency);
         } else if (symbol.startsWith("#")) {

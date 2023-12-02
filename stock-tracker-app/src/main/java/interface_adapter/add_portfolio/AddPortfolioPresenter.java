@@ -22,8 +22,6 @@ public class AddPortfolioPresenter implements AddPortfolioOutputBoundary {
         List<String> portfolioNames = portfolioSelectionViewModel.getPortfolioNames();
         portfolioNames.add(portfolioName);
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
-        portfolioSelectionViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView("portfolio_selection");
     }
 
