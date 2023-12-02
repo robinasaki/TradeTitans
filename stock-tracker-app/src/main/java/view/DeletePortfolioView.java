@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class DeletePortfolioView extends JPanel {// implements ActionListener,PropertyChangeListener{
-    private final String ViewName = "delete_portfolio";
+    public final String viewName = "delete_portfolio";
 
     private final DeletePortfolioViewModel deletePortfolioViewModel;
     private final ViewManagerModel viewManagerModel;
@@ -30,7 +30,7 @@ public class DeletePortfolioView extends JPanel {// implements ActionListener,Pr
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
         // TODO: add specific portfolio name to question
-        JLabel title = new JLabel("Are you sure you want to delete " + deletePortfolioViewModel.getState().getPortfolioNames());
+        JLabel title = new JLabel("Are you sure you want to delete " + deletePortfolioViewModel.getState().getPortfolioName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);
 

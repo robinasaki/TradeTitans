@@ -78,7 +78,7 @@ public class Main {
         // TODO: EXPERIMENTAL
         DeletePortfolioViewModel deletePortfolioViewModel = new DeletePortfolioViewModel();
         for (Portfolio portfolio : portfolios) {
-            deletePortfolioViewModel.getState().addPortfolioName(portfolio.getName());
+            deletePortfolioViewModel.getState().setPortfolioName(portfolio.getName());
         }
 
         viewManagerModel.setActiveView("portfolio_selection");
@@ -87,19 +87,19 @@ public class Main {
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
-        views.add(holdingsView, "holdings");
+        views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
-        views.add(addPortfolioView, "add_portfolio");
+        views.add(addPortfolioView, addPortfolioView.viewName);
 
         DeletePortfolioView deletePortfolioView = createDeletePortfolioView(deletePortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
-        views.add(deletePortfolioView, "delete_portfolio");
+        views.add(deletePortfolioView, deletePortfolioView.viewName);
 
         TradeView tradeView = createTradeView(tradeViewModel, viewManagerModel, holdingsViewModel);
-        views.add(tradeView, "trade");
+        views.add(tradeView, tradeView.viewName);
 
         CreditView creditView = createCreditView(creditViewModel, viewManagerModel);
-        views.add(creditView, "credit");
+        views.add(creditView, creditView.viewName);
 
         application.pack();
         application.setVisible(true);

@@ -4,6 +4,7 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 public class DeletePortfolioViewModel extends ViewModel {
 
@@ -11,6 +12,7 @@ public class DeletePortfolioViewModel extends ViewModel {
 
     public final String CANCEL_BUTTON_LABEL = "Cancel";
     public final String CONFIRM_BUTTON_LABEL = "Confirm";
+
 
     private DeletePortfolioState state = new DeletePortfolioState();
 
@@ -34,6 +36,10 @@ public class DeletePortfolioViewModel extends ViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    public void setPortfolioNames(String portfolioName) {
+        this.getState().setPortfolioName(portfolioName);
     }
 
 }

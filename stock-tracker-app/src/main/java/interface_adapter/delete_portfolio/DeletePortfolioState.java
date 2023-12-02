@@ -5,26 +5,23 @@ import java.util.List;
 
 public class DeletePortfolioState {
     private String confirm;
-    private ArrayList<String> portfolioNames;
+    private String portfolioName;
     private String cancel;
-
-    private int deletionIndex;
 
     public DeletePortfolioState(DeletePortfolioState deletePortfolioState){
         this.cancel = deletePortfolioState.cancel;
         this.confirm = deletePortfolioState.confirm;
-        this.portfolioNames = deletePortfolioState.portfolioNames;
+        this.portfolioName = deletePortfolioState.portfolioName;
     }
 
     public DeletePortfolioState(){
-        this.portfolioNames = new ArrayList<>();
     }
 
-    public void addPortfolioName(String portfolioName) {
-        this.portfolioNames.add(portfolioName);
+    public void setPortfolioName(String portfolioName) {
+        this.portfolioName = portfolioName;
     }
 
-    public List<String> getPortfolioNames() {
-        return portfolioNames;
+    public String getPortfolioName() {
+        return portfolioName;
     }
 }
