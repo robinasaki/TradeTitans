@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class DeletePortfolioView extends JPanel {// implements ActionListener,PropertyChangeListener{
-    private final String ViewName = "delete_portfolio";
+    public final String viewName = "delete_portfolio";
 
     private final DeletePortfolioViewModel deletePortfolioViewModel;
     private final ViewManagerModel viewManagerModel;

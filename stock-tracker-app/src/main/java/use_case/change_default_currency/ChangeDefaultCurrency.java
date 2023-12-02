@@ -1,4 +1,4 @@
-package use_case.ChangeDefaultCurrency;
+package use_case.change_default_currency;
 
 import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
