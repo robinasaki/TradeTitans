@@ -34,8 +34,9 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
     }
 
     JPanel panel;
+
     private void initView() {
-         panel = new JPanel(new GridLayout(0,1));
+        panel = new JPanel(new GridLayout(0, 1));
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 20));
@@ -67,12 +68,11 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
         @Override
         public void actionPerformed(ActionEvent e) {
             String portfolioName = portfolioInputField.getText();
-          
+
             // to prevent an empty name or name with spaces at end
-            if (portfolioName.length() == 0 || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
+            if (portfolioName.isEmpty() || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
                 JOptionPane.showMessageDialog(panel, "<html> Invalid name, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
+            } else {
                 // TODO: this should really be implementing with the currency text filed having a listener and autofilling if something is selected in the dropdown
                 // TODO: this would make it so we only have to read in the text field, and not have to worry about the dropdown
                 // we have to add the $ sign to the default currency string
@@ -84,14 +84,17 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
 
                 // selected other, wrong currency
                 // TODO: we could potentially allow lengths that aren't 3, if we want to support default currencies that aren't actually currencies
-                else
-                if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
+                else if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
                     JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again. <html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
                 }
 
                 // use the other currency input field
                 else if (defaultCurrency.equals("$other") && !(otherCurrencyField.getText().isEmpty())) {
                     defaultCurrency = "$" + otherCurrencyField.getText();
+                    addPortfolioController.execute(portfolioName, defaultCurrency);
+                }
+
+                else {
                     addPortfolioController.execute(portfolioName, defaultCurrency);
                 }
             }
