@@ -16,6 +16,7 @@ public class UpdatePricesPresenter implements UpdatePricesOutputBoundary {
     public void present(UpdatePricesOutputData outputData) {
         
         HoldingsState state = new HoldingsState();
+        state.setPortfolioName(outputData.getPortfolioName());
         state.setSymbols(outputData.getSymbols());
         state.setPrices(outputData.getPrices());
         state.setShares(outputData.getShares());

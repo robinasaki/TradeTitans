@@ -3,16 +3,22 @@ package use_case.update_prices;
 import java.util.ArrayList;
 
 public class UpdatePricesOutputData {
+    private String portfolioName;
     private ArrayList<String> symbols;
     private ArrayList<Double> prices;
     private ArrayList<Double> shares;
     private ArrayList<Double> values;
     
-    public UpdatePricesOutputData(ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+    public UpdatePricesOutputData(String portfolioName, ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+        this.portfolioName = portfolioName;
         this.symbols = symbols;
         this.prices = prices;
         this.shares = shares;
         this.values = values;
+    }
+
+    public String getPortfolioName() {
+        return portfolioName;
     }
 
     public ArrayList<String> getSymbols() {
@@ -29,6 +35,10 @@ public class UpdatePricesOutputData {
 
     public ArrayList<Double> getValues() {
         return values;
+    }
+
+    public void setPortfolioName(String portfolioName) {
+        this.portfolioName = portfolioName;
     }
 
     public void setSymbols(ArrayList<String> symbols) {

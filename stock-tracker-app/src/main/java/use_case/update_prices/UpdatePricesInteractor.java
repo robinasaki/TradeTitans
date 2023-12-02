@@ -49,7 +49,7 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         values.add(portfolio.getPortfolioValue());
 
         fileDataAccessObject.savePortfolio(portfolio);
-        UpdatePricesOutputData outputData = new UpdatePricesOutputData(holdings, prices, shares, values);
+        UpdatePricesOutputData outputData = new UpdatePricesOutputData(portfolioName, holdings, prices, shares, values);
         presenter.present(outputData);
     }
 }
