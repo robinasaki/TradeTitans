@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreditView extends JPanel {
-    public final String viewName = "credit_view";
+    public final String viewName = "credit";
     private CreditViewModel viewModel;
     private ViewManagerModel viewManagerModel;
 
