@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class UpdatePricesOutputData {
     private String portfolioName;
+    private String defaultCurrency;
     private ArrayList<String> symbols;
     private ArrayList<Double> prices;
     private ArrayList<Double> shares;
     private ArrayList<Double> values;
     
-    public UpdatePricesOutputData(String portfolioName, ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+    public UpdatePricesOutputData(String portfolioName, String defaultCurrency, ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
         this.portfolioName = portfolioName;
+        this.defaultCurrency = defaultCurrency;
         this.symbols = symbols;
         this.prices = prices;
         this.shares = shares;
@@ -19,6 +21,10 @@ public class UpdatePricesOutputData {
 
     public String getPortfolioName() {
         return portfolioName;
+    }
+
+    public String getDefaultCurrency() {
+        return defaultCurrency;
     }
 
     public ArrayList<String> getSymbols() {
@@ -39,6 +45,10 @@ public class UpdatePricesOutputData {
 
     public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
+    }
+
+    public void setDefaultCurrency(String defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
     }
 
     public void setSymbols(ArrayList<String> symbols) {
