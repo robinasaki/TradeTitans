@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class HoldingsState {
     private String portfolioName;
+    private String defaultCurrency;
     private ArrayList<String> symbols;
     private ArrayList<Double> quotes;
     private ArrayList<Double> shares;
@@ -10,6 +11,7 @@ public class HoldingsState {
 
     public HoldingsState(HoldingsState copy) {
         this.portfolioName = copy.portfolioName;
+        this.defaultCurrency = copy.defaultCurrency;
         this.symbols = copy.symbols;
         this.quotes = copy.quotes;
         this.shares = copy.shares;
@@ -18,6 +20,7 @@ public class HoldingsState {
 
     public HoldingsState() {
         this.portfolioName = "";
+        this.defaultCurrency = "";
         this.symbols = new ArrayList<String>();
         this.quotes = new ArrayList<Double>();
         this.shares = new ArrayList<Double>();
@@ -26,6 +29,10 @@ public class HoldingsState {
 
     public String getPortfolioName() {
         return portfolioName;
+    }
+
+    public String getDefaultCurrency() {
+        return defaultCurrency;
     }
 
     public ArrayList<String> getSymbols() {
@@ -46,6 +53,10 @@ public class HoldingsState {
 
     public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
+    }
+
+    public void setDefaultCurrency(String defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
     }
 
     public void setSymbols(ArrayList<String> symbols) {
