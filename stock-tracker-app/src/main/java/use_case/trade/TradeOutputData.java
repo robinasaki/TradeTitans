@@ -1,23 +1,49 @@
 package use_case.trade;
 
-import entity.BankingTransaction;
+import java.util.ArrayList;
 
 public class TradeOutputData {
-    private boolean useCaseFailed;
-    private boolean successfulTrade;
-    private BankingTransaction bankingTransaction;
+    private ArrayList<String> symbols;
+    private ArrayList<Double> prices;
+    private ArrayList<Double> shares;
+    private ArrayList<Double> values;
 
-    public TradeOutputData(boolean useCaseFailed, boolean successfulTrade, BankingTransaction bankingTransaction) {
-        this.useCaseFailed = useCaseFailed;
-        this.successfulTrade = successfulTrade;
-        this.bankingTransaction = bankingTransaction;
+    public TradeOutputData(ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+        this.symbols = symbols;
+        this.prices = prices;
+        this.shares = shares;
+        this.values = values;
     }
 
-    public boolean getTradeInfo() {
-        return successfulTrade;
+    public ArrayList<String> getSymbols() {
+        return symbols;
     }
 
-    public BankingTransaction getBankingTransaction() {
-        return bankingTransaction;
+    public ArrayList<Double> getPrices() {
+        return prices;
+    }
+
+    public ArrayList<Double> getShares() {
+        return shares;
+    }
+
+    public ArrayList<Double> getValues() {
+        return values;
+    }
+
+    public void setSymbols(ArrayList<String> symbols) {
+        this.symbols = symbols;
+    }
+
+    public void setPrices(ArrayList<Double> prices) {
+        this.prices = prices;
+    }
+
+    public void setShares(ArrayList<Double> shares) {
+        this.shares = shares;
+    }
+
+    public void setValues(ArrayList<Double> values) {
+        this.values = values;
     }
 }

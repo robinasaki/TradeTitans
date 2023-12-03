@@ -15,8 +15,16 @@ public class TradePresenter implements TradeOutputBoundary {
     }
 
     @Override
-    public void present() {
-        // TODO: could be nice to update holdingsState here
+    public void present(TradeOutputData tradeOutputData) {
+        holdingsViewModel.getState().setSymbols(tradeOutputData.getSymbols());
+        holdingsViewModel.getState().setPrices(tradeOutputData.getPrices());
+        holdingsViewModel.getState().setShares(tradeOutputData.getShares());
+        holdingsViewModel.getState().setValues(tradeOutputData.getValues());
+
+        // TODO: this is a hack to get the holdings view model to update
+        // TODO: done by calling setState() which has a side effect of firing a property changed event
+        //holdingsViewModel.setState(holdingsViewModel.getState());
+
         viewManagerModel.setActiveView("holdings");
     }
 
