@@ -22,6 +22,8 @@ public class UpdatePricesPresenter implements UpdatePricesOutputBoundary {
         state.setPrices(outputData.getPrices());
         state.setShares(outputData.getShares());
         state.setValues(outputData.getValues());
+        state.setChanges(outputData.getChanges());
+        state.setChangePercents(outputData.getChangePercents());
         holdingsViewModel.setState(state);
         viewManagerModel.setActiveView("holdings");
     }

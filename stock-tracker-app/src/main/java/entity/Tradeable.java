@@ -65,6 +65,13 @@ public class Tradeable implements Serializable {
         return priceHistory.lastEntry().getValue();
     }
 
+    public double getPreviousPrice() {
+        if (priceHistory.isEmpty()) {
+            throw new RuntimeException("No price history found for " + this.symbol);
+        }
+        return priceHistory.lowerEntry(priceHistory.lastKey()).getValue();
+    }
+
     public boolean equals(Tradeable compare) {
         return (this.symbol.equals(compare.symbol));
     }
