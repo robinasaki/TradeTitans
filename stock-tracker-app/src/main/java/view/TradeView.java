@@ -2,12 +2,9 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.awt.event.ActionListener;
 
 import interface_adapter.trade.TradeController;
 import interface_adapter.trade.TradeState;
@@ -49,8 +46,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-        panel.add(title);
+        // panel.add(title);
 
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
@@ -71,7 +67,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         showRelevantFields();
 
-        tradeTypeComboBox.addActionListener(new TradeTypeComboBoxListener());
+        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
 
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
@@ -164,14 +160,56 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
     }
 
-    private class TradeTypeComboBoxListener implements ActionListener {
+    private class TradeTypeComboBoxListener implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                showRelevantFields();
+            }
+        }
+    }
+
+    /* private class TradeTypeComboBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             showRelevantFields();
         }
-    }
+    } */
 
     private void showRelevantFields() {
+        /* if ("Deposit".equals(tradeTypeComboBox.getSelectedItem())) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(false);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if ("Withdraw".equals(tradeTypeComboBox.getSelectedItem())) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(false);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if ("Buy".equals(tradeTypeComboBox.getSelectedItem())) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if ("Sell".equals(tradeTypeComboBox.getSelectedItem())) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(true);
+            priceField.setVisible(true);
+        }
+        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener()); */
+
         String tradeType = (String) tradeTypeComboBox.getSelectedItem();
 
         // Hide all fields
@@ -197,23 +235,20 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Exchange":
                 // TODO
                 break;
+            default:
+                // TODO: implement default case here.
+                break;
         }
+        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
     }
 /*
 @Override
 public void actionPerformed(ActionEvent e) {
 
-}
+} */
 
-@Override
+/* @Override
 public void propertyChange(PropertyChangeEvent evt) {
     TradeState state = (TradeState) evt.getNewValue();
-    if (state.getNotTradeableError() != null) {
-        JOptionPane.showMessageDialog(this, state.getNotTradeableError());
-    }
-    if (state.getClearMessage() != null) {
-        JOptionPane.showMessageDialog(this, state.getClearMessage());
-    }
-}
-*/
+    } */
 }
