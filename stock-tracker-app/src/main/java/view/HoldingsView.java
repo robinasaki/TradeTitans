@@ -3,6 +3,8 @@ package view;
 import interface_adapter.holdings.HoldingsViewModel;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.trade.TradeViewModel;
+import interface_adapter.trade.TradeState;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +17,14 @@ import java.util.List;
 public class HoldingsView extends JPanel {
     public final String viewName = "holdings";
 
-    private final HoldingsViewModel viewModel;
+    private HoldingsViewModel viewModel;
     private ViewManagerModel viewManagerModel;
+    private TradeViewModel tradeViewModel;
 
-    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel) {
+    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
+        this.tradeViewModel = tradeViewModel;
         initView();
 
         viewModel.addPropertyChangeListener(evt -> {
@@ -61,6 +65,7 @@ public class HoldingsView extends JPanel {
         JTable table = new JTable(tableModel);
         panel.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         panel.add(scrollPane);
 
         // display default currency
@@ -88,8 +93,8 @@ public class HoldingsView extends JPanel {
 
     private class AddTradeButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // TODO: pass portfolio name and default currency to trade view
-            //tradeViewModel.getState().setPortfolioName(viewModel.getState().getPortfolioName());
+            tradeViewModel.getState().setPortfolioName(viewModel.getState().getPortfolioName());
+            tradeViewModel.getState().setDefaultCurrency(viewModel.getState().getDefaultCurrency());
             viewManagerModel.setActiveView("trade");
         }
     }

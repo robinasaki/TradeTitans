@@ -1,9 +1,15 @@
 package use_case.trade;
 
 import data_access.FileDataAccessObject;
+import data_access.APIDataAccessObject;
 import entity.TradeTransaction;
 import entity.Portfolio;
+import entity.Tradeable;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TreeMap;
 
 public class TradeInteractor implements TradeInputBoundary{
     private final FileDataAccessObject fileDataAccessObject;
@@ -24,13 +30,50 @@ public class TradeInteractor implements TradeInputBoundary{
                                                       tradeInputData.getAmountOut(),
                                                       tradeInputData.getTradingFee());
 
+        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
+
+        boolean newAssetIn = !(tradeInputData.getAssetIn().equals("") && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
+        boolean newAssetOut = !tradeInputData.getAssetOut().equals("") && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
+
+        // if the asset in isn't in the portfolio, give it a price history from API
+        if (newAssetIn) {
+            TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(tradeInputData.getAssetIn(), portfolio.getCurrency().getSymbol());
+            portfolio.getHoldings().get(tradeInputData.getAssetIn()).setPriceHistory(priceHistory);
+        }
+
+        // if the asset out isn't in the portfolio, give it a price history from API
+        // might not be necessary if we don't allow trading out of assets that aren't in the portfolio
+        if (newAssetOut) {
+            TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(tradeInputData.getAssetOut(), portfolio.getCurrency().getSymbol());
+            portfolio.getHoldings().get(tradeInputData.getAssetOut()).setPriceHistory(priceHistory);
+        }
+
 
         // Probably not the cleanest way to do this but it works
         fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
 
-        presenter.present();
+        ArrayList<String> symbols = new ArrayList<>();
+        ArrayList<Double> prices = new ArrayList<>();
+        ArrayList<Double> shares = new ArrayList<>();
+        ArrayList<Double> values = new ArrayList<>();
+
+        for (String symbol : portfolio.getHoldings().keySet()) {
+            Tradeable asset = portfolio.getHoldings().get(symbol);
+            symbols.add(asset.getSymbol());
+            prices.add(asset.getCurrentPrice());
+            shares.add(asset.getSharesHeld());
+            values.add(asset.getCurrentValue());
+        }
+        symbols.add("Total");
+        // TODO: should be something meaningful like N/A for total price and shares
+        prices.add(0.0);
+        shares.add(0.0);
+        values.add(portfolio.getPortfolioValue());
+
+        TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values);
+        presenter.present(tradeOutputData);
         
     }
 }

@@ -130,10 +130,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
             // TODO: trading fee is set to 0.0 right now
 
-            // TODO: "Portfolio 1" should be a general portfolio name
-            // TODO: "USD" should be a general default currency
-            String portfolio = "Portfolio 1";
-            String defaultCurrency = "$USD";
+            String portfolio = tradeViewModel.getState().getPortfolioName();
+            String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
 
             if (tradeType.equals("Deposit")) {
                 double amount = Double.parseDouble(amountField.getText());

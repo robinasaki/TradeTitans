@@ -43,7 +43,7 @@ public class Main {
     public static void main(String[] args) {
         JFrame application = new JFrame("Trade Titans");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        application.setPreferredSize(new Dimension(600, 800));
+        application.setPreferredSize(new Dimension(1200, 800));
 
         CardLayout cardLayout = new CardLayout();
         JPanel views = new JPanel(cardLayout);
@@ -82,7 +82,7 @@ public class Main {
         PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
-        HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
+        HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel);
         views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
