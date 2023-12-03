@@ -59,6 +59,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SYMBOL_LABEL), symbolField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.PRICE_LABEL), priceField));
 
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         JPanel buttons = new JPanel();
 
         JButton cancelButton = new JButton(tradeViewModel.CANCEL_BUTTON_LABEL);
@@ -69,7 +73,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         confirmButton.addActionListener(new ConfirmButtonListener());
         buttons.add(confirmButton);
 
-        showRelevantFields();
+        String selectedOption = (String) tradeTypeComboBox.getSelectedItem();
+        showRelevantFields(selectedOption);
 
         tradeTypeComboBox.addActionListener(new TradeTypeComboBoxListener());
 
@@ -136,6 +141,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 double amount = Double.parseDouble(amountField.getText());
                 String currency = currencyField.getText();
                 tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
+                viewManagerModel.setActiveView("holdings");
             } else if (tradeType.equals("Withdraw")) {
                 double amount = Double.parseDouble(amountField.getText());
                 String currency = currencyField.getText();
@@ -144,6 +150,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 double shares = Double.parseDouble(sharesField.getText());
                 String symbol = symbolField.getText();
                 double price = Double.parseDouble(priceField.getText());
+                viewManagerModel.setActiveView("holdings");
                 tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
             } else if (tradeType.equals("Sell")) {
                 double shares = Double.parseDouble(sharesField.getText());
@@ -167,22 +174,54 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private class TradeTypeComboBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            showRelevantFields();
+            String tradeType = (String) tradeTypeComboBox.getSelectedItem();
+            showRelevantFields(tradeType);
         }
     }
 
-    private void showRelevantFields() {
-        String tradeType = (String) tradeTypeComboBox.getSelectedItem();
+    private void showRelevantFields(String field) {
+        if (field.equals("Deposit")) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(false);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if (field.equals("withdraw")) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(false);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if (field.equals("Buy")) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else if (field.equals("Sell")) {
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(false);
+            priceField.setVisible(false);
+        } else {
+            // TODO: Implement the correct setting here
+            amountField.setVisible(true);
+            currencyField.setVisible(true);
+            sharesField.setVisible(true);
+            symbolField.setVisible(true);
+            priceField.setVisible(true);
+        }
 
         // Hide all fields
-        amountField.setVisible(false);
+        /* amountField.setVisible(false);
         currencyField.setVisible(false);
         sharesField.setVisible(false);
         symbolField.setVisible(false);
-        priceField.setVisible(false);
+        priceField.setVisible(false); */
 
         // Show relevant fields
-        switch (tradeType) {
+        /* switch (field) {
             case "Deposit":
             case "Withdraw":
                 amountField.setVisible(true);
@@ -197,7 +236,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Exchange":
                 // TODO
                 break;
-        }
+        } */
     }
 /*
 @Override

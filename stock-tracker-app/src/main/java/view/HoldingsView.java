@@ -65,7 +65,7 @@ public class HoldingsView extends JPanel {
         JTable table = new JTable(tableModel);
         panel.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panel.add(scrollPane);
 
         // display default currency
