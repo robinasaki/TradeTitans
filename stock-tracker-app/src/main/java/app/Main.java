@@ -82,7 +82,7 @@ public class Main {
         PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
-        HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel);
+        HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel);
         views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
