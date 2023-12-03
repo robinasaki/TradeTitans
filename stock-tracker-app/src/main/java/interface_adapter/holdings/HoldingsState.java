@@ -8,6 +8,8 @@ public class HoldingsState {
     private ArrayList<Double> quotes;
     private ArrayList<Double> shares;
     private ArrayList<Double> values;
+    private ArrayList<Double> changes;
+    private ArrayList<Double> changePercents;
 
     public HoldingsState(HoldingsState copy) {
         this.portfolioName = copy.portfolioName;
@@ -16,6 +18,8 @@ public class HoldingsState {
         this.quotes = copy.quotes;
         this.shares = copy.shares;
         this.values = copy.values;
+        this.changes = copy.changes;
+        this.changePercents = copy.changePercents;
     }
 
     public HoldingsState() {
@@ -25,6 +29,8 @@ public class HoldingsState {
         this.quotes = new ArrayList<Double>();
         this.shares = new ArrayList<Double>();
         this.values = new ArrayList<Double>();
+        this.changes = new ArrayList<Double>();
+        this.changePercents = new ArrayList<Double>();
     }
 
     public String getPortfolioName() {
@@ -51,6 +57,14 @@ public class HoldingsState {
         return values;
     }
 
+    public ArrayList<Double> getChanges() {
+        return changes;
+    }
+
+    public ArrayList<Double> getChangePercents() {
+        return changePercents;
+    }
+
     public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
     }
@@ -73,5 +87,13 @@ public class HoldingsState {
 
     public void setValues(ArrayList<Double> values) {
         this.values = values;
+    }
+
+    public void setChanges(ArrayList<Double> changes) {
+        this.changes = changes;
+    }
+
+    public void setChangePercents(ArrayList<Double> changePercents) {
+        this.changePercents = changePercents;
     }
 }

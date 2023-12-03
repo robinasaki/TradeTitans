@@ -9,14 +9,18 @@ public class UpdatePricesOutputData {
     private ArrayList<Double> prices;
     private ArrayList<Double> shares;
     private ArrayList<Double> values;
+    private ArrayList<Double> changes;
+    private ArrayList<Double> changePercents;
     
-    public UpdatePricesOutputData(String portfolioName, String defaultCurrency, ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+    public UpdatePricesOutputData(String portfolioName, String defaultCurrency, ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values, ArrayList<Double> changes, ArrayList<Double> changePercents) {
         this.portfolioName = portfolioName;
         this.defaultCurrency = defaultCurrency;
         this.symbols = symbols;
         this.prices = prices;
         this.shares = shares;
         this.values = values;
+        this.changes = changes;
+        this.changePercents = changePercents;
     }
 
     public String getPortfolioName() {
@@ -43,6 +47,14 @@ public class UpdatePricesOutputData {
         return values;
     }
 
+    public ArrayList<Double> getChanges() {
+        return changes;
+    }
+
+    public ArrayList<Double> getChangePercents() {
+        return changePercents;
+    }
+
     public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
     }
@@ -65,5 +77,13 @@ public class UpdatePricesOutputData {
 
     public void setValues(ArrayList<Double> values) {
         this.values = values;
+    }
+
+    public void setChanges(ArrayList<Double> changes) {
+        this.changes = changes;
+    }
+
+    public void setChangePercents(ArrayList<Double> changePercents) {
+        this.changePercents = changePercents;
     }
 }
