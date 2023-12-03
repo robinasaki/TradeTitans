@@ -30,6 +30,8 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         ArrayList<Double> prices = new ArrayList<>();
         ArrayList<Double> shares = new ArrayList<>();
         ArrayList<Double> values = new ArrayList<>();
+        ArrayList<Double> changes = new ArrayList<>();
+        ArrayList<Double> changePercents = new ArrayList<>();
 
         for(String holding : portfolio.getHoldings().keySet()) {
             Tradeable assetTradeable = portfolio.getHoldings().get(holding);
@@ -41,6 +43,9 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
             prices.add(assetTradeable.getCurrentPrice());
             shares.add(assetTradeable.getSharesHeld());
             values.add(assetTradeable.getCurrentValue());
+            changes.add(assetTradeable.getCurrentPrice() - assetTradeable.getPreviousPrice());
+            changePercents.add((assetTradeable.getCurrentPrice() - assetTradeable.getPreviousPrice()) / assetTradeable.getPreviousPrice() * 100);
+
         }
         holdings.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
@@ -48,10 +53,14 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
 
+        // TODO: these should actually be calculated
+        changes.add(0.0);
+        changePercents.add(0.0);
+
         String defaultCurrency = portfolio.getCurrency().getSymbol();
 
         fileDataAccessObject.savePortfolio(portfolio);
-        UpdatePricesOutputData outputData = new UpdatePricesOutputData(portfolioName, defaultCurrency, holdings, prices, shares, values);
+        UpdatePricesOutputData outputData = new UpdatePricesOutputData(portfolioName, defaultCurrency, holdings, prices, shares, values, changes, changePercents);
         presenter.present(outputData);
     }
 }

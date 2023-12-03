@@ -48,16 +48,33 @@ public class HoldingsView extends JPanel {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Symbol");
         tableModel.addColumn("Price");
-        tableModel.addColumn("Quantity");
+        tableModel.addColumn("Shares");
         tableModel.addColumn("Value");
+        tableModel.addColumn("Change");
+        tableModel.addColumn("Change %");
 
         // Populate table
         List<String> symbols = viewModel.getState().getSymbols();
         List<Double> quotes = viewModel.getState().getQuotes();
         List<Double> shares = viewModel.getState().getShares();
         List<Double> values = viewModel.getState().getValues();
+        List<Double> changes = viewModel.getState().getChanges();
+        List<Double> changePercents = viewModel.getState().getChangePercents();
         for (int i = 0; i < symbols.size(); i++) {
-            Object[] row = {symbols.get(i), quotes.get(i), shares.get(i), values.get(i)};
+            // Format doubles to 3 decimal places with + or - sign in front and % sign at end of change percent
+            String changesFormatted = String.format("%+.3f", changes.get(i));
+            String changePercentsFormatted = String.format("%+.3f%%", changePercents.get(i));
+
+            // set color of change to red if negative, green if positive, and black if 0
+            if (changes.get(i) < 0) {
+                changesFormatted = "<html><font color='red'>" + changesFormatted + "</font></html>";
+                changePercentsFormatted = "<html><font color='red'>" + changePercentsFormatted + "</font></html>";
+            } else if (changes.get(i) > 0) {
+                changesFormatted = "<html><font color='green'>" + changesFormatted + "</font></html>";
+                changePercentsFormatted = "<html><font color='green'>" + changePercentsFormatted + "</font></html>";
+            }
+
+            Object[] row = {symbols.get(i), quotes.get(i), shares.get(i), values.get(i), changesFormatted, changePercentsFormatted};
             tableModel.addRow(row);
         }
 
