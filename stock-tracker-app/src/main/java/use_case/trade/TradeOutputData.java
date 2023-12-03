@@ -7,12 +7,16 @@ public class TradeOutputData {
     private ArrayList<Double> prices;
     private ArrayList<Double> shares;
     private ArrayList<Double> values;
+    private ArrayList<Double> changes;
+    private ArrayList<Double> changePercents;
 
-    public TradeOutputData(ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values) {
+    public TradeOutputData(ArrayList<String> symbols, ArrayList<Double> prices, ArrayList<Double> shares, ArrayList<Double> values, ArrayList<Double> changes, ArrayList<Double> changePercents) {
         this.symbols = symbols;
         this.prices = prices;
         this.shares = shares;
         this.values = values;
+        this.changes = changes;
+        this.changePercents = changePercents;
     }
 
     public ArrayList<String> getSymbols() {
@@ -31,6 +35,14 @@ public class TradeOutputData {
         return values;
     }
 
+    public ArrayList<Double> getChanges() {
+        return changes;
+    }
+
+    public ArrayList<Double> getChangePercents() {
+        return changePercents;
+    }
+
     public void setSymbols(ArrayList<String> symbols) {
         this.symbols = symbols;
     }
@@ -45,5 +57,13 @@ public class TradeOutputData {
 
     public void setValues(ArrayList<Double> values) {
         this.values = values;
+    }
+
+    public void setChanges(ArrayList<Double> changes) {
+        this.changes = changes;
+    }
+
+    public void setChangePercents(ArrayList<Double> changePercents) {
+        this.changePercents = changePercents;
     }
 }
