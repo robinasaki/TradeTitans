@@ -49,6 +49,11 @@ public class Main {
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
+        JScrollPane scrollPane = new JScrollPane(views);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        application.add(scrollPane);
+
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
