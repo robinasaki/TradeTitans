@@ -25,7 +25,6 @@ public class HoldingsView extends JPanel {
 
         viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())) {
-                System.out.println("HoldingsView: state changed");
                 initView();
             }
         });
@@ -36,6 +35,10 @@ public class HoldingsView extends JPanel {
         removeAll();
 
         JPanel panel = new JPanel();
+
+        // Create title
+        JLabel title = new JLabel(viewModel.getState().getPortfolioName());
+        panel.add(title);
 
         // Create table model
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -56,11 +59,13 @@ public class HoldingsView extends JPanel {
 
         // Create table
         JTable table = new JTable(tableModel);
-        this.add(table);
-
+        panel.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
-
         panel.add(scrollPane);
+
+        // display default currency
+        JLabel currency = new JLabel("Currency: " + viewModel.getState().getDefaultCurrency());
+        panel.add(currency);
 
         // Create back button for going back to portfolio selection
         JButton backButton = new JButton("Back to Portfolio Selection");
@@ -83,7 +88,8 @@ public class HoldingsView extends JPanel {
 
     private class AddTradeButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // TODO: we have to pass the portfolio name and default currency
+            // TODO: pass portfolio name and default currency to trade view
+            //tradeViewModel.getState().setPortfolioName(viewModel.getState().getPortfolioName());
             viewManagerModel.setActiveView("trade");
         }
     }
