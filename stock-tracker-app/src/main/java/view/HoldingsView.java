@@ -7,7 +7,6 @@ import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradeState;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +44,7 @@ public class HoldingsView extends JPanel {
         panel.add(title);
 
         // Create table model
-        DefaultTableModel tableModel = new DefaultTableModel();
+        HoldingsTableModel tableModel = new HoldingsTableModel();
         tableModel.addColumn("Symbol");
         tableModel.addColumn("Price");
         tableModel.addColumn("Shares");
