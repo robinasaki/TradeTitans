@@ -40,7 +40,8 @@ public class HoldingsView extends JPanel {
         JPanel panel = new JPanel();
 
         // Create title
-        JLabel title = new JLabel(viewModel.getState().getPortfolioName());
+        JLabel title = new JLabel("<html> Current Portfolio: <br/>" + "<b>"+ viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "Portfolio Currency: <br/>" + "<b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
+        title.setFont(new Font("Georgia", Font.PLAIN, 15));
         panel.add(title);
 
         // Create table model
@@ -84,10 +85,6 @@ public class HoldingsView extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panel.add(scrollPane);
 
-        // display default currency
-        JLabel currency = new JLabel("Currency: " + viewModel.getState().getDefaultCurrency());
-        panel.add(currency);
-
         // Create back button for going back to portfolio selection
         JButton backButton = new JButton("Back to Portfolio Selection");
         backButton.addActionListener(new BackButtonListener());
@@ -114,6 +111,6 @@ public class HoldingsView extends JPanel {
             viewManagerModel.setActiveView("trade");
         }
     }
-    
+
 }
 

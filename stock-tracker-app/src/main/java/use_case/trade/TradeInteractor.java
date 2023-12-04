@@ -32,8 +32,8 @@ public class TradeInteractor implements TradeInputBoundary{
 
         APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
 
-        boolean newAssetIn = !(tradeInputData.getAssetIn().equals("") && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
-        boolean newAssetOut = !tradeInputData.getAssetOut().equals("") && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
+        boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
+        boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
 
         // if the asset in isn't in the portfolio, give it a price history from API
