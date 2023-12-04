@@ -68,7 +68,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         confirmButton.addActionListener(new ConfirmButtonListener());
         buttons.add(confirmButton);
 
-        System.out.println("Something");
         showRelevantFields();
 
         tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
@@ -168,7 +167,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         @Override
         public void itemStateChanged(ItemEvent e) {
             if (e.getStateChange() == ItemEvent.SELECTED) {
-                System.out.println("anything");
                 showRelevantFields();
             }
         }
