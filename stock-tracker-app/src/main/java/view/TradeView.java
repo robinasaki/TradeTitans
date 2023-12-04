@@ -129,26 +129,33 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             String portfolio = tradeViewModel.getState().getPortfolioName();
             String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
 
-            if (tradeType.equals("Deposit")) {
-                double amount = Double.parseDouble(amountField.getText());
-                String currency = currencyField.getText();
-                tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
-            } else if (tradeType.equals("Withdraw")) {
-                double amount = Double.parseDouble(amountField.getText());
-                String currency = currencyField.getText();
-                tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
-            } else if (tradeType.equals("Buy")) {
-                double shares = Double.parseDouble(sharesField.getText());
-                String symbol = symbolField.getText();
-                double price = Double.parseDouble(priceField.getText());
-                tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
-            } else if (tradeType.equals("Sell")) {
-                double shares = Double.parseDouble(sharesField.getText());
-                String symbol = symbolField.getText();
-                double price = Double.parseDouble(priceField.getText());
-                tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
-            } else if (tradeType.equals("Exchange")) {
-                // TODO
+            assert tradeType != null;
+            switch (tradeType) {
+                case "Deposit" -> {
+                    double amount = Double.parseDouble(amountField.getText());
+                    String currency = currencyField.getText();
+                    tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
+                }
+                case "Withdraw" -> {
+                    double amount = Double.parseDouble(amountField.getText());
+                    String currency = currencyField.getText();
+                    tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                }
+                case "Buy" -> {
+                    double shares = Double.parseDouble(sharesField.getText());
+                    String symbol = symbolField.getText();
+                    double price = Double.parseDouble(priceField.getText());
+                    tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                }
+                case "Sell" -> {
+                    double shares = Double.parseDouble(sharesField.getText());
+                    String symbol = symbolField.getText();
+                    double price = Double.parseDouble(priceField.getText());
+                    tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                }
+                case "Exchange" -> {
+                    // TODO
+                }
             }
         }
     }
