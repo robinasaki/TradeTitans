@@ -56,15 +56,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         // Set up DocumentFilter for sharesField
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
-        JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
-        title.setFont(new Font("Georgia", Font.PLAIN, 15));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // panel.add(title);
-
         panel = new JPanel(new GridLayout(0, 1));
-
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), amountField));
+        JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
+        title.setFont(new Font("Georgia", Font.BOLD, 15));
+        panel.add(title);
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
@@ -87,6 +82,11 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
+
+        JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
+        instructionButton.addActionListener(new InstructionButtonListener());
+        panel.add(instructionButton);
 
         add(panel);
 
@@ -148,11 +148,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
                 throws BadLocationException {
-            if (text.matches("\\d*")) {
+            if (text.matches("[\\d, .]*")) {
                 super.replace(fb, offset, length, text, attrs);
             }
         }
     }
+
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -207,7 +208,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     //tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
-                    tradeController.execute(portfolio, defaultCurrency, currency  , amount, 0.0, 0.0);
+                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, 0.0);
                 }
             }
         }
@@ -227,6 +228,19 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 showRelevantFields();
             }
+        }
+    }
+
+    private class InstructionButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(panel, "<html> Instruction: " +
+                    "<br/> <b>Deposit</b>: deposit selected currency into the portfolio " +
+                    "<br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
+                    "<br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
+                    "<br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
+                    "<br/> <b>Exchange</b>: exchange currency <html/>");
         }
     }
 
