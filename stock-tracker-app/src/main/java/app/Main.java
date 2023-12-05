@@ -5,36 +5,15 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.credit.CreditViewModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import interface_adapter.add_portfolio.AddPortfolioViewModel;
-import interface_adapter.add_portfolio.AddPortfolioPresenter;
-import interface_adapter.add_portfolio.AddPortfolioController;
-import interface_adapter.delete_portfolio.DeletePortfolioPresenter;
-import interface_adapter.delete_portfolio.DeletePortfolioController;
 import interface_adapter.delete_portfolio.DeletePortfolioViewModel;
-import interface_adapter.delete_portfolio.DeletePortfolioState;
 import interface_adapter.holdings.HoldingsViewModel;
-import interface_adapter.holdings.UpdatePricesPresenter;
-import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
-import interface_adapter.trade.TradePresenter;
-import interface_adapter.trade.TradeController;
-import use_case.add_portfolio.AddPortfolioInteractor;
-import use_case.add_portfolio.AddPortfolioInputBoundary;
-import use_case.add_portfolio.AddPortfolioOutputBoundary;
-import use_case.delete_portfolio.DeletePortfolioInteractor;
-import use_case.delete_portfolio.DeletePortfolioInputBoundary;
-import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
-import use_case.update_prices.UpdatePricesInteractor;
-import use_case.update_prices.UpdatePricesInputBoundary;
-import use_case.update_prices.UpdatePricesOutputBoundary;
-import use_case.trade.TradeInteractor;
-import use_case.trade.TradeInputBoundary;
-import use_case.trade.TradeOutputBoundary;
-import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -83,63 +62,26 @@ public class Main {
         portfolioSelectionViewModel.setPortfolioNames(portfolioNames);
 
         viewManagerModel.setActiveView("portfolio_selection");
-        
-        PortfolioSelectionView portfolioSelectionView = createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
+
+        PortfolioSelectionView portfolioSelectionView = ViewFactory.createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
         HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel);
         views.add(holdingsView, holdingsView.viewName);
 
-        AddPortfolioView addPortfolioView = createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
+        AddPortfolioView addPortfolioView = ViewFactory.createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
         views.add(addPortfolioView, addPortfolioView.viewName);
 
-        DeletePortfolioView deletePortfolioView = createDeletePortfolioView(deletePortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
+        DeletePortfolioView deletePortfolioView = ViewFactory.createDeletePortfolioView(deletePortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
         views.add(deletePortfolioView, deletePortfolioView.viewName);
 
-        TradeView tradeView = createTradeView(tradeViewModel, viewManagerModel, holdingsViewModel);
+        TradeView tradeView = ViewFactory.createTradeView(tradeViewModel, viewManagerModel, holdingsViewModel);
         views.add(tradeView, tradeView.viewName);
 
-        CreditView creditView = createCreditView(creditViewModel, viewManagerModel);
+        CreditView creditView = ViewFactory.createCreditView(creditViewModel, viewManagerModel);
         views.add(creditView, creditView.viewName);
 
         application.pack();
         application.setVisible(true);
-    }
-
-    private static PortfolioSelectionView createPortfolioSelectionView(PortfolioSelectionViewModel portfolioSelectionViewModel, HoldingsViewModel holdingsViewModel, DeletePortfolioViewModel deletePortfolioViewModel, ViewManagerModel viewManagerModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
-        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
-        UpdatePricesOutputBoundary updatePricesOutputBoundary = new UpdatePricesPresenter(viewManagerModel, holdingsViewModel);
-        UpdatePricesInputBoundary updatePricesInputBoundary = new UpdatePricesInteractor(fileDataAccessObject, apiDataAccessObject, updatePricesOutputBoundary);
-        UpdatePricesController updatePricesController = new UpdatePricesController(updatePricesInputBoundary);
-        return new PortfolioSelectionView(portfolioSelectionViewModel, viewManagerModel, updatePricesController, deletePortfolioViewModel);
-    }
-
-    private static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
-        AddPortfolioOutputBoundary addPortfolioOutputBoundary = new AddPortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
-        AddPortfolioInputBoundary addPortfolioInputBoundary = new AddPortfolioInteractor(fileDataAccessObject, addPortfolioOutputBoundary);
-        AddPortfolioController addPortfolioController = new AddPortfolioController(addPortfolioInputBoundary);
-        return new AddPortfolioView(addPortfolioViewModel, viewManagerModel, addPortfolioController);
-    }
-
-    private static DeletePortfolioView createDeletePortfolioView(DeletePortfolioViewModel deletePortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
-        DeletePortfolioOutputBoundary deletePortfolioOutputBoundary = new DeletePortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
-        DeletePortfolioInputBoundary deletePortfolioInputBoundary = new DeletePortfolioInteractor(fileDataAccessObject, deletePortfolioOutputBoundary);
-        DeletePortfolioController deletePortfolioController = new DeletePortfolioController(deletePortfolioInputBoundary);
-        return new DeletePortfolioView(deletePortfolioViewModel, viewManagerModel, deletePortfolioController);
-    }
-
-    private static TradeView createTradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, HoldingsViewModel holdingsViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
-        TradeOutputBoundary tradeOutputBoundary = new TradePresenter(viewManagerModel, holdingsViewModel);
-        TradeInputBoundary TradeInputBoundary = new TradeInteractor(fileDataAccessObject, tradeOutputBoundary);
-        TradeController tradeController = new TradeController(TradeInputBoundary);
-        return new TradeView(tradeViewModel, viewManagerModel, tradeController);
-    }
-
-    private static CreditView createCreditView(CreditViewModel creditViewModel, ViewManagerModel viewManagerModel) {
-        return new CreditView(creditViewModel, viewManagerModel);
     }
 }
