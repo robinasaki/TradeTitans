@@ -25,6 +25,14 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
         }
 
         Tradeable currency = new Tradeable("currency", defaultCurrency);
+        TreeMap<Date, Double> quotes = new TreeMap<>();
+        LocalData date = LocalDate.of(1900, 1, 1);
+        while (date.isBefore(LocalDate.now())) {
+            quotes.put(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), 1.0);
+            date = date.plusDays(1);
+        }
+        currency.setPriceHistory(quotes);
+
         Portfolio portfolio = new Portfolio(portfolioName, currency);
         portfolio.addAsset(currency.getSymbol());
         fileDataAccessObject.savePortfolio(portfolio);
