@@ -42,17 +42,41 @@ public class TradeInteractor implements TradeInputBoundary {
             }
         }
 
+        // withdraw filtering
         if (!trade.getAssetOut().isEmpty()){
-            // zero deposit prevention
+            // zero withdraw prevention
             if (trade.getAmountOut() == 0) {
                 throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
             }
             // negative withdraw prevention
             if (trade.getAmountOut() < 0) {
-                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
+                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the \"Deposit\" option. <html/>");
             }
         }
 
+        // filtering shares input when buying
+        if (!trade.getAssetIn().isEmpty()) {
+            // buying zero stocks prevention
+            if (trade.getAmountOut() == 0) {
+                throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
+            }
+            // buying negative stocks prevention
+            if (trade.getAmountOut() <= 0) {
+                throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
+            }
+        }
+
+        // filtering shares input when selling
+        if (!trade.getAssetOut().isEmpty()) {
+            // buying zero stocks prevention
+            if (trade.getAmountOut() == 0) {
+                throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
+            }
+            // buying negative stocks prevention
+            if (trade.getAmountOut() <= 0) {
+                throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
+            }
+        }
 
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
@@ -89,7 +113,9 @@ public class TradeInteractor implements TradeInputBoundary {
         // establishing what will be showen in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
-            if (asset.getSharesHeld() != 0){
+            if (asset.getSharesHeld() == 0 && !asset.getSymbol().equals(portfolio.getCurrency().getSymbol())) {
+                portfolio.removeAsset(asset.getSymbol());
+            } else {
                 symbols.add(asset.getSymbol());
                 prices.add(asset.getCurrentPrice());
                 shares.add(asset.getSharesHeld());
@@ -97,8 +123,9 @@ public class TradeInteractor implements TradeInputBoundary {
                 changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
                 changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
             }
-
         }
+        fileDataAccessObject.removePortfolio(portfolio.getName());
+        fileDataAccessObject.savePortfolio(portfolio);
 
         symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
