@@ -182,10 +182,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         double price = Double.parseDouble(priceField.getText());
                         tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                    } catch (NullPointerException exp) {
+                        JOptionPane.showMessageDialog(panel, "API Key limit reached.");
                     } catch (RuntimeException exp) {
-                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
-                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
-                        }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
@@ -195,10 +194,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         double price = Double.parseDouble(priceField.getText());
                         tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    } catch (NullPointerException exp) {
+                        JOptionPane.showMessageDialog(panel, "API Key limit reached.");
                     } catch (RuntimeException exp) {
-                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
-                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
-                        }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
