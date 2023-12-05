@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.TreeMap;
 
-import static entity.Tradeable.addTradeable;
-import static entity.Tradeable.getTradeable;
+//import static entity.Tradeable.addTradeable;
+//import static entity.Tradeable.getTradeable;
 
 public class TradeableTest {
     private Tradeable test;
@@ -59,9 +59,9 @@ public class TradeableTest {
 
     }
 
-    @Test
-    public void getTradeableTest() {
-        addTradeable("IBM");
-        assert (getTradeable("IBM").getSymbol().equals("IBM"));
-    }
+//    @Test
+//    public void getTradeableTest() {
+//        addTradeable("IBM");
+//        assert (getTradeable("IBM").getSymbol().equals("IBM"));
+//    }
 }

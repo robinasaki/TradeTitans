@@ -86,11 +86,10 @@ public class TradeInteractor implements TradeInputBoundary {
         ArrayList<Double> changes = new ArrayList<>();
         ArrayList<Double> changePercents = new ArrayList<>();
 
-
         // establishing what will be showen in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
-            if (asset.getSharesHeld() > 0 ) {
+            if (asset.getSharesHeld() != 0){
                 symbols.add(asset.getSymbol());
                 prices.add(asset.getCurrentPrice());
                 shares.add(asset.getSharesHeld());
@@ -98,9 +97,8 @@ public class TradeInteractor implements TradeInputBoundary {
                 changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
                 changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
             }
+
         }
-
-
 
         symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
@@ -117,5 +115,5 @@ public class TradeInteractor implements TradeInputBoundary {
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);
 
-    }
-}
+
+}}
