@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import entity.Portfolio;
 import interface_adapter.trade.TradeController;
 import interface_adapter.trade.TradeState;
 import interface_adapter.trade.TradeViewModel;
@@ -30,7 +31,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.viewManagerModel = viewManagerModel;
         this.tradeController = tradeController;
         this.tradeViewModel = tradeViewModel;
-        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Deposit", "Withdraw", "Buy", "Sell", "Exchange"});
+        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Deposit", "Withdraw", "Buy", "Sell", "Currency Exchange"});
         this.amountField = new JTextField(10);
         this.currencyField = new JTextField(5);
         this.sharesField = new JTextField(10);
@@ -169,8 +170,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double price = Double.parseDouble(priceField.getText());
                     tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
                 }
-                case "Exchange" -> {
-                    // TODO
+                // TODO: The logic behind this is incorrect. Still need proper implementation.
+                case "Currency Exchange" -> {
+                    double amount = Double.parseDouble(amountField.getText());
+                    String currency = currencyField.getText();
+                    tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
+                    tradeController.execute(portfolio, "", "$" + currency, amount, 0.0, 0.0);
                 }
             }
         }
@@ -201,39 +206,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     } */
 
     private void showRelevantFields() {
-        /* if ("Deposit".equals(tradeTypeComboBox.getSelectedItem())) {
-            amountField.setVisible(true);
-            currencyField.setVisible(true);
-            sharesField.setVisible(false);
-            symbolField.setVisible(false);
-            priceField.setVisible(false);
-        } else if ("Withdraw".equals(tradeTypeComboBox.getSelectedItem())) {
-            amountField.setVisible(true);
-            currencyField.setVisible(true);
-            sharesField.setVisible(false);
-            symbolField.setVisible(false);
-            priceField.setVisible(false);
-        } else if ("Buy".equals(tradeTypeComboBox.getSelectedItem())) {
-            amountField.setVisible(true);
-            currencyField.setVisible(true);
-            sharesField.setVisible(true);
-            symbolField.setVisible(false);
-            priceField.setVisible(false);
-        } else if ("Sell".equals(tradeTypeComboBox.getSelectedItem())) {
-            amountField.setVisible(true);
-            currencyField.setVisible(true);
-            sharesField.setVisible(true);
-            symbolField.setVisible(false);
-            priceField.setVisible(false);
-        } else {
-            amountField.setVisible(true);
-            currencyField.setVisible(true);
-            sharesField.setVisible(true);
-            symbolField.setVisible(true);
-            priceField.setVisible(true);
-        }
-        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener()); */
-
         String tradeType = (String) tradeTypeComboBox.getSelectedItem();
 
         // Hide all fields
@@ -243,10 +215,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         symbolField.setVisible(false);
         priceField.setVisible(false);
 
-        // Show relevant
-//        if (!selected.equals(tradeType)) {
-//
-//        }
         switch (tradeType) {
             case "Deposit":
             case "Withdraw":
@@ -259,12 +227,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 symbolField.setVisible(true);
                 priceField.setVisible(true);
                 break;
-            case "Exchange":
+            case "Currency Exchange":
                 amountField.setVisible(true);
-                currencyField.setVisible(false);
-                sharesField.setVisible(true);
-                symbolField.setVisible(true);
-                priceField.setVisible(false);
+                currencyField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
@@ -272,7 +237,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         }
         panel.revalidate();
         panel.repaint();
-        // tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
     }
 /*
 @Override
