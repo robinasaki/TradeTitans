@@ -188,7 +188,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                         if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
                             JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Buy" -> {
