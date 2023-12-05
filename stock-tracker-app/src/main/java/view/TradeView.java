@@ -1,6 +1,10 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -43,6 +47,14 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
     private void initView() {
         //tradeViewModel.addPropertyChangeListener(this);
+
+        // this is to prevent the user from typing Strings in the numeric fields
+        // int specific fields that require a numeric values.
+        ((AbstractDocument) amountField.getDocument()).setDocumentFilter(new NumericFilter());
+        // Set up DocumentFilter for priceField
+        ((AbstractDocument) priceField.getDocument()).setDocumentFilter(new NumericFilter());
+        // Set up DocumentFilter for sharesField
+        ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.PLAIN, 15));
@@ -121,6 +133,26 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 */
     }
 
+    // Those classes for the Filter that prevents the user from entering Strings
+    // in the Numeric fields
+
+    private static class NumericFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+                throws BadLocationException {
+            if (string.matches("\\d*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("\\d*")) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    }
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
