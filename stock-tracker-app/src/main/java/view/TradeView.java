@@ -16,6 +16,7 @@ import interface_adapter.trade.TradeState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.ViewManagerModel;
 import data_access.APIDataAccessObject;
+
 import java.text.DecimalFormat;
 
 public class TradeView extends JPanel { //implements ActionListener, PropertyChangeListener {
@@ -177,16 +178,28 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     }
                 }
                 case "Buy" -> {
-                    double shares = Double.parseDouble(sharesField.getText());
-                    String symbol = symbolField.getText();
-                    double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                    try {
+                        double shares = Double.parseDouble(sharesField.getText());
+                        String symbol = symbolField.getText();
+                        double price = Double.parseDouble(priceField.getText());
+                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                    } catch (NullPointerException exp) {
+                        JOptionPane.showMessageDialog(panel, "API Key limit reached.");
+                    } catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 case "Sell" -> {
-                    double shares = Double.parseDouble(sharesField.getText());
-                    String symbol = symbolField.getText();
-                    double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    try {
+                        double shares = Double.parseDouble(sharesField.getText());
+                        String symbol = symbolField.getText();
+                        double price = Double.parseDouble(priceField.getText());
+                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    } catch (NullPointerException exp) {
+                        JOptionPane.showMessageDialog(panel, "API Key limit reached.");
+                    } catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.
                 case "Currency Exchange" -> {
@@ -241,10 +254,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         public void keyTyped(KeyEvent e) {
             // Do nothing
         }
+
         @Override
         public void keyPressed(KeyEvent e) {
             // Do nothing
         }
+
         @Override
         public void keyReleased(KeyEvent e) {
             String symbol = symbolField.getText();
