@@ -23,6 +23,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private final JTextField sharesField;
     private final JTextField symbolField;
     private final JTextField priceField;
+    private String selected = "";
+    private JPanel panel;
 
     public TradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, TradeController tradeController) {
         this.viewManagerModel = viewManagerModel;
@@ -41,13 +43,13 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private void initView() {
         //tradeViewModel.addPropertyChangeListener(this);
 
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.PLAIN, 15));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // panel.add(title);
+
+        panel = new JPanel(new GridLayout(0, 1));
 
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
@@ -227,7 +229,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         symbolField.setVisible(false);
         priceField.setVisible(false);
 
-        // Show relevant fields
+        // Show relevant
+//        if (!selected.equals(tradeType)) {
+//
+//        }
         switch (tradeType) {
             case "Deposit":
             case "Withdraw":
@@ -241,13 +246,19 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 priceField.setVisible(true);
                 break;
             case "Exchange":
-                // TODO
+                amountField.setVisible(true);
+                currencyField.setVisible(false);
+                sharesField.setVisible(true);
+                symbolField.setVisible(true);
+                priceField.setVisible(false);
                 break;
             default:
                 // TODO: implement default case here.
                 break;
         }
-        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
+        panel.revalidate();
+        panel.repaint();
+        // tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
     }
 /*
 @Override
