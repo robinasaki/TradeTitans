@@ -39,7 +39,6 @@ public class DeletePortfolioViewModel extends ViewModel {
         this.portfolioName = portfolioName;
     }
 
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged(){

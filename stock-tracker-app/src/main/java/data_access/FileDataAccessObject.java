@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataAccessObject {
+public class FileDataAccessObject implements DeletePortfolioDataAccessInterface {
     private static final String FILE_PATH = "portfolioData.ser";
 
     private void savePortfolios(List<Portfolio> portfolios) {
@@ -22,6 +22,7 @@ public class FileDataAccessObject {
         }
     }
 
+    @Override
     public void removePortfolio(String PortfolioName){
         List<Portfolio> portfolios = loadPortfolios();
         portfolios.removeIf(portfolio -> portfolio.getName().equals(PortfolioName));
