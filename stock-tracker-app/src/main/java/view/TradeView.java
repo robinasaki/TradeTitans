@@ -56,6 +56,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         // Set up DocumentFilter for sharesField
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
+        // Set up CurrencyFilter
+        ((AbstractDocument) symbolField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
+        ((AbstractDocument) currencyField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
+
         panel = new JPanel(new GridLayout(0, 1));
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 15));
@@ -149,6 +153,23 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
                 throws BadLocationException {
             if (text.matches("[\\d, .]*")) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    }
+
+    private static class CurrencyInputFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            if (string.matches("[A-Z]*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("[A-Z]*")) {
                 super.replace(fb, offset, length, text, attrs);
             }
         }
