@@ -32,11 +32,6 @@ public class TradeInteractor implements TradeInputBoundary {
 
         // deposit filtering
         if (!trade.getAssetIn().isEmpty()){
-            // zero deposit prevention
-            if (trade.getAmountIn() == 0) {
-                throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
-            }
-            // negative deposit prevention
             if (trade.getAmountIn() < 0) {
                 throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the withdraw option. <html/>");
             }
@@ -44,10 +39,6 @@ public class TradeInteractor implements TradeInputBoundary {
 
         // withdraw filtering
         if (!trade.getAssetOut().isEmpty()){
-            // zero withdraw prevention
-            if (trade.getAmountOut() == 0) {
-                throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
-            }
             // negative withdraw prevention
             if (trade.getAmountOut() < 0) {
                 throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the \"Deposit\" option. <html/>");
