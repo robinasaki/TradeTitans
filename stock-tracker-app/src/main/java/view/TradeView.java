@@ -137,12 +137,20 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Deposit" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
+                    try {
+                        tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
+                    } catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 case "Withdraw" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                    try {
+                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                    } catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 case "Buy" -> {
                     double shares = Double.parseDouble(sharesField.getText());

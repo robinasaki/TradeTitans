@@ -1,6 +1,5 @@
 package view;
 
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 public class HoldingsTableModel extends DefaultTableModel {
