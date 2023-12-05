@@ -40,7 +40,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.currencyField = new JTextField(5);
         this.sharesField = new JTextField(10);
         this.symbolField = new JTextField(5);
-        this.priceField = new JTextField(10);
+        this.priceField = new NonEditableTextField(10);
 
         initView();
     }

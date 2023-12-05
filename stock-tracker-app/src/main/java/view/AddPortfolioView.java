@@ -1,6 +1,10 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +41,7 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
 
     private void initView() {
         panel = new JPanel(new GridLayout(0, 1));
+        ((AbstractDocument) otherCurrencyField.getDocument()).setDocumentFilter(new AddPortfolioView.StringFilter());
 
         JLabel title = new JLabel(addPortfolioViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 20));
@@ -97,6 +102,23 @@ public class AddPortfolioView extends JPanel { // implements ActionListener, Pro
                 else {
                     addPortfolioController.execute(portfolioName, defaultCurrency);
                 }
+            }
+        }
+    }
+
+    private static class StringFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            if (string.matches("[A-Z]*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("[A-Z]*")) {
+                super.replace(fb, offset, length, text, attrs);
             }
         }
     }
