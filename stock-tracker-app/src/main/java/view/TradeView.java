@@ -151,7 +151,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     }
 
 
-        private class ConfirmButtonListener implements ActionListener {
+    private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // gets trade type
@@ -176,15 +176,13 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Withdraw" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    if (amount != 0.0){
-                        JOptionPane.showMessageDialog(panel, "Amount invalid");
-                    try {
-                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                        try {
+                            tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
                         }
-                    catch (RuntimeException exp) {
-                        JOptionPane.showMessageDialog(panel, "Amount invalid");
+                        catch (RuntimeException exp) {
+                            JOptionPane.showMessageDialog(panel, "Amount invalid");
+                        }
                     }
-                }}
                 case "Buy" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
@@ -195,9 +193,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     {
                         JOptionPane.showMessageDialog(panel, "Invalid amount");}
                     else {
-                    tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
                     }
-                    }
+                }
                 case "Sell" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
@@ -216,7 +214,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String currency = currencyField.getText();
                     double price = Double.parseDouble(priceField.getText());
                     tradeController.execute(portfolio, defaultCurrency + "$", "$" + currency, amount, amount * price, 0.0);
-                   // tradeController.execute(portfolio, defaultCurrency, symbol, price * amount,0.0 , 0.0);
+                    // tradeController.execute(portfolio, defaultCurrency, symbol, price * amount,0.0 , 0.0);
                 }
             }
         }
@@ -291,3 +289,4 @@ public void propertyChange(PropertyChangeEvent evt) {
     TradeState state = (TradeState) evt.getNewValue();
     } */
 }
+
