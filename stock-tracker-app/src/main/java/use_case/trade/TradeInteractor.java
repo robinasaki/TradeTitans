@@ -34,11 +34,11 @@ public class TradeInteractor implements TradeInputBoundary {
         if (trade.getAmountIn() < 0) {
             throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the withdraw option. <html/>");
         }
-
         // negative withdraw prevention
         if (trade.getAmountOut() < 0) {
             throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
         }
+
 
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
@@ -71,15 +71,23 @@ public class TradeInteractor implements TradeInputBoundary {
         ArrayList<Double> changes = new ArrayList<>();
         ArrayList<Double> changePercents = new ArrayList<>();
 
+
+
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
-            symbols.add(asset.getSymbol());
-            prices.add(asset.getCurrentPrice());
-            shares.add(asset.getSharesHeld());
-            values.add(asset.getCurrentValue());
-            changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
-            changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
+            if (asset.getSharesHeld() > 0) {
+                symbols.add(asset.getSymbol());
+                prices.add(asset.getCurrentPrice());
+                shares.add(asset.getSharesHeld());
+                values.add(asset.getCurrentValue());
+                changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
+                changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
+
+            }
         }
+
+
+
         symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
@@ -89,6 +97,8 @@ public class TradeInteractor implements TradeInputBoundary {
         // TODO: these should actually be calculated
         changes.add(0.0);
         changePercents.add(0.0);
+
+
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);
