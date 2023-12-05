@@ -152,7 +152,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
                 throws BadLocationException {
-            if (text.matches("\\d*")) {
+            if (text.matches("[\\d, .]*")) {
                 super.replace(fb, offset, length, text, attrs);
             }
         }
@@ -239,7 +239,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(panel, "<html> Instruction: <br/> <b>Deposit</b>: deposit selected currency into the portfolio <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio <br/> <b>Buy</b>: purchase the inputted stock with the default currency <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency <br/> <b>Exchange</b>: exchange currency <html/>");
+            JOptionPane.showMessageDialog(panel, "<html> Instruction: " +
+                    "<br/> <b>Deposit</b>: deposit selected currency into the portfolio " +
+                    "<br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
+                    "<br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
+                    "<br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
+                    "<br/> <b>Exchange</b>: exchange currency <html/>");
         }
     }
 
