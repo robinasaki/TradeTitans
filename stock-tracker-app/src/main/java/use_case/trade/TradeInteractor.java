@@ -72,7 +72,7 @@ public class TradeInteractor implements TradeInputBoundary {
         ArrayList<Double> changePercents = new ArrayList<>();
 
 
-
+        // establishing what will be showen in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
             if (asset.getSharesHeld() > 0) {
