@@ -42,17 +42,41 @@ public class TradeInteractor implements TradeInputBoundary {
             }
         }
 
+        // withdraw filtering
         if (!trade.getAssetOut().isEmpty()){
-            // zero deposit prevention
+            // zero withdraw prevention
             if (trade.getAmountOut() == 0) {
                 throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
             }
             // negative withdraw prevention
             if (trade.getAmountOut() < 0) {
-                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
+                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the \"Deposit\" option. <html/>");
             }
         }
 
+        // filtering shares input when buying
+        if (!trade.getSharesHeld().isEmpty()) {
+            // zero stocks prevention
+            if (trade.getAmountOut() == 0) {
+                throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
+            }
+            // negative buy prevention
+            if (trade.getAmountOut() <= 0) {
+                throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
+            }
+        }
+
+        // filtering shares input when selling
+        if (!trade.getSharesHeld().isEmpty()) {
+            // zero stocks prevention
+            if (trade.getAmountOut() == 0) {
+                throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
+            }
+            // negative buy prevention
+            if (trade.getAmountOut() <= 0) {
+                throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
+            }
+        }
 
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
