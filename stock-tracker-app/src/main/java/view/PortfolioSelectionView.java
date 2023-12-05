@@ -52,51 +52,55 @@ public class PortfolioSelectionView extends JPanel {
             e.printStackTrace();
         }
 
-        // Add vertical panel
-        JScrollPane scrollPane = new JScrollPane(panel);
-        JScrollBar scrollBar = new JScrollBar();
+        try {
+            // Add vertical panel
+            JScrollPane scrollPane = new JScrollPane(panel);
+            JScrollBar scrollBar = new JScrollBar();
 
-        // set the view border
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            // set the view border
+            panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel portfolioSelectionInstruction = new JLabel("Select one portfolio below to begin with.");
-        portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
-        panel.add(portfolioSelectionInstruction);
+            JLabel portfolioSelectionInstruction = new JLabel("Select one portfolio below to begin with.");
+            portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
+            panel.add(portfolioSelectionInstruction);
 
-        // Add buttons for each portfolio
-        List<String> portfolioNames = viewModel.getPortfolioNames();
-        for (String portfolioName : portfolioNames) {
-            // Create a new panel for each portfolio
-            JPanel portfolioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            // Add buttons for each portfolio
+            List<String> portfolioNames = viewModel.getPortfolioNames();
+            for (String portfolioName : portfolioNames) {
+                // Create a new panel for each portfolio
+                JPanel portfolioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-            // Add portfolio button
-            JButton portfolioButton = new JButton(portfolioName);
-            portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));
-            portfolioPanel.add(portfolioButton);
+                // Add portfolio button
+                JButton portfolioButton = new JButton(portfolioName);
+                portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));
+                portfolioPanel.add(portfolioButton);
 
-            // Add delete button
-            JButton deleteButton = new JButton("x");
-            deleteButton.addActionListener(new DeletePortfolioButtonListener(portfolioName));
-            portfolioPanel.add(deleteButton);
+                // Add delete button
+                JButton deleteButton = new JButton("x");
+                deleteButton.addActionListener(new DeletePortfolioButtonListener(portfolioName));
+                portfolioPanel.add(deleteButton);
 
-            // Add portfolio panel to the main panel
-            panel.add(portfolioPanel);
+                // Add portfolio panel to the main panel
+                panel.add(portfolioPanel);
+            }
+
+            // Add button to add a new portfolio
+            JButton addPortfolioButton = new JButton("Add Portfolio");
+            addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
+            panel.add(addPortfolioButton);
+
+            JButton creditButton = new JButton("About the program");
+            creditButton.addActionListener(new creditButtonListener());
+            panel.add(creditButton);
+
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            add(scrollPane);
+
+            add(panel);
+        } catch (Exception exp) {
+            JOptionPane.showMessageDialog(panel, exp.getMessage());
         }
-
-        // Add button to add a new portfolio
-        JButton addPortfolioButton = new JButton("Add Portfolio");
-        addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
-        panel.add(addPortfolioButton);
-
-        JButton creditButton = new JButton("About the program");
-        creditButton.addActionListener(new creditButtonListener());
-        panel.add(creditButton);
-
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        add(scrollPane);
-
-        add(panel);
     }
 
     private class PortfolioButtonListener implements ActionListener {
@@ -109,7 +113,13 @@ public class PortfolioSelectionView extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            updatePricesController.execute(portfolioName);
+            try {
+                updatePricesController.execute(portfolioName);
+            } catch (Exception exception) {
+                if (exception.getMessage().equals("\"Cannot invoke \\\"com.fasterxml.jackson.databind.JsonNode.fields()\\\" because \\\"timeSeries\\\" is null\"")) {
+                    throw new RuntimeException("API Key error. Please check again.");
+                }
+            }
         }
     }
 
