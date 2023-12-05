@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
-public class TradeInteractor implements TradeInputBoundary{
+public class TradeInteractor implements TradeInputBoundary {
     private final FileDataAccessObject fileDataAccessObject;
     private final TradeOutputBoundary presenter;
 
@@ -24,17 +24,27 @@ public class TradeInteractor implements TradeInputBoundary{
     public void execute(TradeInputData tradeInputData) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(tradeInputData.getPortfolioName());
         TradeTransaction trade = new TradeTransaction(
-                                                      tradeInputData.getAssetIn(),
-                                                      tradeInputData.getAssetOut(),
-                                                      tradeInputData.getAmountIn(),
-                                                      tradeInputData.getAmountOut(),
-                                                      tradeInputData.getTradingFee());
+                tradeInputData.getAssetIn(),
+                tradeInputData.getAssetOut(),
+                tradeInputData.getAmountIn(),
+                tradeInputData.getAmountOut(),
+                tradeInputData.getTradingFee());
 
-        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
+        // negative deposit prevention
+        if (trade.getAmountIn() < 0) {
+            throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the withdraw option. <html/>");
+        }
+
+        // negative withdraw prevention
+        if (trade.getAmountOut() < 0) {
+            throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
+        }
 
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
+
+        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
 
         // if the asset in isn't in the portfolio, give it a price history from API
         if (newAssetIn) {
@@ -82,6 +92,6 @@ public class TradeInteractor implements TradeInputBoundary{
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);
-        
+
     }
 }
