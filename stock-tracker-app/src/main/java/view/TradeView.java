@@ -207,7 +207,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     //tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
-                    tradeController.execute(portfolio, defaultCurrency, currency , amount, 0.0, 0.0);
+                    tradeController.execute(portfolio, defaultCurrency, currency  , amount, 0.0, 0.0);
                 }
             }
         }
