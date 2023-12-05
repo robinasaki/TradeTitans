@@ -88,6 +88,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
 
+        JButton instructionButton = new JButton("What are these?");
+        instructionButton.addActionListener(new InstructionButtonListener());
+        panel.add(instructionButton);
+
         add(panel);
 
 /*
@@ -153,6 +157,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             }
         }
     }
+
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -207,7 +212,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     //tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
-                    tradeController.execute(portfolio, defaultCurrency, currency , amount, 0.0, 0.0);
+                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, 0.0);
                 }
             }
         }
@@ -227,6 +232,14 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 showRelevantFields();
             }
+        }
+    }
+
+    private class InstructionButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(panel, "<html> Instruction: <br/> <b>Deposit</b>: deposit selected currency into the portfolio <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio <br/> <b>Buy</b>: purchase the inputted stock with the default currency <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency <br/> <b>Exchange</b>: exchange currency <html/>");
         }
     }
 
