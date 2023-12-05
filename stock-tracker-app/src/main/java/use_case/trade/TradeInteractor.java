@@ -53,6 +53,7 @@ public class TradeInteractor implements TradeInputBoundary {
             }
         }
 
+
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
@@ -84,15 +85,23 @@ public class TradeInteractor implements TradeInputBoundary {
         ArrayList<Double> changes = new ArrayList<>();
         ArrayList<Double> changePercents = new ArrayList<>();
 
+
+        // establishing what will be showen in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
-            symbols.add(asset.getSymbol());
-            prices.add(asset.getCurrentPrice());
-            shares.add(asset.getSharesHeld());
-            values.add(asset.getCurrentValue());
-            changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
-            changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
+            if (asset.getSharesHeld() > 0) {
+                symbols.add(asset.getSymbol());
+                prices.add(asset.getCurrentPrice());
+                shares.add(asset.getSharesHeld());
+                values.add(asset.getCurrentValue());
+                changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
+                changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
+
+            }
         }
+
+
+
         symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
@@ -102,6 +111,8 @@ public class TradeInteractor implements TradeInputBoundary {
         // TODO: these should actually be calculated
         changes.add(0.0);
         changePercents.add(0.0);
+
+
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);

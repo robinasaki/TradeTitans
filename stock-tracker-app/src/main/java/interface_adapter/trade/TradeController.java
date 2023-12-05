@@ -7,6 +7,7 @@ import use_case.trade.TradeInputData;
 public class TradeController {
     final TradeInputBoundary tradeInteractor;
 
+
     public TradeController(TradeInputBoundary tradeInteractor) {
         this.tradeInteractor = tradeInteractor;
     }

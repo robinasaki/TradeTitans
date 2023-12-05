@@ -276,6 +276,9 @@ public void actionPerformed(ActionEvent e) {
 
 } */
 
+
+
+
 /* @Override
 public void propertyChange(PropertyChangeEvent evt) {
     TradeState state = (TradeState) evt.getNewValue();
