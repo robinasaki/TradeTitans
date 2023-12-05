@@ -15,6 +15,7 @@ import interface_adapter.trade.TradeController;
 import interface_adapter.trade.TradeState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.ViewManagerModel;
+import data_access.APIDataAccessObject;
 
 public class TradeView extends JPanel { //implements ActionListener, PropertyChangeListener {
     public final String viewName = "trade";
@@ -70,6 +71,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SYMBOL_LABEL), symbolField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.PRICE_LABEL), priceField));
 
+        symbolField.addKeyListener(new SymbolFieldKeyListener());
+
         JPanel buttons = new JPanel();
 
         JButton cancelButton = new JButton(tradeViewModel.CANCEL_BUTTON_LABEL);
@@ -94,47 +97,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         add(panel);
 
-/*
-        trade.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals("trade")) {
-                            TradeState currentState = tradeViewModel.getState();
-
-                            tradeController.execute(currentState.getPortfolioName(), currentState.getTradeValue(),
-                                    currentState.getAssetInSymbol(), currentState.getAssetOutSymbol(),
-                                    currentState.getAmountIn(), currentState.getAmountOut());
-                            //TODO: Need to fix actionPerformed method, in particular the execute statement.
-                        }
-                    }
-                }
-        );
-        cancel.addActionListener(this);
-
-        // Why are we using key listeners, we don't need to listen for every key press?
-        valueInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        TradeState currentState = tradeViewModel.getState();
-                        currentState.setTradeValue(Double.parseDouble(valueInputField.getText() + e.getKeyChar()));
-                        tradeViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {}
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {}
-                }
-        );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(amountInfo);
-        this.add(buttons);
-*/
     }
 
     // Those classes for the Filter that prevents the user from entering Strings
@@ -176,6 +138,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     }
 
     private class ConfirmButtonListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             // gets trade type
@@ -271,6 +234,34 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             showRelevantFields();
         }
     } */
+
+    private class SymbolFieldKeyListener implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            // Do nothing
+        }
+        @Override
+        public void keyPressed(KeyEvent e) {
+            // Do nothing
+        }
+        @Override
+        public void keyReleased(KeyEvent e) {
+            String symbol = symbolField.getText();
+            if (symbol.length() > 0) {
+                symbolField.setText(symbol.toUpperCase());
+                updatePrice();
+            }
+        }
+    }
+
+    private void updatePrice() {
+        // this shouldn't be here but it works for now
+        String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
+        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
+        String symbol = symbolField.getText();
+        double price = apiDataAccessObject.getHistoricalQuotes(symbol, defaultCurrency).lastEntry().getValue();
+        priceField.setText(String.valueOf(price));
+    }
 
     private void showRelevantFields() {
         String tradeType = (String) tradeTypeComboBox.getSelectedItem();
