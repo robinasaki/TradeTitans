@@ -81,7 +81,7 @@ public class APIDataAccessObject {
                 quotes.put(date, price);
             }
         } catch (IOException | InterruptedException | ParseException e) {
-            e.printStackTrace(); // TODO: handle exception
+            e.printStackTrace();
         }
         return quotes;
     }
@@ -108,7 +108,7 @@ public class APIDataAccessObject {
                 quotes.put(date, price);
             }
         } catch (IOException | InterruptedException | ParseException e) {
-            e.printStackTrace(); // TODO: handle exception
+            e.printStackTrace();
         }
         return quotes;
     }
@@ -146,12 +146,12 @@ public class APIDataAccessObject {
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(entry.getKey());
                 double price = entry.getValue().get("4. close").asDouble();
                 if (conversionRates.containsKey(date)) {
-                    price *= conversionRates.get(date); // TODO: make sure conversion is in correct direction lol
+                    price *= conversionRates.get(date);
                     quotes.put(date, price);
                 }
             }
         } catch (IOException | InterruptedException | ParseException e) {
-            e.printStackTrace(); // TODO: handle exception
+            e.printStackTrace();
         }
         return quotes;
     }

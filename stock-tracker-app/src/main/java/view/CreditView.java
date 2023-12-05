@@ -29,7 +29,7 @@ public class CreditView extends JPanel {
 
         // TODO: write more
         JLabel portfolioSelectionInstruction = new JLabel("<html>" +
-                "Trade Titans is designed for you to explore the stock market <br/> with real-life stock data without paying." +
+                "Trade Titans is a stock exchange software designed to explore the stock market <br/> with real-life stock data without paying." +
                 "</html>");
         portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
         panel.add(portfolioSelectionInstruction);
