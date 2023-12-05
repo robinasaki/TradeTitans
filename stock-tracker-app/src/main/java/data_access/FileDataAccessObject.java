@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.Portfolio;
+import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
