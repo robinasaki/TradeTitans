@@ -16,6 +16,7 @@ import interface_adapter.trade.TradeState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.ViewManagerModel;
 import data_access.APIDataAccessObject;
+import java.text.DecimalFormat;
 
 public class TradeView extends JPanel { //implements ActionListener, PropertyChangeListener {
     public final String viewName = "trade";
@@ -256,11 +257,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
     private void updatePrice() {
         // this shouldn't be here but it works for now
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
         String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
         APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
         String symbol = symbolField.getText();
         double price = apiDataAccessObject.getHistoricalQuotes(symbol, defaultCurrency).lastEntry().getValue();
-        priceField.setText(String.valueOf(price));
+        priceField.setText(decimalFormat.format(price));
     }
 
     private void showRelevantFields() {
