@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 import entity.Portfolio;
 import interface_adapter.trade.TradeController;
@@ -49,7 +48,13 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private void initView() {
         //tradeViewModel.addPropertyChangeListener(this);
 
-
+        // this is to prevent the user from typing Strings in the numeric fields
+        // int specific fields that require a numeric values.
+        ((AbstractDocument) amountField.getDocument()).setDocumentFilter(new NumericFilter());
+        // Set up DocumentFilter for priceField
+        ((AbstractDocument) priceField.getDocument()).setDocumentFilter(new NumericFilter());
+        // Set up DocumentFilter for sharesField
+        ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.PLAIN, 15));
@@ -82,12 +87,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
-
-        // This is to prevent the user from entering a String in the Fields that require numeric values
-
-        ((AbstractDocument) amountField.getDocument()).setDocumentFilter(new NumericFilter());
-        ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
-        ((AbstractDocument) priceField.getDocument()).setDocumentFilter(new NumericFilter());
 
         add(panel);
 
@@ -133,14 +132,19 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.add(buttons);
 */
     }
+
+    // Those classes for the Filter that prevents the user from entering Strings
+    // in the Numeric fields
+
     private static class NumericFilter extends DocumentFilter {
         @Override
-        public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr)
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
                 throws BadLocationException {
             if (string.matches("\\d*")) {
                 super.insertString(fb, offset, string, attr);
             }
         }
+
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
                 throws BadLocationException {
@@ -149,8 +153,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             }
         }
     }
-
-
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -170,51 +172,42 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
                     } catch (RuntimeException exp) {
+                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
+                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
+                        }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Withdraw" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                        try {
-                            tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                    try {
+                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
+                    } catch (RuntimeException exp) {
+                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
+                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
                         }
-                        catch (RuntimeException exp) {
-                            JOptionPane.showMessageDialog(panel, exp.getMessage());
-                        }
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
+                }
                 case "Buy" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
                     double price = Double.parseDouble(priceField.getText());
-                    if (shares == 0.0){
-                        JOptionPane.showMessageDialog(panel, "Invalid amount of shares");}
-                    else if (price == 0.0 | price < 0.0)
-                    {
-                        JOptionPane.showMessageDialog(panel, "Invalid amount");}
-                    else {
-                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
-                    }
+                    tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
                 }
                 case "Sell" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
                     double price = Double.parseDouble(priceField.getText());
-                    if (shares == 0.0) {
-                        JOptionPane.showMessageDialog(panel, "Invalid amount of shares");
-                    } else if (price == 0.0 | price < 0.0) {
-                        JOptionPane.showMessageDialog(panel, "Invalid amount");
-                    } else {
-                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
-                    }
+                    tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, defaultCurrency + "$", "$" + currency, amount, amount * price, 0.0);
-                    // tradeController.execute(portfolio, defaultCurrency, symbol, price * amount,0.0 , 0.0);
+                    tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
+                    tradeController.execute(portfolio, "", "$" + currency, amount, 0.0, 0.0);
                 }
             }
         }
@@ -269,7 +262,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Currency Exchange":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
-                priceField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
@@ -289,4 +281,3 @@ public void propertyChange(PropertyChangeEvent evt) {
     TradeState state = (TradeState) evt.getNewValue();
     } */
 }
-
