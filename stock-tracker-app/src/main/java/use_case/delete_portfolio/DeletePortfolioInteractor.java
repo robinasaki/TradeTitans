@@ -1,19 +1,19 @@
 package use_case.delete_portfolio;
 
-import entity.Portfolio;
-import data_access.FileDataAccessObject;
+import data_access.DeletePortfolioDataAccessInterface;
 
 public class DeletePortfolioInteractor implements DeletePortfolioInputBoundary{
-    private final FileDataAccessObject fileDataAccessObject;
+    private final DeletePortfolioDataAccessInterface filedataaccessinterface;
     private final DeletePortfolioOutputBoundary presenter;
 
-    public DeletePortfolioInteractor(FileDataAccessObject fileDataAccessObject, DeletePortfolioOutputBoundary presenter) {
-        this.fileDataAccessObject = fileDataAccessObject;
+    public DeletePortfolioInteractor(DeletePortfolioDataAccessInterface filedataaccessinterface, DeletePortfolioOutputBoundary presenter) {
+        this.filedataaccessinterface = filedataaccessinterface;
         this.presenter = presenter;
     }
 
     public void execute(String portfolioName){
-        fileDataAccessObject.removePortfolio(portfolioName);
+        filedataaccessinterface.removePortfolio(portfolioName);
         presenter.prepareSuccessView(portfolioName);
+
     }
 }
