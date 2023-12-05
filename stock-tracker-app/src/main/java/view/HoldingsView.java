@@ -40,18 +40,18 @@ public class HoldingsView extends JPanel {
         JPanel panel = new JPanel();
         try {
             // Create title
-            JLabel title = new JLabel("<html> Current Portfolio: <br/>" + "<b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "Portfolio Currency: <br/>" + "<b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
+            JLabel title = new JLabel("<html> <font color='gray'>Current Portfolio: </font> <br/>" + "<b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "<font color='gray'>Portfolio Currency:</font> <br/>" + "<b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
             title.setFont(new Font("Georgia", Font.PLAIN, 15));
             panel.add(title);
 
             // Create table model
             HoldingsTableModel tableModel = new HoldingsTableModel();
-            tableModel.addColumn("Symbol");
-            tableModel.addColumn("Price");
-            tableModel.addColumn("Shares");
-            tableModel.addColumn("Value");
-            tableModel.addColumn("Change");
-            tableModel.addColumn("Change %");
+            tableModel.addColumn("<html><font color='gray'>Symbol</font><html>");
+            tableModel.addColumn("<html><font color='gray'>Price(" + viewModel.getState().getDefaultCurrency() + ")</font><html>");
+            tableModel.addColumn("<html><font color='gray'>Shares</font><html>");
+            tableModel.addColumn("<html><font color='gray'>Total Value</font><html>");
+            tableModel.addColumn("<html><font color='gray'>Change</font><html>");
+            tableModel.addColumn("<html><font color='gray'>Change (%)</font><html>");
 
             // Populate table
             List<String> symbols = viewModel.getState().getSymbols();
