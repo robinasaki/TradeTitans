@@ -1,10 +1,15 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 import entity.Portfolio;
 import interface_adapter.trade.TradeController;
@@ -44,6 +49,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private void initView() {
         //tradeViewModel.addPropertyChangeListener(this);
 
+
+
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.PLAIN, 15));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -75,6 +82,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
+
+        // This is to prevent the user from entering a String in the Fields that require numeric values
+
+        ((AbstractDocument) amountField.getDocument()).setDocumentFilter(new NumericFilter());
+        ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
+        ((AbstractDocument) priceField.getDocument()).setDocumentFilter(new NumericFilter());
 
         add(panel);
 
@@ -120,8 +133,25 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.add(buttons);
 */
     }
+    private static class NumericFilter extends DocumentFilter {
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr)
+                throws BadLocationException {
+            if (string.matches("\\d*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("\\d*")) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    }
 
-    private class ConfirmButtonListener implements ActionListener {
+
+        private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // gets trade type
@@ -146,30 +176,47 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Withdraw" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
+                    if (amount != 0.0){
+                        JOptionPane.showMessageDialog(panel, "Amount invalid");
                     try {
                         tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
-                    } catch (RuntimeException exp) {
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                        }
+                    catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, "Amount invalid");
                     }
-                }
+                }}
                 case "Buy" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
                     double price = Double.parseDouble(priceField.getText());
+                    if (shares == 0.0){
+                        JOptionPane.showMessageDialog(panel, "Invalid amount of shares");}
+                    else if (price == 0.0 | price < 0.0)
+                    {
+                        JOptionPane.showMessageDialog(panel, "Invalid amount");}
+                    else {
                     tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
-                }
+                    }
+                    }
                 case "Sell" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
                     double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    if (shares == 0.0) {
+                        JOptionPane.showMessageDialog(panel, "Invalid amount of shares");
+                    } else if (price == 0.0 | price < 0.0) {
+                        JOptionPane.showMessageDialog(panel, "Invalid amount");
+                    } else {
+                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    }
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
-                    tradeController.execute(portfolio, "", "$" + currency, amount, 0.0, 0.0);
+                    double price = Double.parseDouble(priceField.getText());
+                    tradeController.execute(portfolio, defaultCurrency + "$", "$" + currency, amount, amount * price, 0.0);
+                   // tradeController.execute(portfolio, defaultCurrency, symbol, price * amount,0.0 , 0.0);
                 }
             }
         }
@@ -224,6 +271,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Currency Exchange":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
+                priceField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
