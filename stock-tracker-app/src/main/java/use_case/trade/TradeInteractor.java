@@ -55,25 +55,25 @@ public class TradeInteractor implements TradeInputBoundary {
         }
 
         // filtering shares input when buying
-        if (!trade.getSharesHeld().isEmpty()) {
-            // zero stocks prevention
-            if (trade.getAmountOut() == 0) {
+        if (!trade.getAssetIn().isEmpty()) {
+            // buying zero stocks prevention
+            if (trade.getAssetOut().equals(0)) {
                 throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
             }
-            // negative buy prevention
-            if (trade.getAmountOut() <= 0) {
+            // buying negative stocks prevention
+            if (trade.getAssetOut() <= 0) {
                 throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
             }
         }
 
         // filtering shares input when selling
-        if (!trade.getSharesHeld().isEmpty()) {
-            // zero stocks prevention
-            if (trade.getAmountOut() == 0) {
+        if (!trade.getAssetOut().isEmpty()) {
+            // buying zero stocks prevention
+            if (trade.getAssetOut().equals(0)) {
                 throw new RuntimeException("<html> Not allowed to buy 0 stocks <html/>");
             }
-            // negative buy prevention
-            if (trade.getAmountOut() <= 0) {
+            // buying negative stocks prevention
+            if (trade.getAssetOut() <= 0) {
                 throw new RuntimeException("<html> Not allowed to but negative stocks. <br/> Please use the \"Sell\" option. <html/>");
             }
         }
