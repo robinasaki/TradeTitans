@@ -56,6 +56,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         // Set up DocumentFilter for sharesField
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
+        // Set up CurrencyFilter
+        ((AbstractDocument) symbolField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
+        ((AbstractDocument) currencyField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
+
         panel = new JPanel(new GridLayout(0, 1));
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 15));
@@ -154,6 +158,23 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         }
     }
 
+    private static class CurrencyInputFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            if (string.matches("[A-Z]*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("[A-Z]*")) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    }
+
     private class ConfirmButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -235,12 +256,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(panel, "<html> Instruction: " +
-                    "<br/> <b>Deposit</b>: deposit selected currency into the portfolio " +
-                    "<br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
-                    "<br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
-                    "<br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
-                    "<br/> <b>Exchange</b>: exchange currency <html/>");
+            JOptionPane.showMessageDialog(panel, "<html>" +
+                    "<b>Deposit</b>: deposit selected currency into the portfolio " +
+                    "<br/> <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
+                    "<br/> <br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
+                    "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
+                    "<br/> <br/> <b>Exchange</b>: exchange currency <html/>");
         }
     }
 
