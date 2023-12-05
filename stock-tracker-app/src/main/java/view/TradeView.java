@@ -56,15 +56,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         // Set up DocumentFilter for sharesField
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
-        JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
-        title.setFont(new Font("Georgia", Font.PLAIN, 15));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // panel.add(title);
-
         panel = new JPanel(new GridLayout(0, 1));
-
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), amountField));
+        JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
+        title.setFont(new Font("Georgia", Font.BOLD, 15));
+        panel.add(title);
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
@@ -87,8 +82,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
         panel.add(tradeTypeComboBox);
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
 
-        JButton instructionButton = new JButton("What are these?");
+        JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
         instructionButton.addActionListener(new InstructionButtonListener());
         panel.add(instructionButton);
 
