@@ -180,7 +180,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                             tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
                         }
                         catch (RuntimeException exp) {
-                            JOptionPane.showMessageDialog(panel, "Amount invalid");
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
                     }
                 case "Buy" -> {
