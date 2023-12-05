@@ -140,6 +140,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
                     } catch (RuntimeException exp) {
+                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
+                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
+                        }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
@@ -149,6 +152,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
                     } catch (RuntimeException exp) {
+                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
+                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
+                        }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
