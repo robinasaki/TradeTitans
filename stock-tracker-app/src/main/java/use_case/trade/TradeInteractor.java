@@ -30,14 +30,27 @@ public class TradeInteractor implements TradeInputBoundary {
                 tradeInputData.getAmountOut(),
                 tradeInputData.getTradingFee());
 
-        // negative deposit prevention
-        if (trade.getAmountIn() < 0) {
-            throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the withdraw option. <html/>");
+        // deposit filtering
+        if (!trade.getAssetIn().isEmpty()){
+            // zero deposit prevention
+            if (trade.getAmountIn() == 0) {
+                throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
+            }
+            // negative deposit prevention
+            if (trade.getAmountIn() < 0) {
+                throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the withdraw option. <html/>");
+            }
         }
 
-        // negative withdraw prevention
-        if (trade.getAmountOut() < 0) {
-            throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
+        if (!trade.getAssetOut().isEmpty()){
+            // zero deposit prevention
+            if (trade.getAmountOut() == 0) {
+                throw new RuntimeException("<html> Zero deposit now allowed. <html/>");
+            }
+            // negative withdraw prevention
+            if (trade.getAmountOut() < 0) {
+                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the deposit option. <html/>");
+            }
         }
 
         boolean newAssetIn = !(tradeInputData.getAssetIn().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetIn()));
