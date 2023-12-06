@@ -81,11 +81,6 @@ public class TradeInteractor implements TradeInputBoundary {
         }
 
 
-        // Probably not the cleanest way to do this but it works
-        fileDataAccessObject.removePortfolio(portfolio.getName());
-        fileDataAccessObject.savePortfolio(portfolio);
-
-
         ArrayList<String> symbols = new ArrayList<>();
         ArrayList<Double> prices = new ArrayList<>();
         ArrayList<Double> shares = new ArrayList<>();
@@ -93,7 +88,7 @@ public class TradeInteractor implements TradeInputBoundary {
         ArrayList<Double> changes = new ArrayList<>();
         ArrayList<Double> changePercents = new ArrayList<>();
 
-        // establishing what will be showen in the holdings
+        // establishing what will be shown in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
             if (asset.getSharesHeld() == 0 && !asset.getSymbol().equals(portfolio.getCurrency().getSymbol())) {
@@ -119,7 +114,6 @@ public class TradeInteractor implements TradeInputBoundary {
         // TODO: these should actually be calculated
         changes.add(0.0);
         changePercents.add(0.0);
-
 
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
