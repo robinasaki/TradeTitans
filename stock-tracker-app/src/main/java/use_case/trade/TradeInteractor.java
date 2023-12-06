@@ -96,18 +96,9 @@ public class TradeInteractor implements TradeInputBoundary {
         // establishing what will be showen in the holdings
         for (String symbol : portfolio.getHoldings().keySet()) {
             Tradeable asset = portfolio.getHoldings().get(symbol);
-<<<<<<< HEAD
-            if (asset.getSharesHeld() == 0 && !asset.getSymbol().equals(portfolio.getCurrency().getSymbol())){
-                portfolio.removeAsset(asset.getSymbol());
-            }
-            else {
-
             if (asset.getSharesHeld() == 0 && !asset.getSymbol().equals(portfolio.getCurrency().getSymbol())) {
                 portfolio.removeAsset(asset.getSymbol());
             } else {
-=======
-            if (asset.getSharesHeld() != 0){
->>>>>>> parent of 0bd4e54 (Removing the raw if you have zero shares in holdingsview)
                 symbols.add(asset.getSymbol());
                 prices.add(asset.getCurrentPrice());
                 shares.add(asset.getSharesHeld());
@@ -115,13 +106,9 @@ public class TradeInteractor implements TradeInputBoundary {
                 changes.add(asset.getCurrentPrice() - asset.getPreviousPrice());
                 changePercents.add((asset.getCurrentPrice() - asset.getPreviousPrice()) / asset.getPreviousPrice() * 100);
             }
-<<<<<<< HEAD
-            fileDataAccessObject.removePortfolio(portfolio.getName());
-            fileDataAccessObject.savePortfolio(portfolio);
-=======
->>>>>>> parent of 0bd4e54 (Removing the raw if you have zero shares in holdingsview)
-
         }
+        fileDataAccessObject.removePortfolio(portfolio.getName());
+        fileDataAccessObject.savePortfolio(portfolio);
 
         symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
@@ -139,4 +126,4 @@ public class TradeInteractor implements TradeInputBoundary {
         presenter.present(tradeOutputData);
 
 
-}}}
+    }}
