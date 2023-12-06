@@ -17,6 +17,8 @@ import interface_adapter.trade.TradeViewModel;
 import interface_adapter.ViewManagerModel;
 import data_access.APIDataAccessObject;
 
+import java.text.DecimalFormat;
+
 public class TradeView extends JPanel { //implements ActionListener, PropertyChangeListener {
     public final String viewName = "trade";
     private final TradeViewModel tradeViewModel;
@@ -26,9 +28,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private final JComboBox<String> tradeTypeComboBox;
     private final JTextField amountField;
     private final JTextField currencyField;
+    private final JTextField currencyField2;
     private final JTextField sharesField;
     private final JTextField symbolField;
     private final JTextField priceField;
+
+    private final JTextField totalPriceField;
     private String selected = "";
     private JPanel panel;
 
@@ -36,13 +41,14 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.viewManagerModel = viewManagerModel;
         this.tradeController = tradeController;
         this.tradeViewModel = tradeViewModel;
-        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Deposit", "Withdraw", "Buy", "Sell", "Currency Exchange"});
+        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Buy", "Sell", "Deposit", "Withdraw", "Currency Exchange"});
         this.amountField = new JTextField(10);
         this.currencyField = new JTextField(5);
+        this.currencyField2 = new JTextField(5);
         this.sharesField = new JTextField(10);
         this.symbolField = new JTextField(5);
-        this.priceField = new JTextField(10);
-
+        this.priceField = new NonEditableTextField(10);
+        this.totalPriceField = new NonEditableTextField(10);
         initView();
     }
 
@@ -52,8 +58,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         // this is to prevent the user from typing Strings in the numeric fields
         // int specific fields that require a numeric values.
         ((AbstractDocument) amountField.getDocument()).setDocumentFilter(new NumericFilter());
-        // Set up DocumentFilter for priceField
-        ((AbstractDocument) priceField.getDocument()).setDocumentFilter(new NumericFilter());
         // Set up DocumentFilter for sharesField
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
@@ -65,13 +69,19 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 15));
         panel.add(title);
+        panel.add(tradeTypeComboBox);
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
+        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TO_CURRENCY_LABEL), currencyField2));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SYMBOL_LABEL), symbolField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.PRICE_LABEL), priceField));
+        panel.add(new LabelTextPanel(new JLabel("TotalPrice"), totalPriceField));
 
         symbolField.addKeyListener(new SymbolFieldKeyListener());
+        sharesField.addKeyListener(new SharesFieldKeyListener());
 
         JPanel buttons = new JPanel();
 
@@ -85,11 +95,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         showRelevantFields();
 
-        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
-
         panel.add(buttons);
-        panel.add(tradeTypeComboBox);
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
 
         JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
         instructionButton.addActionListener(new InstructionButtonListener());
@@ -157,8 +163,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0);
                     } catch (RuntimeException exp) {
-                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
-                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
+                        if (exp.getClass().equals(NullPointerException.class)) {
+                            JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         }
                         JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
@@ -169,8 +175,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0);
                     } catch (RuntimeException exp) {
-                        if (exp.getMessage().equals("Cannot invoke \"com.fasterxml.jackson.databind.JsonNode.fields()\" because \"timeSeries\" is null")) {
-                            JOptionPane.showMessageDialog(panel, "API Key error. Please check again.");
+                        if (exp.getClass().equals(NullPointerException.class)) {
+                            JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         }
                          JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
@@ -178,21 +184,36 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Buy" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
-                    double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                    try {
+                        double price = Double.parseDouble(priceField.getText());
+                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0);
+                    } catch (RuntimeException exp) {
+                        if (exp.getClass().equals(NullPointerException.class)) {
+                            JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        }
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 case "Sell" -> {
                     double shares = Double.parseDouble(sharesField.getText());
                     String symbol = symbolField.getText();
-                    double price = Double.parseDouble(priceField.getText());
-                    tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    try {
+                        double price = Double.parseDouble(priceField.getText());
+                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0);
+                    } catch (RuntimeException exp) {
+                        if (exp.getClass().equals(NullPointerException.class)) {
+                            JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        }
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    //tradeController.execute(portfolio, "$" + defaultCurrency, "", amount, 0.0, 0.0);
-                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, 0.0);
+                    String to_currency = currencyField2.getText();
+
+                    tradeController.execute(portfolio, currency, to_currency, amount, currency , 0.0);
                 }
             }
         }
@@ -240,27 +261,60 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         public void keyTyped(KeyEvent e) {
             // Do nothing
         }
+
         @Override
         public void keyPressed(KeyEvent e) {
             // Do nothing
         }
+
         @Override
         public void keyReleased(KeyEvent e) {
             String symbol = symbolField.getText();
-            if (symbol.length() > 0) {
+            if (!symbol.isEmpty()) {
                 symbolField.setText(symbol.toUpperCase());
                 updatePrice();
+                updateTotalPrice();
             }
         }
     }
 
+    private class SharesFieldKeyListener implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            // Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            // Do nothing
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            updateTotalPrice();
+        }
+    }
+
+
     private void updatePrice() {
-        // this shouldn't be here but it works for now
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
         String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
         APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
         String symbol = symbolField.getText();
         double price = apiDataAccessObject.getHistoricalQuotes(symbol, defaultCurrency).lastEntry().getValue();
-        priceField.setText(String.valueOf(price));
+        priceField.setText(decimalFormat.format(price));
+    }
+
+    private void updateTotalPrice() {
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
+        if (priceField.getText().isEmpty() || symbolField.getText().isEmpty() || sharesField.getText().isEmpty()) {
+            totalPriceField.setText("0.00");
+        } else {
+            double price = Double.parseDouble(priceField.getText());
+            totalPriceField.setText(decimalFormat.format(Double.parseDouble(sharesField.getText()) * price));
+        }
     }
 
     private void showRelevantFields() {
@@ -288,6 +342,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Currency Exchange":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
+                currencyField2.setVisible(true);
+
                 break;
             default:
                 // TODO: implement default case here.
