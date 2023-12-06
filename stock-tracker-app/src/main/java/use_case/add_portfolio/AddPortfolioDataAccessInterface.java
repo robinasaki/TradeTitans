@@ -9,6 +9,4 @@ public interface AddPortfolioDataAccessInterface {
     public List<Portfolio> loadPortfolios();
     public void savePortfolio(Portfolio portfolio);
 
-
-
 }
