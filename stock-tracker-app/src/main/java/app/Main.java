@@ -9,6 +9,7 @@ import interface_adapter.delete_portfolio.DeletePortfolioViewModel;
 import interface_adapter.holdings.HoldingsViewModel;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
+import interface_adapter.view_transactions.TransactionsViewModel;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 
@@ -49,6 +50,8 @@ public class Main {
 
         TradeViewModel tradeViewModel = new TradeViewModel();
 
+        TransactionsViewModel transactionsViewModel = new TransactionsViewModel();
+
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
 
         // Loading portfolios from file
@@ -80,6 +83,9 @@ public class Main {
 
         CreditView creditView = ViewFactory.createCreditView(creditViewModel, viewManagerModel);
         views.add(creditView, creditView.viewName);
+
+        TransactionsView transactionsView = ViewFactory.createTransactionsView(transactionsViewModel, viewManagerModel);
+        views.add(transactionsView, transactionsView.viewName);
 
         application.pack();
         application.setVisible(true);
