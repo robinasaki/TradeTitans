@@ -15,7 +15,7 @@ import interface_adapter.add_portfolio.AddPortfolioState;
 import interface_adapter.add_portfolio.AddPortfolioViewModel;
 import interface_adapter.ViewManagerModel;
 
-public class AddPortfolioView extends JPanel { // implements ActionListener, PropertyChangeListener {
+public class AddPortfolioView extends JPanel {
     public final String viewName = "add_portfolio";
 
     private final AddPortfolioViewModel addPortfolioViewModel;
