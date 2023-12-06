@@ -19,7 +19,7 @@ public class TradeInteractor implements TradeInputBoundary {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }
-,
+
     @Override
     public void execute(TradeInputData tradeInputData) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(tradeInputData.getPortfolioName());
