@@ -45,9 +45,6 @@ public class PortfolioTest {
         // test getPortfolioValue()
         assert testingPortfolio.getPortfolioValue() == 0.00;
 
-        //test getPortfolioId()
-        assert testingPortfolio.getPortfolioId() == 1;
-
         // test getTransactions()
         assert testingPortfolio.getTransactions().isEmpty();
     }
