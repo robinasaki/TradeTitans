@@ -16,5 +16,6 @@ public class TradeTransactionTest {
         assert (this.test.getAssetOut().equals("$USD"));
         assert (this.test.getAmountIn() == 1);
         assert (this.test.getAmountOut() == 155.57);
+        assert (this.test.getTradingFee() == 2.22);
     }
 }

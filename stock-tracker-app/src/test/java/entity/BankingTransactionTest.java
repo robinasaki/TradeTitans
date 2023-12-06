@@ -27,5 +27,6 @@ public class BankingTransactionTest {
         BankingTransaction testing = new BankingTransaction(fee, usd, deposit, amount);
         assert (testing.getAsset() == usd);
         assert (testing.getAmount() == amount);
+        assert (!testing.getIfDeposit());
     }
 }
