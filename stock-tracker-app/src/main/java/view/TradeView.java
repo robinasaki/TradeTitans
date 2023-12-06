@@ -11,9 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 
-import entity.Portfolio;
 import interface_adapter.trade.TradeController;
-import interface_adapter.trade.TradeState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.ViewManagerModel;
 import data_access.APIDataAccessObject;
@@ -34,7 +32,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private final JTextField priceField;
 
     private final JTextField totalPriceField;
-    private String selected = "";
     private JPanel panel;
 
     public TradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, TradeController tradeController) {
@@ -103,9 +100,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
     }
 
-    // Those classes for the Filter that prevents the user from entering Strings
-    // in the Numeric fields
-
     private static class NumericFilter extends DocumentFilter {
         @Override
         public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
@@ -148,7 +142,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             // gets trade type
             String tradeType = (String) tradeTypeComboBox.getSelectedItem();
 
-            // TODO: trading fee is set to 0.0 right now
+            // trading fee goes here
+            double tradingFee = 10.99;
 
             String portfolio = tradeViewModel.getState().getPortfolioName();
             String defaultCurrency = tradeViewModel.getState().getDefaultCurrency();
@@ -159,24 +154,26 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     try {
-                        tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, 0.0, new Date());
+                        tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Withdraw" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     try {
-                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, 0.0, new Date());
+                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Buy" -> {
@@ -184,12 +181,13 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String symbol = symbolField.getText();
                     try {
                         double price = Double.parseDouble(priceField.getText());
-                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, 0.0, new Date());
+                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Sell" -> {
@@ -197,19 +195,20 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String symbol = symbolField.getText();
                     try {
                         double price = Double.parseDouble(priceField.getText());
-                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, 0.0, new Date());
+                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, 0.0, new Date());
+                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, tradingFee, new Date());
                 }
             }
         }
@@ -241,16 +240,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     "<br/> <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
                     "<br/> <br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
                     "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
-                    "<br/> <br/> <b>Exchange</b>: exchange currency <html/>");
+                    "<br/> <br/> <b>Exchange</b>: exchange a foreign currency to the default currency <html/>");
         }
     }
-
-    /* private class TradeTypeComboBoxListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            showRelevantFields();
-        }
-    } */
 
     private class SymbolFieldKeyListener implements KeyListener {
         @Override
@@ -322,6 +314,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         sharesField.setVisible(false);
         symbolField.setVisible(false);
         priceField.setVisible(false);
+        totalPriceField.setVisible(false);
 
         switch (tradeType) {
             case "Deposit":
@@ -334,6 +327,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 sharesField.setVisible(true);
                 symbolField.setVisible(true);
                 priceField.setVisible(true);
+                totalPriceField.setVisible(true);
                 break;
             case "Currency Exchange":
                 amountField.setVisible(true);
@@ -346,17 +340,4 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         panel.revalidate();
         panel.repaint();
     }
-/*
-@Override
-public void actionPerformed(ActionEvent e) {
-
-} */
-
-
-
-
-/* @Override
-public void propertyChange(PropertyChangeEvent evt) {
-    TradeState state = (TradeState) evt.getNewValue();
-    } */
 }

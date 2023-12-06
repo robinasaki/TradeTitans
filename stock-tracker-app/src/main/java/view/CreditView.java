@@ -3,10 +3,13 @@ package view;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.credit.CreditViewModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class CreditView extends JPanel {
     public final String viewName = "credit";
@@ -21,15 +24,17 @@ public class CreditView extends JPanel {
 
     private void initView() {
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton backButton = new JButton("Back");
+        backButton.setSize(5, 2);
         backButton.addActionListener(new backButtonListener());
         panel.add(backButton);
 
-        // TODO: write more
         JLabel portfolioSelectionInstruction = new JLabel("<html>" +
-                "Trade Titans is a stock exchange software designed to explore the stock market <br/> with real-life stock data without paying." +
+                "Trade Titans is a stock exchange software designed to explore the stock market <br/> with real-life stock data without paying. <br/>" +
+                "The program contains some necessary methods for exchange simulation such as deposit, withdraw, buy, sell, etc. <br/>" +
+                "in different currencies with different portfolios.<br/>" +
+                "The app also tracks the value of currencies and cryptocurrencies." +
                 "</html>");
         portfolioSelectionInstruction.setFont(new Font("Georgia", Font.PLAIN, 15));
         panel.add(portfolioSelectionInstruction);
@@ -42,6 +47,10 @@ public class CreditView extends JPanel {
         creditInfo.setForeground(Color.gray);
         panel.add(creditInfo);
 
+        JButton groupPicButton = new JButton("Group Photo");
+        groupPicButton.addActionListener(new groupPicButtonListener());
+        panel.add(groupPicButton);
+
         add(panel);
 
     }
@@ -50,6 +59,15 @@ public class CreditView extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             viewManagerModel.setActiveView("portfolio_selection");
+        }
+    }
+
+    private class groupPicButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ImageIcon groupP = new ImageIcon("src/images/groupPhoto.jpg");
+            JOptionPane.showMessageDialog(null, "", "Meet the Developers", JOptionPane.PLAIN_MESSAGE, groupP);
         }
     }
 }

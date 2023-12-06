@@ -92,16 +92,16 @@ public class Portfolio implements Serializable {
             addAsset(assetOut);
 
         if (!transaction.getAssetIn().isEmpty()) {
-            // as long as it's not a withdraw, we calculate amount in holdings after trade, then update holdings
+            // as long as it's not a withdrawal, we calculate amount in holdings after trade, then update holdings
             double assetInAmount = holdings.get(assetIn).getSharesHeld() + amountIn;
             holdings.get(assetIn).setSharesHeld(assetInAmount);
         }
 
         if (!transaction.getAssetOut().isEmpty()) {
-            // as long a it's not a deposit, we calculate amount in holdings after trade, then update holdings
+            // as long as it's not a deposit, we calculate amount in holdings after trade, then update holdings
             double assetOutAmount = holdings.get(assetOut).getSharesHeld() - amountOut;
             if (assetOutAmount < 0) {
-                throw new RuntimeException("<html> No enough asset. <html/>");
+                throw new RuntimeException("You don't have enough of this asset.");
             }
             holdings.get(assetOut).setSharesHeld(assetOutAmount);
         }
@@ -109,59 +109,12 @@ public class Portfolio implements Serializable {
         // record transaction
         transactions.add(transaction);
     }
-/*
-    public void deposit(BankingTransaction transaction) {
-        if (transaction.getIfDeposit()) {
-            if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
-                // if the user already has the inputted asset
-                this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) + transaction.getAmount());
-                // TODO: how to add BankingTransaction to transactions, and do we need to?
-                //this.transactions.add(transaction);
-            } else {
-                // no existing asset
-                this.holdings.put(transaction.getAsset().getSymbol(), transaction.getAmount());
-                // TODO: how to add BankingTransaction to transactions, and do we need to?
-                //this.transactions.add(transaction);
-            }
-        } else {
-            throw new RuntimeException("This transaction is not a deposit transaction");
-        }
-    }
 
-    public void withdraw(BankingTransaction transaction) {
-        if (!transaction.getIfDeposit()) {
-            if (this.holdings.containsKey(transaction.getAsset().getSymbol())) {
-                if (this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount() >= 0) {
-                    this.holdings.put(transaction.getAsset().getSymbol(), this.holdings.get(transaction.getAsset().getSymbol()) - transaction.getAmount());
-                    // TODO: how to add BankingTransaction to transactions, and do we need to?
-                    // this.transactions.add(transaction);
-                } else {
-                    throw new RuntimeException("You do not have enough assets for this withdraw.");
-                }
-            } else {
-                throw new RuntimeException("You do not have the corresponding asset in your holding.");
-            }
-        } else {
-            throw new RuntimeException("This transaction is not a withdraw transaction");
-        }
-
-        // if the portfolio have an empty asset, remove it
-        for (String s: holdings.keySet()) {
-            if (holdings.get(s) == 0) {
-                holdings.remove(s);
-            }
-        }
-    }
-*/
     public double getPortfolioValue() {
         double value = 0;
         for (String asset : this.holdings.keySet()) {
             value += holdings.get(asset).getSharesHeld() * holdings.get(asset).getCurrentPrice();
         }
         return value;
-    }
-
-    public int getPortfolioId() {
-        return this.portfolioId;
     }
 }
