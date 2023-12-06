@@ -30,7 +30,6 @@ public class CreditView extends JPanel {
         backButton.addActionListener(new backButtonListener());
         panel.add(backButton);
 
-        // TODO: write more
         JLabel portfolioSelectionInstruction = new JLabel("<html>" +
                 "Trade Titans is a stock exchange software designed to explore the stock market <br/> with real-life stock data without paying. <br/>" +
                 "The program contains some necessary methods for exchange simulation such as deposit, withdraw, buy, sell, etc. <br/>" +
@@ -68,7 +67,7 @@ public class CreditView extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             ImageIcon groupP = new ImageIcon("src/images/groupPhoto.jpg");
-            JOptionPane.showMessageDialog(null, "", "Image Pop-up", JOptionPane.PLAIN_MESSAGE, groupP);
+            JOptionPane.showMessageDialog(null, "", "Meet the Developers", JOptionPane.PLAIN_MESSAGE, groupP);
         }
     }
 }
