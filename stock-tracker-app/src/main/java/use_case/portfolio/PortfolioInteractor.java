@@ -1,5 +1,5 @@
 package use_case.portfolio;
 
-public class portfolioInteractor {
+public class PortfolioInteractor {
     //TODO : Needed to be implemented
 }

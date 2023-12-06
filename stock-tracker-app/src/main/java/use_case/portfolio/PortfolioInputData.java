@@ -1,9 +1,9 @@
 package use_case.portfolio;
 
-public class portfolioInputData {
+public class PortfolioInputData {
     private final String Portfolioname;
 
-    public portfolioInputData(String portfolioname){
+    public PortfolioInputData(String portfolioname){
         this.Portfolioname = portfolioname;
     }
 

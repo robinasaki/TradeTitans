@@ -1,10 +1,10 @@
 package interface_adapter.portfolio_view;
 
 import interface_adapter.ViewManagerModel;
-import use_case.portfolio.portfolioOutputBoundary;
-import use_case.portfolio.portfolioOutputData;
+import use_case.portfolio.PortfolioOutputBoundary;
+import use_case.portfolio.PortfolioOutputData;
 
-public class PortfolioPresenter implements portfolioOutputBoundary {
+public class PortfolioPresenter implements PortfolioOutputBoundary {
 
     private PortfolioViewModel portfolioViewModel;
     private ViewManagerModel viewManagerModel;
@@ -16,7 +16,7 @@ public class PortfolioPresenter implements portfolioOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(portfolioOutputData portfolioName) {
+    public void prepareSuccessView(PortfolioOutputData portfolioName) {
         PortfolioViewState portfolioViewState = portfolioViewModel.getState();
         this.portfolioViewModel.setState(portfolioViewModel.getState());
         viewManagerModel.setActiveView(portfolioViewModel.getViewName());
