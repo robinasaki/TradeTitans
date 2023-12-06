@@ -30,26 +30,33 @@ public class TradeInteractor implements TradeInputBoundary {
                 tradeInputData.getTradingFee());
 
         // deposit filtering
-        if (!trade.getAssetIn().isEmpty() && trade.getAssetOut().isEmpty()) {
-            // zero deposit prevention
-            if (trade.getAmountIn() == 0) {
-                throw new RuntimeException("Zero deposit not allowed.");
-            }
-            // negative deposit prevention
+        if (!trade.getAssetIn().isEmpty()){
             if (trade.getAmountIn() < 0) {
-                throw new RuntimeException("<html> Negative operation not allowed. <br/> Please use the \"withdraw\" option. <html/>");
+                throw new RuntimeException("<html> Negative deposit now allowed. <br/> Please use the \"Withdraw\" option. <html/>");
             }
         }
 
         // withdraw filtering
-        if (!trade.getAssetOut().isEmpty() && trade.getAssetIn().isEmpty()) {
-            // zero withdraw prevention
-            if (trade.getAmountOut() == 0) {
-                throw new RuntimeException("Zero withdraw not allowed.");
-            }
+        if (!trade.getAssetOut().isEmpty()){
             // negative withdraw prevention
             if (trade.getAmountOut() < 0) {
-                throw new RuntimeException("<html> Negative operation not allowed. <br/> Please use the \"Deposit\" option. <html/>");
+                throw new RuntimeException("<html> Negative withdrawal not allowed. <br/> Please use the \"Deposit\" option. <html/>");
+            }
+        }
+
+        // filtering shares input when buying
+        if (!trade.getAssetIn().isEmpty()) {
+            // buying negative stocks prevention
+            if (trade.getAmountOut() < 0) {
+                throw new RuntimeException("<html> Not allowed to buy negative stocks. <br/> Please use the \"Sell\" option. <html/>");
+            }
+        }
+
+        // filtering shares input when selling
+        if (!trade.getAssetOut().isEmpty()) {
+            // buying negative stocks prevention
+            if (trade.getAmountOut() < 0) {
+                throw new RuntimeException("<html> Not allowed to buy negative stocks. <br/> Please use the \"Sell\" option. <html/>");
             }
         }
 
@@ -72,7 +79,7 @@ public class TradeInteractor implements TradeInputBoundary {
             portfolio.getHoldings().get(tradeInputData.getAssetOut()).setPriceHistory(priceHistory);
         }
 
-      
+
         ArrayList<String> symbols = new ArrayList<>();
         ArrayList<Double> prices = new ArrayList<>();
         ArrayList<Double> shares = new ArrayList<>();
@@ -97,7 +104,7 @@ public class TradeInteractor implements TradeInputBoundary {
         fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
 
-        symbols.add("TotalValue");
+        symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
         shares.add(0.0);
@@ -110,7 +117,5 @@ public class TradeInteractor implements TradeInputBoundary {
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);
-
-
     }
 }
