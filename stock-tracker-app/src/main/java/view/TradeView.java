@@ -321,6 +321,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         sharesField.setVisible(false);
         symbolField.setVisible(false);
         priceField.setVisible(false);
+        totalPriceField.setVisible(false);
 
         switch (tradeType) {
             case "Deposit":
@@ -333,6 +334,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 sharesField.setVisible(true);
                 symbolField.setVisible(true);
                 priceField.setVisible(true);
+                totalPriceField.setVisible(true);
                 break;
             case "Currency Exchange":
                 amountField.setVisible(true);
