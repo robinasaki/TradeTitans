@@ -72,6 +72,7 @@ public class TradeInteractor implements TradeInputBoundary {
             portfolio.getHoldings().get(tradeInputData.getAssetOut()).setPriceHistory(priceHistory);
         }
 
+      
         ArrayList<String> symbols = new ArrayList<>();
         ArrayList<Double> prices = new ArrayList<>();
         ArrayList<Double> shares = new ArrayList<>();
