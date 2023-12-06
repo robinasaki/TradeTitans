@@ -14,5 +14,4 @@ public class Currency extends Tradeable {
         this(name, null, null);
     }
 
-    // TODO: test Trade()
 }
