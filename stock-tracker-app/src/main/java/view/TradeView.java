@@ -155,8 +155,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Withdraw" -> {
@@ -167,8 +168,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Buy" -> {
@@ -180,8 +182,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Sell" -> {
@@ -190,11 +193,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         double price = Double.parseDouble(priceField.getText());
                         tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, tradingFee);
-                    } catch (RuntimeException exp) {
+                    } catch (Exception exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else {
+                            JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
-                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 // TODO: The logic behind this is incorrect. Still need proper implementation.

@@ -101,7 +101,7 @@ public class Portfolio implements Serializable {
             // as long as it's not a deposit, we calculate amount in holdings after trade, then update holdings
             double assetOutAmount = holdings.get(assetOut).getSharesHeld() - amountOut;
             if (assetOutAmount < 0) {
-                throw new RuntimeException("<html> No enough asset. <html/>");
+                throw new RuntimeException("No enough asset.");
             }
             holdings.get(assetOut).setSharesHeld(assetOutAmount);
         }
