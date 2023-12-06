@@ -1,5 +1,6 @@
 package entity;
 import java.io.Serializable;
+import java.util.Date;
 
 public class TradeTransaction implements Serializable {
     private String assetInSymbol;
@@ -7,13 +8,15 @@ public class TradeTransaction implements Serializable {
     private double amountIn;
     private double amountOut;
     private double tradingFee;
+    private Date date;
 
-    public TradeTransaction(String assetInSymbol, String assetOutSymbol, double amountIn, double amountOut, double tradingFee) {
+    public TradeTransaction(String assetInSymbol, String assetOutSymbol, double amountIn, double amountOut, double tradingFee, Date date) {
         this.assetInSymbol = assetInSymbol;
         this.assetOutSymbol = assetOutSymbol;
         this.amountIn = amountIn;
         this.amountOut = amountOut;
         this.tradingFee = tradingFee;
+        this.date = date;
     }
 
     public String getAssetIn() {
@@ -34,5 +37,9 @@ public class TradeTransaction implements Serializable {
 
     public double getTradingFee() {
         return tradingFee;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

@@ -16,6 +16,7 @@ import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradePresenter;
 import interface_adapter.trade.TradeController;
+import interface_adapter.view_transactions.TransactionsViewModel;
 import use_case.add_portfolio.AddPortfolioInteractor;
 import use_case.add_portfolio.AddPortfolioInputBoundary;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
@@ -68,5 +69,9 @@ public class ViewFactory {
 
     protected static CreditView createCreditView(CreditViewModel creditViewModel, ViewManagerModel viewManagerModel) {
         return new CreditView(creditViewModel, viewManagerModel);
+    }
+
+    protected static TransactionsView createTransactionsView(TransactionsViewModel transactionsViewModel, ViewManagerModel viewManagerModel) {
+        return new TransactionsView(transactionsViewModel, viewManagerModel);
     }
 }
