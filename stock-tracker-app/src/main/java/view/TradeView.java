@@ -28,7 +28,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
     private final JComboBox<String> tradeTypeComboBox;
     private final JTextField amountField;
     private final JTextField currencyField;
-    private final JTextField currencyField2;
     private final JTextField sharesField;
     private final JTextField symbolField;
     private final JTextField priceField;
@@ -44,7 +43,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.tradeTypeComboBox = new JComboBox<>(new String[]{"Buy", "Sell", "Deposit", "Withdraw", "Currency Exchange"});
         this.amountField = new JTextField(10);
         this.currencyField = new JTextField(5);
-        this.currencyField2 = new JTextField(5);
         this.sharesField = new JTextField(10);
         this.symbolField = new JTextField(5);
         this.priceField = new NonEditableTextField(10);
@@ -74,10 +72,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TO_CURRENCY_LABEL), currencyField2));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SYMBOL_LABEL), symbolField));
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.PRICE_LABEL), priceField));
+        panel.add(new LabelTextPanel(new JLabel("Price Per Share"), priceField));
         panel.add(new LabelTextPanel(new JLabel("TotalPrice"), totalPriceField));
 
         symbolField.addKeyListener(new SymbolFieldKeyListener());
@@ -178,7 +175,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         }
-                         JOptionPane.showMessageDialog(panel, exp.getMessage());
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
                     }
                 }
                 case "Buy" -> {
@@ -211,9 +208,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    String to_currency = currencyField2.getText();
-
-                    tradeController.execute(portfolio, currency, to_currency, amount, amount , 0.0);
+                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, 0.0);
                 }
             }
         }
@@ -245,7 +240,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     "<br/> <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
                     "<br/> <br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
                     "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
-                    "<br/> <br/> <b>Exchange</b>: Buy then sell like a man <html/>");
+                    "<br/> <br/> <b>Exchange</b>: exchange currency <html/>");
         }
     }
 
@@ -326,7 +321,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         sharesField.setVisible(false);
         symbolField.setVisible(false);
         priceField.setVisible(false);
-        currencyField2.setVisible(false);
         totalPriceField.setVisible(false);
 
         switch (tradeType) {
@@ -334,19 +328,17 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
             case "Withdraw":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
-                //totalPriceField.setVisible(true);
                 break;
             case "Buy":
             case "Sell":
                 sharesField.setVisible(true);
                 symbolField.setVisible(true);
-               totalPriceField.setVisible(true);
+                priceField.setVisible(true);
+                totalPriceField.setVisible(true);
                 break;
             case "Currency Exchange":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
-                currencyField2.setVisible(true);
-                totalPriceField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
