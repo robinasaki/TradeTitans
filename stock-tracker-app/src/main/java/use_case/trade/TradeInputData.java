@@ -1,6 +1,7 @@
 package use_case.trade;
 
 import entity.Tradeable;
+import java.util.Date;
 
 public class TradeInputData {
     private final String portfolioName;
@@ -9,15 +10,16 @@ public class TradeInputData {
     private final String assetOutSymbol;
     private final double amountIn;
     private final double amountOut;
+    private final Date date;
 
-    public TradeInputData(String portfolioName, double tradingFee, String assetInSymbol, String assetOutSymbol,
-                          double amountIn, double amountOut) {
+    public TradeInputData(String portfolioName, double tradingFee, String assetInSymbol, String assetOutSymbol, double amountIn, double amountOut, Date date) {
         this.portfolioName = portfolioName;
         this.tradingFee = tradingFee;
         this.assetInSymbol = assetInSymbol;
         this.assetOutSymbol = assetOutSymbol;
         this.amountIn = amountIn;
         this.amountOut = amountOut;
+        this.date = date;
     }
 
     public String getPortfolioName() {
@@ -37,5 +39,9 @@ public class TradeInputData {
     }
     public double getAmountOut() {
         return amountOut;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

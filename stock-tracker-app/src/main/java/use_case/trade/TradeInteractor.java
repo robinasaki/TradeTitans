@@ -28,7 +28,8 @@ public class TradeInteractor implements TradeInputBoundary {
                 tradeInputData.getAssetOut(),
                 tradeInputData.getAmountIn(),
                 tradeInputData.getAmountOut(),
-                tradeInputData.getTradingFee());
+                tradeInputData.getTradingFee(),
+                tradeInputData.getDate());
 
         // deposit filtering
         if (!trade.getAssetIn().isEmpty()){

@@ -95,6 +95,11 @@ public class HoldingsView extends JPanel {
             addTradeButton.addActionListener(new AddTradeButtonListener());
             panel.add(addTradeButton);
 
+            // Create button for viewing transaction history
+            JButton transactionHistoryButton = new JButton("View Transaction History");
+            transactionHistoryButton.addActionListener(new TransactionHistoryButtonListener());
+            panel.add(transactionHistoryButton);
+
             add(panel);
         } catch (Exception exp) {
             JOptionPane.showMessageDialog(panel, exp.getMessage());
@@ -112,6 +117,12 @@ public class HoldingsView extends JPanel {
             tradeViewModel.getState().setPortfolioName(viewModel.getState().getPortfolioName());
             tradeViewModel.getState().setDefaultCurrency(viewModel.getState().getDefaultCurrency());
             viewManagerModel.setActiveView("trade");
+        }
+    }
+
+    private class TransactionHistoryButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("transactions");
         }
     }
 
