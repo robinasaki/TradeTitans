@@ -213,7 +213,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String currency = currencyField.getText();
                     String to_currency = currencyField2.getText();
 
-                    tradeController.execute(portfolio, currency, to_currency, amount, currency , 0.0);
+                    tradeController.execute(portfolio, currency, to_currency, amount, amount , 0.0);
                 }
             }
         }
@@ -245,7 +245,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     "<br/> <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
                     "<br/> <br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
                     "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
-                    "<br/> <br/> <b>Exchange</b>: exchange currency <html/>");
+                    "<br/> <br/> <b>Exchange</b>: Buy then sell like a man <html/>");
         }
     }
 
@@ -326,24 +326,27 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         sharesField.setVisible(false);
         symbolField.setVisible(false);
         priceField.setVisible(false);
+        currencyField2.setVisible(false);
+        totalPriceField.setVisible(false);
 
         switch (tradeType) {
             case "Deposit":
             case "Withdraw":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
+                //totalPriceField.setVisible(true);
                 break;
             case "Buy":
             case "Sell":
                 sharesField.setVisible(true);
                 symbolField.setVisible(true);
-                priceField.setVisible(true);
+               totalPriceField.setVisible(true);
                 break;
             case "Currency Exchange":
                 amountField.setVisible(true);
                 currencyField.setVisible(true);
                 currencyField2.setVisible(true);
-
+                totalPriceField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
