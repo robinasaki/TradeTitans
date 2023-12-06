@@ -1,2 +1,6 @@
-package use_case.CurrentPrice;public class CurrentpriceInputBoundary {
+package use_case.CurrentPrice;
+
+public interface CurrentpriceInputBoundary {
+
+    void execute(CurrentPriceInputData currentPriceInputData);
 }
