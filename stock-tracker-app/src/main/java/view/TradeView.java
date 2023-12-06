@@ -89,6 +89,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
 
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ClearButtonListener());
+        panel.add(clearButton);
+
         JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
         instructionButton.addActionListener(new InstructionButtonListener());
         panel.add(instructionButton);
@@ -336,5 +340,18 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         }
         panel.revalidate();
         panel.repaint();
+    }
+
+    private class ClearButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            amountField.setText("");
+            currencyField.setText("");
+            sharesField.setText("");
+            symbolField.setText("");
+            priceField.setText("");
+            totalPriceField.setText("");
+        }
     }
 }

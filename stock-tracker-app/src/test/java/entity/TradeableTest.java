@@ -58,10 +58,4 @@ public class TradeableTest {
         }
 
     }
-
-//    @Test
-//    public void getTradeableTest() {
-//        addTradeable("IBM");
-//        assert (getTradeable("IBM").getSymbol().equals("IBM"));
-//    }
 }
