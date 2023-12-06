@@ -193,7 +193,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     try {
                         double price = Double.parseDouble(priceField.getText());
                         tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, tradingFee);
-                    } catch (Exception exp) {
+                    } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         } else {

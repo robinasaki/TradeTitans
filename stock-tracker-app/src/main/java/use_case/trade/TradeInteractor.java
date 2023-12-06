@@ -6,7 +6,6 @@ import entity.TradeTransaction;
 import entity.Portfolio;
 import entity.Tradeable;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
@@ -34,11 +33,11 @@ public class TradeInteractor implements TradeInputBoundary {
         if (!trade.getAssetIn().isEmpty() && trade.getAssetOut().isEmpty()) {
             // zero deposit prevention
             if (trade.getAmountIn() == 0) {
-                throw new RuntimeException("Zero operation now allowed.");
+                throw new RuntimeException("Zero deposit not allowed.");
             }
             // negative deposit prevention
             if (trade.getAmountIn() < 0) {
-                throw new RuntimeException("<html> Negative operation now allowed. <br/> Please use the withdraw option. <html/>");
+                throw new RuntimeException("<html> Negative operation now allowed. <br/> Please use the \"withdraw\" option. <html/>");
             }
         }
 
@@ -46,7 +45,7 @@ public class TradeInteractor implements TradeInputBoundary {
         if (!trade.getAssetOut().isEmpty() && trade.getAssetIn().isEmpty()) {
             // zero withdraw prevention
             if (trade.getAmountOut() == 0) {
-                throw new RuntimeException("Zero operation now allowed.");
+                throw new RuntimeException("Zero withdraw not allowed.");
             }
             // negative withdraw prevention
             if (trade.getAmountOut() < 0) {
@@ -72,12 +71,6 @@ public class TradeInteractor implements TradeInputBoundary {
             TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(tradeInputData.getAssetOut(), portfolio.getCurrency().getSymbol());
             portfolio.getHoldings().get(tradeInputData.getAssetOut()).setPriceHistory(priceHistory);
         }
-
-
-        // Probably not the cleanest way to do this but it works
-        fileDataAccessObject.removePortfolio(portfolio.getName());
-        fileDataAccessObject.savePortfolio(portfolio);
-
 
         ArrayList<String> symbols = new ArrayList<>();
         ArrayList<Double> prices = new ArrayList<>();
