@@ -50,8 +50,6 @@ public class AddPortfolioView extends JPanel {
 
         panel.add(new LabelTextPanel(new JLabel("Portfolio Name"), portfolioInputField));
         panel.add(new LabelTextPanel(new JLabel("Default Currency"), defaultCurrencyField));
-
-        // TODO: add more
         JLabel currencyInstruction = new JLabel("<html>" + "CAD: the Canadian Dollar <br/>USD: the United States Dollar <br/>GRP: the Great Britain Pound <br/>EUR: the Euro <br/>CNY: the Chinese Yuan <br/> ... " + "<html/>");
         currencyInstruction.setForeground(Color.gray);
         panel.add(currencyInstruction);

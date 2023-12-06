@@ -1,6 +1,5 @@
 package interface_adapter.trade;
 
-import entity.Tradeable;
 import use_case.trade.TradeInputBoundary;
 import use_case.trade.TradeInputData;
 
