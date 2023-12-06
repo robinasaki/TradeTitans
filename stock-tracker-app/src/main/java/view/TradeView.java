@@ -40,7 +40,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.viewManagerModel = viewManagerModel;
         this.tradeController = tradeController;
         this.tradeViewModel = tradeViewModel;
-        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Deposit", "Withdraw", "Buy", "Sell", "Currency Exchange"});
+        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Buy", "Sell", "Deposit", "Withdraw", "Currency Exchange"});
         this.amountField = new JTextField(10);
         this.currencyField = new JTextField(5);
         this.sharesField = new JTextField(10);
@@ -67,6 +67,9 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         JLabel title = new JLabel(tradeViewModel.TITLE_LABEL);
         title.setFont(new Font("Georgia", Font.BOLD, 15));
         panel.add(title);
+        panel.add(tradeTypeComboBox);
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
+        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.AMOUNT_LABEL), amountField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
@@ -89,11 +92,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         showRelevantFields();
 
-        tradeTypeComboBox.addItemListener(new TradeTypeComboBoxListener());
-
         panel.add(buttons);
-        panel.add(tradeTypeComboBox);
-        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.TRADE_TYPE_LABEL), tradeTypeComboBox));
 
         JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
         instructionButton.addActionListener(new InstructionButtonListener());
