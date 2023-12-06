@@ -37,7 +37,7 @@ public class TradeInteractor implements TradeInputBoundary {
             }
             // negative deposit prevention
             if (trade.getAmountIn() < 0) {
-                throw new RuntimeException("<html> Negative operation now allowed. <br/> Please use the \"withdraw\" option. <html/>");
+                throw new RuntimeException("<html> Negative operation not allowed. <br/> Please use the \"withdraw\" option. <html/>");
             }
         }
 
