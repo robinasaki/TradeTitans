@@ -53,10 +53,6 @@ public class PortfolioSelectionView extends JPanel {
         }
 
         try {
-            // Add vertical panel
-            JScrollPane scrollPane = new JScrollPane(panel);
-            JScrollBar scrollBar = new JScrollBar();
-
             // set the view border
             panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -70,21 +66,26 @@ public class PortfolioSelectionView extends JPanel {
                 // Create a new panel for each portfolio
                 JPanel portfolioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-                // Add portfolio button
+                // Portfolio button
                 JButton portfolioButton = new JButton(portfolioName);
+                //TODO: For some reason the font is not changing
+                portfolioButton.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                portfolioButton.setPreferredSize(new Dimension(300, 50));
                 portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));
                 portfolioPanel.add(portfolioButton);
 
-                // Add delete button
-                JButton deleteButton = new JButton("x");
+                // Delete button
+                JButton deleteButton = new JButton("\uD83D\uDDD1");
+                deleteButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
+                deleteButton.setPreferredSize(new Dimension(50, 50));
                 deleteButton.addActionListener(new DeletePortfolioButtonListener(portfolioName));
                 portfolioPanel.add(deleteButton);
 
-                // Add portfolio panel to the main panel
+                // Portfolio panel to the main panel
                 panel.add(portfolioPanel);
             }
 
-            // Add button to add a new portfolio
+            // Button to add a new portfolio
             JButton addPortfolioButton = new JButton("Add Portfolio");
             addPortfolioButton.addActionListener(new AddPortfolioButtonListener());
             panel.add(addPortfolioButton);
@@ -92,10 +93,6 @@ public class PortfolioSelectionView extends JPanel {
             JButton creditButton = new JButton("About the program");
             creditButton.addActionListener(new creditButtonListener());
             panel.add(creditButton);
-
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            add(scrollPane);
 
             add(panel);
         } catch (Exception exp) {
@@ -151,6 +148,5 @@ public class PortfolioSelectionView extends JPanel {
             viewManagerModel.setActiveView("credit");
         }
     }
-
 }
 
