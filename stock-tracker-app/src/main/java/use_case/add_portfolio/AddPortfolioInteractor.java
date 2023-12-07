@@ -13,10 +13,10 @@ import java.time.ZoneId;
 import java.time.LocalDate;
 
 public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final AddPortfolioDataAccessInterface fileDataAccessObject;
     private AddPortfolioOutputBoundary presenter;
 
-    public AddPortfolioInteractor(FileDataAccessObject fileDataAccessObject, AddPortfolioOutputBoundary addPortfolioPresenter) {
+    public AddPortfolioInteractor(AddPortfolioDataAccessInterface fileDataAccessObject, AddPortfolioOutputBoundary addPortfolioPresenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = addPortfolioPresenter;
     }

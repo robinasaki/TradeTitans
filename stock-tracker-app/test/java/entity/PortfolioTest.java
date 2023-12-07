@@ -1,6 +1,8 @@
 package entity;
 
 import entity.Portfolio;
+import entity.TradeTransaction;
+import entity.Tradeable;
 import org.junit.Test;
 
 import javax.sound.sampled.Port;

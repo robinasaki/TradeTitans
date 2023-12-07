@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.Portfolio;
+import use_case.add_portfolio.AddPortfolioDataAccessInterface;
 import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataAccessObject implements DeletePortfolioDataAccessInterface {
+public class FileDataAccessObject implements DeletePortfolioDataAccessInterface, AddPortfolioDataAccessInterface {
     private static final String FILE_PATH = "portfolioData.ser";
 
     private void savePortfolios(List<Portfolio> portfolios) {

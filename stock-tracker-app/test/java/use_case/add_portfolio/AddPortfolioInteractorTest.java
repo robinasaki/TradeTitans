@@ -4,6 +4,7 @@ import entity.Portfolio;
 import entity.Tradeable;
 import data_access.FileDataAccessObject;
 import org.junit.jupiter.api.Test;
+import use_case.add_portfolio.AddPortfolioInteractor;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
 
 import java.util.ArrayList;
