@@ -1,19 +1,19 @@
 package use_case.view_price_history;
 
-import data_access.FileDataAccessObject;
 import entity.Portfolio;
 import entity.TradeTransaction;
 import entity.Tradeable;
+import use_case.FileDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
 public class ViewPriceHistoryInteractor implements ViewPriceHistoryInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final FileDataAccessInterface fileDataAccessObject;
     private ViewPriceHistoryOutputBoundary presenter;
 
-    public ViewPriceHistoryInteractor(FileDataAccessObject fileDataAccessObject, ViewPriceHistoryOutputBoundary presenter) {
+    public ViewPriceHistoryInteractor(FileDataAccessInterface fileDataAccessObject, ViewPriceHistoryOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }
