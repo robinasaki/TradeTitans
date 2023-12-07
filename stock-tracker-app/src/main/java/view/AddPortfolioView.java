@@ -89,20 +89,11 @@ public class AddPortfolioView extends JPanel {
                 else if (defaultCurrency.equals("$other") && !(otherCurrencyField.getText().isEmpty())) {
                     defaultCurrency = "$" + otherCurrencyField.getText();
                     addPortfolioController.execute(portfolioName, defaultCurrency);
-                }
-
-                else {
+                } else {
                     addPortfolioController.execute(portfolioName, defaultCurrency);
                 }
             }
-
-            try {
-                addPortfolioController.execute(portfolioName, defaultCurrency);
-            } catch (RuntimeException exp) {
-                if (exp.getClass().equals(NullPointerException.class)) {
-                    JOptionPane.showMessageDialog(panel, "Another portfolio already has this name. Please enter a new name.");
-                }
-            }
+            addPortfolioController.execute(portfolioName, defaultCurrency);
         }
     }
 

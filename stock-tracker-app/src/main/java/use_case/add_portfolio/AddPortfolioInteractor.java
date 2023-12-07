@@ -3,6 +3,8 @@ package use_case.add_portfolio;
 import entity.Portfolio;
 import entity.Tradeable;
 
+import javax.sound.sampled.Port;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.util.TreeMap;
@@ -20,9 +22,9 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
 
     public void execute(String portfolioName, String defaultCurrency) {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
-        for (Portfolio ptf : portfolios) {
+        for (Portfolio ptf: portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                throw new RuntimeException("Portfolio name already used. Please try another name");
+                throw new IllegalArgumentException("Invalid Name");
             }
         }
 
@@ -38,6 +40,7 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
         Portfolio portfolio = new Portfolio(portfolioName, currency);
         portfolio.addAsset(currency.getSymbol());
         portfolio.getHoldings().get(currency.getSymbol()).setPriceHistory(quotes);
+
         fileDataAccessObject.savePortfolio(portfolio);
         presenter.prepareSuccessView(portfolio.getName());
     }
