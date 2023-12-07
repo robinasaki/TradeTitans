@@ -95,6 +95,13 @@ public class HoldingsView extends JPanel {
                 }
 
                 Object[] row = {symbols.get(i), quotes.get(i), shares.get(i), values.get(i), changesFormatted, changePercentsFormatted};
+
+                // Set last row shares and price to empty strings
+                if (i == symbols.size()-1) {
+                    row[1] = "";
+                    row[2] = "";
+                }
+
                 tableModel.addRow(row);
             }
 
