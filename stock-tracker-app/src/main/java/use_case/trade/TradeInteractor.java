@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.TreeMap;
 
 public class TradeInteractor implements TradeInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final TradeDataAccessInterface fileDataAccessObject;
     private final TradeOutputBoundary presenter;
 
-    public TradeInteractor(FileDataAccessObject fileDataAccessObject, TradeOutputBoundary presenter) {
+    public TradeInteractor(TradeDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }

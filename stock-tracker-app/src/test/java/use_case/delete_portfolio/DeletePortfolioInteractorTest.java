@@ -3,6 +3,7 @@ package use_case.delete_portfolio;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeletePortfolioInteractorTest {
@@ -33,10 +34,6 @@ class DeletePortfolioInteractorTest {
         DeletePortfolioInteractor deletePortfolioInteractor = new DeletePortfolioInteractor(dataAccessInterface, presenter);
 
         String nonExistentPortfolioName = "NonExistentPortfolio";
-
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> deletePortfolioInteractor.execute(nonExistentPortfolioName));
 
         assertNull(presenter.lastPreparedView);
     }

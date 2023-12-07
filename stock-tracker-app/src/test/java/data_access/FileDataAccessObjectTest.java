@@ -35,5 +35,8 @@ public class FileDataAccessObjectTest {
         assertEquals(loadedPortfolio1.getCurrency().getSymbol(), "$USD");
         assertEquals(loadedPortfolio2.getName(), "Portfolio2");
         assertEquals(loadedPortfolio2.getCurrency().getSymbol(), "$CAD");
+
+        fileDao.removePortfolio("Portfolio1");
+        fileDao.removePortfolio("Portfolio2");
     }
 }
