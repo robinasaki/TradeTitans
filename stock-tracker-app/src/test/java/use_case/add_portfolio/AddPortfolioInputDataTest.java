@@ -17,8 +17,8 @@ class AddPortfolioInputDataTest {
         AddPortfolioInputData inputData = new AddPortfolioInputData(portfolioName, defaultCurrency);
 
         // Assert
-        assertEquals(portfolioName, inputData.getPortfolioName());
-        assertEquals(defaultCurrency, inputData.getDefaultCurrency());
+        Assertions.assertEquals(portfolioName, inputData.getPortfolioName());
+        Assertions.assertEquals(defaultCurrency, inputData.getDefaultCurrency());
     }
 
     @Test
@@ -29,8 +29,8 @@ class AddPortfolioInputDataTest {
         AddPortfolioInputData inputData = new AddPortfolioInputData(portfolioName, defaultCurrency);
 
         // Act and Assert
-        assertEquals(portfolioName, inputData.getPortfolioName());
-        assertEquals(defaultCurrency, inputData.getDefaultCurrency());
+        Assertions.assertEquals(portfolioName, inputData.getPortfolioName());
+        Assertions.assertEquals(defaultCurrency, inputData.getDefaultCurrency());
     }
 }
 

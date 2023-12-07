@@ -22,8 +22,8 @@ class DeletePortfolioInteractorTest {
         deletePortfolioInteractor.execute(portfolioName);
 
         // Assert
-        assertFalse(dataAccessInterface.portfolios.contains(portfolioName));
-        assertEquals(portfolioName, presenter.lastPreparedView);
+        Assertions.assertFalse(dataAccessInterface.portfolios.contains(portfolioName));
+        Assertions.assertEquals(portfolioName, presenter.lastPreparedView);
     }
 
     @Test
@@ -35,7 +35,7 @@ class DeletePortfolioInteractorTest {
 
         String nonExistentPortfolioName = "NonExistentPortfolio";
 
-        assertNull(presenter.lastPreparedView);
+        Assertions.assertNull(presenter.lastPreparedView);
     }
 
     // Test double for DeletePortfolioDataAccessInterface

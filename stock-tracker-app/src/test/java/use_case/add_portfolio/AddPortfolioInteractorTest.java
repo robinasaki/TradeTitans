@@ -30,7 +30,7 @@ class AddPortfolioInteractorTest {
         addPortfolioInteractor.execute(portfolioName, defaultCurrency);
 
         // Assert
-        assertTrue(fileDataAccessObject.savedPortfolio != null && fileDataAccessObject.savedPortfolio.getName().equals(portfolioName));
+        Assertions.assertTrue(fileDataAccessObject.savedPortfolio != null && fileDataAccessObject.savedPortfolio.getName().equals(portfolioName));
     }
 
     @Test
@@ -47,11 +47,11 @@ class AddPortfolioInteractorTest {
         fileDataAccessObject.portfolios.add(existingPortfolio);
 
         // Act and Assert
-        assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(IllegalArgumentException.class,
                 () -> addPortfolioInteractor.execute(existingPortfolioName, defaultCurrency));
 
-        assertNull(fileDataAccessObject.savedPortfolio);
-        assertNull(presenter.lastPreparedView);
+        Assertions.assertNull(fileDataAccessObject.savedPortfolio);
+        Assertions.assertNull(presenter.lastPreparedView);
     }
 
     // Test double for FileDataAccessObject

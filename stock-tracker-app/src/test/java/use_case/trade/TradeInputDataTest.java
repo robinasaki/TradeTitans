@@ -22,13 +22,13 @@ class TradeInputDataTest {
         TradeInputData inputData = new TradeInputData(portfolioName, tradingFee, assetInSymbol, assetOutSymbol, amountIn, amountOut, date);
 
         // Assert
-        assertEquals(portfolioName, inputData.getPortfolioName());
-        assertEquals(tradingFee, inputData.getTradingFee());
-        assertEquals(assetInSymbol, inputData.getAssetIn());
-        assertEquals(assetOutSymbol, inputData.getAssetOut());
-        assertEquals(amountIn, inputData.getAmountIn());
-        assertEquals(amountOut, inputData.getAmountOut());
-        assertEquals(date, inputData.getDate());
+        Assertions.assertEquals(portfolioName, inputData.getPortfolioName());
+        Assertions.assertEquals(tradingFee, inputData.getTradingFee());
+        Assertions.assertEquals(assetInSymbol, inputData.getAssetIn());
+        Assertions.assertEquals(assetOutSymbol, inputData.getAssetOut());
+        Assertions.assertEquals(amountIn, inputData.getAmountIn());
+        Assertions.assertEquals(amountOut, inputData.getAmountOut());
+        Assertions.assertEquals(date, inputData.getDate());
     }
 
     @Test
@@ -44,13 +44,13 @@ class TradeInputDataTest {
         TradeInputData inputData = new TradeInputData(portfolioName, tradingFee, assetInSymbol, assetOutSymbol, amountIn, amountOut, date);
 
         // Act and Assert
-        assertEquals(portfolioName, inputData.getPortfolioName());
-        assertEquals(tradingFee, inputData.getTradingFee());
-        assertEquals(assetInSymbol, inputData.getAssetIn());
-        assertEquals(assetOutSymbol, inputData.getAssetOut());
-        assertEquals(amountIn, inputData.getAmountIn());
-        assertEquals(amountOut, inputData.getAmountOut());
-        assertEquals(date, inputData.getDate());
+        Assertions.assertEquals(portfolioName, inputData.getPortfolioName());
+        Assertions.assertEquals(tradingFee, inputData.getTradingFee());
+        Assertions.assertEquals(assetInSymbol, inputData.getAssetIn());
+        Assertions.assertEquals(assetOutSymbol, inputData.getAssetOut());
+        Assertions.assertEquals(amountIn, inputData.getAmountIn());
+        Assertions.assertEquals(amountOut, inputData.getAmountOut());
+        Assertions.assertEquals(date, inputData.getDate());
     }
 }
 

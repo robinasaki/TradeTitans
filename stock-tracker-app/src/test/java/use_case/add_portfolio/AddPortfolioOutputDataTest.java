@@ -16,8 +16,8 @@ class AddPortfolioOutputDataTest {
         AddPortfolioOutputData outputData = new AddPortfolioOutputData(useCaseFailed, portfolioCreated);
 
         // Assert
-        assertEquals(useCaseFailed, outputData.getUseCaseFailed());
-        assertEquals(portfolioCreated, outputData.getSuccessfulCreation());
+        Assertions.assertEquals(useCaseFailed, outputData.getUseCaseFailed());
+        Assertions.assertEquals(portfolioCreated, outputData.getSuccessfulCreation());
     }
 
     @Test
@@ -28,7 +28,7 @@ class AddPortfolioOutputDataTest {
         AddPortfolioOutputData outputData = new AddPortfolioOutputData(useCaseFailed, portfolioCreated);
 
         // Act and Assert
-        assertEquals(useCaseFailed, outputData.getUseCaseFailed());
-        assertEquals(portfolioCreated, outputData.getSuccessfulCreation());
+        Assertions.assertEquals(useCaseFailed, outputData.getUseCaseFailed());
+        Assertions.assertEquals(portfolioCreated, outputData.getSuccessfulCreation());
     }
 }
