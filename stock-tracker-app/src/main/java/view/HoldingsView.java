@@ -43,9 +43,13 @@ public class HoldingsView extends JPanel {
             // Title panel
             JPanel titlePanel = new JPanel(new BorderLayout(10, 10));
             // Create title
-            JLabel title = new JLabel("<html> <font color='gray'>Current Portfolio: </font> <br/>" + "<b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "<font color='gray'>Portfolio Currency:</font> <br/>" + "<b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
-            title.setFont(new Font("Georgia", Font.PLAIN, 15));
-            add(title, BorderLayout.NORTH);
+            JLabel title = new JLabel("<html> <b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "<html/>");
+            JLabel defaultCurrency = new JLabel("<html> <font color='gray'>Portfolio Currency:  </font><b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
+            title.setFont(new Font("Georgia", Font.PLAIN, 35));
+            defaultCurrency.setFont(new Font("Georgia", Font.PLAIN, 20));
+            titlePanel.add(title, BorderLayout.WEST);
+            titlePanel.add(defaultCurrency, BorderLayout.EAST);
+            add(titlePanel, BorderLayout.NORTH);
 
             // Create table model
             HoldingsTableModel tableModel = new HoldingsTableModel();
