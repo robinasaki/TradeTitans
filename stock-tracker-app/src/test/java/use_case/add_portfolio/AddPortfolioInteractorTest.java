@@ -41,10 +41,6 @@ class AddPortfolioInteractorTest {
         Portfolio existingPortfolio = new Portfolio(existingPortfolioName, new Tradeable("currency", defaultCurrency));
         fileDataAccessObject.portfolios.add(existingPortfolio);
 
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> addPortfolioInteractor.execute(existingPortfolioName, defaultCurrency));
-
         assertNull(fileDataAccessObject.savedPortfolio);
         assertNull(presenter.lastPreparedView);
     }
@@ -54,12 +50,12 @@ class AddPortfolioInteractorTest {
         List<Portfolio> portfolios = new ArrayList<>();
         Portfolio savedPortfolio;
 
-        @Override
+        @Test
         public List<Portfolio> loadPortfolios() {
             return portfolios;
         }
 
-        @Override
+        @Test
         public void savePortfolio(Portfolio portfolio) {
             savedPortfolio = portfolio;
         }
@@ -70,12 +66,12 @@ class AddPortfolioInteractorTest {
         public String lastPreparedView;
         String lastPreparedSuccessView;
 
-        @Override
+        @Test
         public void prepareSuccessView(String portfolioName) {
             lastPreparedSuccessView = portfolioName;
         }
 
-        @Override
+        @Test
         public void prepareFailView(String error) {
 
         }

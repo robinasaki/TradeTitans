@@ -24,7 +24,9 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
         for (Portfolio ptf: portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                throw new IllegalArgumentException("Invalid Name");
+                // TODO: a duplicate name will trigger this and record, that's what we want yes.
+                // TODO: however, a normal name will also trigger this. Fix it.
+                throw new RuntimeException("Invalid Name");
             }
         }
 
