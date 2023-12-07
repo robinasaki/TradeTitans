@@ -61,8 +61,6 @@ class TradeInteractorTest {
         assertTrue(presenter.wasPresented);
     }
 
-    // Add more test cases as needed...
-
     private static class TestFileDataAccessObject extends FileDataAccessObject {
         private Portfolio portfolio;
 
@@ -73,7 +71,7 @@ class TradeInteractorTest {
 
         @Override
         public void removePortfolio(String portfolioName) {
-            // Do nothing for the test
+
         }
 
         @Override
