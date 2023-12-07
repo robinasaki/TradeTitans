@@ -13,10 +13,10 @@ import java.time.ZoneId;
 import java.time.LocalDate;
 
 public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final AddPortfolioDataAccessInterface fileDataAccessObject;
     private AddPortfolioOutputBoundary presenter;
 
-    public AddPortfolioInteractor(FileDataAccessObject fileDataAccessObject, AddPortfolioOutputBoundary addPortfolioPresenter) {
+    public AddPortfolioInteractor(AddPortfolioDataAccessInterface fileDataAccessObject, AddPortfolioOutputBoundary addPortfolioPresenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = addPortfolioPresenter;
     }
@@ -25,7 +25,7 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
         for (Portfolio ptf : portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                throw new IllegalArgumentException("Portfolio name already used. Please try another name");
+                throw new RuntimeException("Portfolio name already used. Please try another name");
             }
         }
 

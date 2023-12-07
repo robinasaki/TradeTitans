@@ -12,11 +12,11 @@ import entity.Tradeable;
 
 
 public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final UpdatePricesDataAccesssInterface fileDataAccessObject;
     private final APIDataAccessObject apiDataAccessObject;
     private final UpdatePricesOutputBoundary presenter;
 
-    public UpdatePricesInteractor(FileDataAccessObject fileDataAccessObject, APIDataAccessObject apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
+    public UpdatePricesInteractor(UpdatePricesDataAccesssInterface fileDataAccessObject, APIDataAccessObject apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.apiDataAccessObject = apiDataAccessObject;
         this.presenter = presenter;
@@ -52,8 +52,6 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         prices.add(0.0);
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
-
-        // TODO: these should actually be calculated
         changes.add(0.0);
         changePercents.add(0.0);
 

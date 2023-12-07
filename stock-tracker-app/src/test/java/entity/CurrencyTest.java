@@ -42,5 +42,4 @@ public class CurrencyTest {
         System.out.println(this.testUSDWithHistory.getPriceHistory());
     }
 
-    // TODO: test Trade()
 }

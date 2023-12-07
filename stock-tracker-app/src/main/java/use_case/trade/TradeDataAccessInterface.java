@@ -1,8 +1,8 @@
 package use_case.trade;
-
-import entity.User;
+import entity.Portfolio;
 
 public interface TradeDataAccessInterface {
-    boolean notTradeable();
-    void save(User user);
+    public Portfolio getPortfolio(String portfolioName);
+    public void removePortfolio(String PortfolioName);
+    public void savePortfolio(Portfolio portfolio);
 }
