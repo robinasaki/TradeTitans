@@ -90,10 +90,13 @@ public class AddPortfolioView extends JPanel {
                     defaultCurrency = "$" + otherCurrencyField.getText();
                     addPortfolioController.execute(portfolioName, defaultCurrency);
                 } else {
-                    addPortfolioController.execute(portfolioName, defaultCurrency);
+                    try {
+                        addPortfolioController.execute(portfolioName, defaultCurrency);
+                    } catch (RuntimeException exp) {
+                        JOptionPane.showMessageDialog(panel, exp.getMessage());
+                    }
                 }
             }
-            addPortfolioController.execute(portfolioName, defaultCurrency);
         }
     }
 

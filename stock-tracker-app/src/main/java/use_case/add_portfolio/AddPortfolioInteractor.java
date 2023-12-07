@@ -22,14 +22,11 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
 
     public void execute(String portfolioName, String defaultCurrency) {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
-        for (Portfolio ptf: portfolios) {
+        for (Portfolio ptf : portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                // TODO: a duplicate name will trigger this and record, that's what we want yes.
-                // TODO: however, a normal name will also trigger this. Fix it.
-                throw new RuntimeException("Invalid Name");
+                throw new RuntimeException("<html>Duplicated name, <br/>please try again. <html/>");
             }
         }
-
         // getting price history for default currency (all 1.0)
         Tradeable currency = new Tradeable("currency", defaultCurrency);
         TreeMap<Date, Double> quotes = new TreeMap<>();
@@ -45,5 +42,6 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
 
         fileDataAccessObject.savePortfolio(portfolio);
         presenter.prepareSuccessView(portfolio.getName());
+
     }
 }
