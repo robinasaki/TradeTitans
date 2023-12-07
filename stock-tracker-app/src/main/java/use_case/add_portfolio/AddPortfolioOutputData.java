@@ -10,4 +10,8 @@ public class AddPortfolioOutputData {
     }
 
     public boolean getSuccessfulCreation() {return portfolioCreated;}
+
+    public boolean getUseCaseFailed() {
+        return useCaseFailed;
+    }
 }
