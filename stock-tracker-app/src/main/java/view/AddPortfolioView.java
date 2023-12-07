@@ -76,8 +76,6 @@ public class AddPortfolioView extends JPanel {
             if (portfolioName.isEmpty() || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
                 JOptionPane.showMessageDialog(panel, "<html> Invalid name, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // TODO: this should really be implementing with the currency text filed having a listener and autofilling if something is selected in the dropdown
-                // TODO: this would make it so we only have to read in the text field, and not have to worry about the dropdown
                 // we have to add the $ sign to the default currency string
                 String defaultCurrency = "$" + defaultCurrencyField.getSelectedItem();
 
@@ -86,7 +84,6 @@ public class AddPortfolioView extends JPanel {
                 }
 
                 // selected other, wrong currency
-                // TODO: we could potentially allow lengths that aren't 3, if we want to support default currencies that aren't actually currencies
                 else if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
                     JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again. <html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
                 }

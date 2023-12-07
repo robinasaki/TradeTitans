@@ -12,7 +12,6 @@ public class Tradeable implements Serializable {
     private String symbol; // e.g. "AAPL"
     private TreeMap<Date, Double> priceHistory; // price history in USD
     private double sharesHeld; // number of shares held in portfolio
-//    private static Map<String, Tradeable> tradeables = new HashMap<>();
 
     public Tradeable(String name, String symbol) {
         this.name = name;
@@ -40,20 +39,7 @@ public class Tradeable implements Serializable {
     public void setPriceHistory(TreeMap<Date, Double> priceHistory) {
         this.priceHistory = priceHistory;
     }
-/*
-    public static Tradeable getTradeable(String symbol) {
-        return tradeables.get(symbol);
-    }
 
-    // adds tradeable to map if not already there
-    // this should be the only place tradeables are instantiated
-    public static void addTradeable(String symbol) {
-        if (!tradeables.containsKey(symbol)) {
-            Tradeable tradeable = new Tradeable("tradeable_name_todo", symbol);
-            tradeables.put(symbol, tradeable);
-        }
-    }
-*/
     public void setSharesHeld(double sharesHeld) {
         this.sharesHeld = sharesHeld;
     }

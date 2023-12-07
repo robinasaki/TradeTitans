@@ -28,8 +28,6 @@ public class DeletePortfolioView extends JPanel {// implements ActionListener,Pr
 
     private void initView() {
         JPanel panel = new JPanel(new GridLayout(0, 1));
-
-        // TODO: add specific portfolio name to question
         JLabel title = new JLabel("Are you sure you want to delete this Portfolio?");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);

@@ -68,7 +68,6 @@ public class PortfolioSelectionView extends JPanel {
 
                 // Portfolio button
                 JButton portfolioButton = new JButton(portfolioName);
-                //TODO: For some reason the font is not changing
                 portfolioButton.setFont(new Font("SansSerif", Font.PLAIN, 17));
                 portfolioButton.setPreferredSize(new Dimension(300, 50));
                 portfolioButton.addActionListener(new PortfolioButtonListener(portfolioName));

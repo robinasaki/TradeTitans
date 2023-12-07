@@ -1,4 +1,6 @@
 package interface_adapter.holdings;
+import entity.Portfolio;
+
 import java.util.ArrayList;
 
 public class HoldingsState {

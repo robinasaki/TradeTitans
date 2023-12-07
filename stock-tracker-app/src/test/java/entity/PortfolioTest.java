@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import javax.sound.sampled.Port;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PortfolioTest {
@@ -58,11 +59,11 @@ public class PortfolioTest {
         init();
 
         // the user deposits 5000 usd
-        testingPortfolio.addTrade(new TradeTransaction("$USD", "", 5000, 0, 10.99));
+        testingPortfolio.addTrade(new TradeTransaction("$USD", "", 5000, 0, 10.99, new Date(2023, 9, 11)));
 
         // the user purchase 1 IBM stock with USD$50
         // we do not want to call the data access object here
-        testingPortfolio.addTrade(new TradeTransaction("IBM", "$USD", 1, 50, 10.99));
+        testingPortfolio.addTrade(new TradeTransaction("IBM", "$USD", 1, 50, 10.99, new Date(2023, 9, 11)));
 
         // the user should have 2 holdings, $USD and IBM
         assert testingPortfolio.getHoldings().size() == 2;
