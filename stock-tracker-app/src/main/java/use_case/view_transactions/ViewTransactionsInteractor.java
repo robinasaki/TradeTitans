@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewTransactionsInteractor implements ViewTransactionsInputBoundary {
-    private final FileDataAccessObject fileDataAccessObject;
+    private final ViewTransactionDataAccessInterface fileDataAccessObject;
     private ViewTransactionsOutputBoundary presenter;
 
-    public ViewTransactionsInteractor(FileDataAccessObject fileDataAccessObject, ViewTransactionsOutputBoundary presenter) {
+    public ViewTransactionsInteractor(ViewTransactionDataAccessInterface fileDataAccessObject, ViewTransactionsOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }

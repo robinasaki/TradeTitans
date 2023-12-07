@@ -5,6 +5,7 @@ import use_case.add_portfolio.AddPortfolioDataAccessInterface;
 import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
 import use_case.trade.TradeDataAccessInterface;
 import use_case.update_prices.UpdatePricesDataAccesssInterface;
+import use_case.view_transactions.ViewTransactionDataAccessInterface;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -15,7 +16,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataAccessObject implements DeletePortfolioDataAccessInterface, TradeDataAccessInterface, AddPortfolioDataAccessInterface, UpdatePricesDataAccesssInterface {
+public class FileDataAccessObject implements DeletePortfolioDataAccessInterface, ViewTransactionDataAccessInterface,TradeDataAccessInterface, AddPortfolioDataAccessInterface, UpdatePricesDataAccesssInterface {
     private static final String FILE_PATH = "portfolioData.ser";
 
     private void savePortfolios(List<Portfolio> portfolios) {
