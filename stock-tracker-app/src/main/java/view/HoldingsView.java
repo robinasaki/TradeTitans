@@ -6,11 +6,14 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradeState;
 import interface_adapter.view_transactions.ViewTransactionsController;
+import interface_adapter.view_price_history.ViewPriceHistoryController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +25,14 @@ public class HoldingsView extends JPanel {
     private ViewManagerModel viewManagerModel;
     private TradeViewModel tradeViewModel;
     private ViewTransactionsController viewTransactionsController;
+    private ViewPriceHistoryController viewPriceHistoryController;
 
-    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, ViewTransactionsController viewTransactionsController) {
+    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, ViewTransactionsController viewTransactionsController, ViewPriceHistoryController viewPriceHistoryController) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         this.tradeViewModel = tradeViewModel;
         this.viewTransactionsController = viewTransactionsController;
+        this.viewPriceHistoryController = viewPriceHistoryController;
         initView();
 
         viewModel.addPropertyChangeListener(evt -> {
@@ -90,11 +95,22 @@ public class HoldingsView extends JPanel {
                 }
 
                 Object[] row = {symbols.get(i), quotes.get(i), shares.get(i), values.get(i), changesFormatted, changePercentsFormatted};
+
+                // Set last row shares and price to empty strings
+                if (i == symbols.size()-1) {
+                    row[1] = "";
+                    row[2] = "";
+                }
+
                 tableModel.addRow(row);
             }
 
             // Create table
+            Font font = new Font("Georgia", Font.PLAIN, 20);
             JTable table = new JTable(tableModel);
+            table.setFont(font);
+            table.setRowHeight(30);
+            table.addMouseListener(new TableRowClickListener(table));
             add(table);
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -148,5 +164,21 @@ public class HoldingsView extends JPanel {
         }
     }
 
+    private class TableRowClickListener extends MouseAdapter {
+        private final JTable table;
+
+        public TableRowClickListener(JTable table) {
+            this.table = table;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int row = table.rowAtPoint(e.getPoint());
+            if (row >= 0 && row < table.getRowCount()) {
+                String symbol = (String) table.getValueAt(row, 0);
+                viewPriceHistoryController.execute(viewModel.getState().getPortfolioName(), symbol);
+            }
+        }
+    }
 }
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+import use_case.FileDataAccessInterface;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeletePortfolioInteractorTest {
@@ -38,8 +40,9 @@ class DeletePortfolioInteractorTest {
         assertNull(presenter.lastPreparedView);
     }
 
+    // TODO: get rid of this unless it has a purpose
     // Test double for DeletePortfolioDataAccessInterface
-    private static class TestDeletePortfolioDataAccessInterface implements DeletePortfolioDataAccessInterface {
+    private static class TestDeletePortfolioDataAccessInterface implements FileDataAccessInterface {
         List<String> portfolios = new ArrayList<>();
 
         @Override

@@ -11,6 +11,8 @@ import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.view_transactions.TransactionsViewModel;
 import interface_adapter.view_transactions.TransactionsState;
+import interface_adapter.view_price_history.PriceHistoryViewModel;
+import interface_adapter.view_price_history.PriceHistoryState;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 
@@ -55,6 +57,10 @@ public class Main {
         TransactionsViewModel transactionsViewModel = new TransactionsViewModel();
         transactionsViewModel.setState(emptyTransactionsState);
 
+        PriceHistoryState emptyPriceHistoryState = new PriceHistoryState();
+        PriceHistoryViewModel priceHistoryViewModel = new PriceHistoryViewModel();
+        priceHistoryViewModel.setState(emptyPriceHistoryState);
+
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
 
         // Loading portfolios from file
@@ -72,7 +78,7 @@ public class Main {
         PortfolioSelectionView portfolioSelectionView = ViewFactory.createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
-        HoldingsView holdingsView = ViewFactory.createHoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, transactionsViewModel);
+        HoldingsView holdingsView = ViewFactory.createHoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, transactionsViewModel, priceHistoryViewModel);
         views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = ViewFactory.createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);
@@ -89,6 +95,9 @@ public class Main {
 
         TransactionsView transactionsView = ViewFactory.createTransactionsView(transactionsViewModel, viewManagerModel);
         views.add(transactionsView, transactionsView.viewName);
+
+        PriceHistoryView priceHistoryView = ViewFactory.createPriceHistoryView(priceHistoryViewModel, viewManagerModel);
+        views.add(priceHistoryView, priceHistoryView.viewName);
 
         application.pack();
         application.setVisible(true);

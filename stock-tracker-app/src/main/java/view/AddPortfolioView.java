@@ -73,35 +73,34 @@ public class AddPortfolioView extends JPanel {
             String portfolioName = portfolioInputField.getText();
             String defaultCurrency = "$" + defaultCurrencyField.getSelectedItem();
 
-            // to prevent an empty name or name with spaces at end
-            if (portfolioName.isEmpty() || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
-                JOptionPane.showMessageDialog(panel, "<html> Invalid name, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-
-                if (!(defaultCurrency.equals("$other")) && !(otherCurrencyField.getText().isEmpty())) {
-                    JOptionPane.showMessageDialog(panel, "<html> If you want to choose other currencies, <br/> please elect `other` in the dropdown menu <html/>", "Failed to select a currency", JOptionPane.INFORMATION_MESSAGE);
-                }
-
-                // selected other, wrong currency
-                else if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
-                    JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again. <html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
-                }
-
-                // use the other currency input field
-                else if (defaultCurrency.equals("$other") && !(otherCurrencyField.getText().isEmpty())) {
-                    defaultCurrency = "$" + otherCurrencyField.getText();
-                    addPortfolioController.execute(portfolioName, defaultCurrency);
-                }
-
-                else {
-                    addPortfolioController.execute(portfolioName, defaultCurrency);
-                }
-            }
-
             try {
-                addPortfolioController.execute(portfolioName, defaultCurrency);
+                // to prevent an empty name or name with spaces at end
+                if (portfolioName.isEmpty() || portfolioName.charAt(0) == ' ' || portfolioName.charAt(portfolioName.length() - 1) == ' ') {
+                    JOptionPane.showMessageDialog(panel, "<html> Invalid name, <br/> please try again <html/>", "Failed to create a Portfolio", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+
+                    if (!(defaultCurrency.equals("$other")) && !(otherCurrencyField.getText().isEmpty())) {
+                        JOptionPane.showMessageDialog(panel, "<html> If you want to choose other currencies, <br/> please elect `other` in the dropdown menu <html/>", "Failed to select a currency", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    // selected other, wrong currency
+                    else if (defaultCurrency.equals("$other") && otherCurrencyField.getText().length() != 3) {
+                        JOptionPane.showMessageDialog(panel, "<html>Bad currency abbreviation input,<br/> please try again. <html/>", "Failed to select currency", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    // use the other currency input field
+                    else if (defaultCurrency.equals("$other") && !(otherCurrencyField.getText().isEmpty())) {
+                        defaultCurrency = "$" + otherCurrencyField.getText();
+                        addPortfolioController.execute(portfolioName, defaultCurrency);
+                    }
+
+                    else {
+                        addPortfolioController.execute(portfolioName, defaultCurrency);
+                    }
+                }
+
             } catch (RuntimeException exp) {
-                if (exp.getClass().equals(NullPointerException.class)) {
+                if (exp.getClass().equals(RuntimeException.class)) {
                     JOptionPane.showMessageDialog(panel, "Another portfolio already has this name. Please enter a new name.");
                 }
             }
