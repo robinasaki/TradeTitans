@@ -36,7 +36,6 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         for(String holding : portfolio.getHoldings().keySet()) {
             Tradeable assetTradeable = portfolio.getHoldings().get(holding);
             TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol());
-
             assetTradeable.setPriceHistory(priceHistory);
 
             holdings.add(assetTradeable.getSymbol());
