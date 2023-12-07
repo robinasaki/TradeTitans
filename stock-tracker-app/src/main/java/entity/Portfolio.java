@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
 
-import entity.Transaction;
 import entity.TradeTransaction;
-import entity.BankingTransaction;
 import entity.Tradeable;
 
 public class Portfolio implements Serializable {

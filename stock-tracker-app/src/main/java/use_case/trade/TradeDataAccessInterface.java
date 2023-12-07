@@ -1,7 +1,7 @@
 package use_case.trade;
-
 import entity.Portfolio;
-import entity.User;
+
+public interface TradeDataAccessInterface {
 
 public interface TradeDataAccessInterface {
     public Portfolio getPortfolio(String portfolioName);
