@@ -1,4 +1,4 @@
-package use_case.view_transactions;
+package test.java.use_case.view_transactions;
 
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
@@ -8,6 +8,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.view_transactions.TransactionsViewModel;
 import interface_adapter.view_transactions.ViewTransactionsPresenter;
 import org.junit.Test;
+import use_case.view_transactions.ViewTransactionsInteractor;
+import use_case.view_transactions.ViewTransactionsOutputBoundary;
 
 import java.util.Date;
 

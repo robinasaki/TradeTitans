@@ -1,6 +1,7 @@
-package app;
+package test.java.app;
 
-import org.junit.Test;
+import org.junit.Assert;
+import org.testng.annotations.Test;
 
 import static org.junit.Assert.assertTrue;
 

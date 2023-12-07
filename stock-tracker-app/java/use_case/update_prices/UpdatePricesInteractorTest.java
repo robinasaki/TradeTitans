@@ -1,4 +1,4 @@
-package use_case.update_prices;
+package test.java.use_case.update_prices;
 
 /* import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
