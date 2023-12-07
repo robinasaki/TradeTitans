@@ -1,6 +1,5 @@
 package entity;
 
-import entity.Currency;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -13,11 +12,11 @@ public class CurrencyTest {
      * @param test: Currency constructor(1 arg) testing.
      * @param testUSDWithHistory: Currency constructor(3 args) testing.
      */
-    private entity.Currency test;
-    private entity.Currency testUSDWithHistory;
+    private Currency test;
+    private Currency testUSDWithHistory;
 
     public void init() {
-        this.test = new entity.Currency("USD");
+        this.test = new Currency("USD");
         TreeMap<Date, Double> hypoHistory = new TreeMap<>();
         hypoHistory.put(new Date(2020, 9, 11), 5.20);
         this.testUSDWithHistory = new Currency("USD", "$USD", hypoHistory);
