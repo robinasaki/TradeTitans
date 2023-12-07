@@ -2,6 +2,8 @@ package use_case.delete_portfolio;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entity.Portfolio;
 import org.junit.jupiter.api.Test;
 
 import use_case.FileDataAccessInterface;
@@ -40,14 +42,27 @@ class DeletePortfolioInteractorTest {
         assertNull(presenter.lastPreparedView);
     }
 
-    // TODO: get rid of this unless it has a purpose
-    // Test double for DeletePortfolioDataAccessInterface
     private static class TestDeletePortfolioDataAccessInterface implements FileDataAccessInterface {
         List<String> portfolios = new ArrayList<>();
 
         @Override
         public void removePortfolio(String portfolioName) {
             portfolios.remove(portfolioName);
+        }
+
+        @Override
+        public void savePortfolio(Portfolio portfolio) {
+
+        }
+
+        @Override
+        public List<Portfolio> loadPortfolios() {
+            return null;
+        }
+
+        @Override
+        public Portfolio getPortfolio(String portfolioName) {
+            return null;
         }
 
         // Helper method for adding portfolios in the test
