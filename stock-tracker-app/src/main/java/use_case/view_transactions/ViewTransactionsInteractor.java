@@ -3,15 +3,16 @@ package use_case.view_transactions;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 import entity.TradeTransaction;
+import use_case.FileDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewTransactionsInteractor implements ViewTransactionsInputBoundary {
-    private final ViewTransactionDataAccessInterface fileDataAccessObject;
+    private final FileDataAccessInterface fileDataAccessObject;
     private ViewTransactionsOutputBoundary presenter;
 
-    public ViewTransactionsInteractor(ViewTransactionDataAccessInterface fileDataAccessObject, ViewTransactionsOutputBoundary presenter) {
+    public ViewTransactionsInteractor(FileDataAccessInterface fileDataAccessObject, ViewTransactionsOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }
