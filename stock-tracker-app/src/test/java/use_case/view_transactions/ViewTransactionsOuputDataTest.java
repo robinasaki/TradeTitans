@@ -21,7 +21,7 @@ public class ViewTransactionsOuputDataTest {
         ArrayList<Date> dates = new ArrayList<>();
         dates.add(new Date(123, 9, 11));
 
-        viewTransactionsOutputData = new ViewTransactionsOutputData("ViewTransactionOutputDataTest", assetsIn, assetOut, amountIn, amountOut, dates);
+        viewTransactionsOutputData = new ViewTransactionsOutputData("ViewTransactionOutputDataTest", "$USD", assetsIn, assetOut, amountIn, amountOut, dates);
 
         assert viewTransactionsOutputData.getPortfolioName().equals("ViewTransactionOutputDataTest");
         assert viewTransactionsOutputData.getAssetsIn().equals(assetsIn);
