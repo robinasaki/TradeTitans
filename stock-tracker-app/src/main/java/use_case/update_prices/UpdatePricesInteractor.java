@@ -1,7 +1,5 @@
 package use_case.update_prices;
 
-import data_access.APIDataAccessObject;
-import data_access.FileDataAccessObject;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -9,14 +7,16 @@ import java.util.Date;
 
 import entity.Portfolio;
 import entity.Tradeable;
+import use_case.APIDataAccessInterface;
+import use_case.FileDataAccessInterface;
 
 
 public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
-    private final UpdatePricesDataAccesssInterface fileDataAccessObject;
-    private final APIDataAccessObject apiDataAccessObject;
+    private final APIDataAccessInterface apiDataAccessObject;
+    private final FileDataAccessInterface fileDataAccessObject;
     private final UpdatePricesOutputBoundary presenter;
 
-    public UpdatePricesInteractor(UpdatePricesDataAccesssInterface fileDataAccessObject, APIDataAccessObject apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
+    public UpdatePricesInteractor(FileDataAccessInterface fileDataAccessObject, APIDataAccessInterface apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.apiDataAccessObject = apiDataAccessObject;
         this.presenter = presenter;

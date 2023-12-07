@@ -5,16 +5,17 @@ import data_access.APIDataAccessObject;
 import entity.TradeTransaction;
 import entity.Portfolio;
 import entity.Tradeable;
+import use_case.FileDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
 public class TradeInteractor implements TradeInputBoundary {
-    private final TradeDataAccessInterface fileDataAccessObject;
+    private final FileDataAccessInterface fileDataAccessObject;
     private final TradeOutputBoundary presenter;
 
-    public TradeInteractor(TradeDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
+    public TradeInteractor(FileDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }

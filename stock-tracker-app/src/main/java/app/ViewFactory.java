@@ -34,6 +34,8 @@ import use_case.trade.TradeOutputBoundary;
 import use_case.view_transactions.ViewTransactionsOutputBoundary;
 import use_case.view_transactions.ViewTransactionsInputBoundary;
 import use_case.view_transactions.ViewTransactionsInteractor;
+import use_case.APIDataAccessInterface;
+import use_case.FileDataAccessInterface;
 import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 
@@ -49,7 +51,7 @@ public class ViewFactory {
     }
 
     protected static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
         AddPortfolioOutputBoundary addPortfolioOutputBoundary = new AddPortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
         AddPortfolioInputBoundary addPortfolioInputBoundary = new AddPortfolioInteractor(fileDataAccessObject, addPortfolioOutputBoundary);
         AddPortfolioController addPortfolioController = new AddPortfolioController(addPortfolioInputBoundary);
@@ -57,7 +59,7 @@ public class ViewFactory {
     }
 
     protected static DeletePortfolioView createDeletePortfolioView(DeletePortfolioViewModel deletePortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
         DeletePortfolioOutputBoundary deletePortfolioOutputBoundary = new DeletePortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
         DeletePortfolioInputBoundary deletePortfolioInputBoundary = new DeletePortfolioInteractor(fileDataAccessObject, deletePortfolioOutputBoundary);
         DeletePortfolioController deletePortfolioController = new DeletePortfolioController(deletePortfolioInputBoundary);
@@ -65,7 +67,7 @@ public class ViewFactory {
     }
 
     protected static TradeView createTradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, HoldingsViewModel holdingsViewModel) {
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
         TradeOutputBoundary tradeOutputBoundary = new TradePresenter(viewManagerModel, holdingsViewModel);
         TradeInputBoundary TradeInputBoundary = new TradeInteractor(fileDataAccessObject, tradeOutputBoundary);
         TradeController tradeController = new TradeController(TradeInputBoundary);

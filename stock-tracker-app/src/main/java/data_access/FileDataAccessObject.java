@@ -1,10 +1,7 @@
 package data_access;
 
 import entity.Portfolio;
-import use_case.add_portfolio.AddPortfolioDataAccessInterface;
-import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
-import use_case.trade.TradeDataAccessInterface;
-import use_case.update_prices.UpdatePricesDataAccesssInterface;
+import use_case.FileDataAccessInterface;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -15,7 +12,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataAccessObject implements DeletePortfolioDataAccessInterface, TradeDataAccessInterface, AddPortfolioDataAccessInterface, UpdatePricesDataAccesssInterface {
+public class FileDataAccessObject implements FileDataAccessInterface {
     private static final String FILE_PATH = "portfolioData.ser";
 
     private void savePortfolios(List<Portfolio> portfolios) {
@@ -33,6 +30,7 @@ public class FileDataAccessObject implements DeletePortfolioDataAccessInterface,
         savePortfolios(portfolios);
     }
 
+    @Override
     public void savePortfolio(Portfolio portfolio) {
         List<Portfolio> portfolios = loadPortfolios();
         for (int i = 0; i < portfolios.size(); i++) {
@@ -45,6 +43,7 @@ public class FileDataAccessObject implements DeletePortfolioDataAccessInterface,
         savePortfolios(portfolios);
     }
 
+    @Override
     public List<Portfolio> loadPortfolios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (List<Portfolio>) ois.readObject();
@@ -57,6 +56,7 @@ public class FileDataAccessObject implements DeletePortfolioDataAccessInterface,
         return new ArrayList<>();
     }
 
+    @Override
     public Portfolio getPortfolio(String portfolioName) {
         List<Portfolio> portfolios = loadPortfolios();
 
