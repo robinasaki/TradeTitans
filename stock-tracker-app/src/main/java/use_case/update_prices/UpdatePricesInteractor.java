@@ -12,11 +12,11 @@ import entity.Tradeable;
 
 
 public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
-    private final UpdatePricesdataAccessInterface fileDataAccessObject;
+    private final FileDataAccessObject fileDataAccessObject;
     private final APIDataAccessObject apiDataAccessObject;
     private final UpdatePricesOutputBoundary presenter;
 
-    public UpdatePricesInteractor(UpdatePricesdataAccessInterface fileDataAccessObject, APIDataAccessObject apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
+    public UpdatePricesInteractor(FileDataAccessObject fileDataAccessObject, APIDataAccessObject apiDataAccessObject, UpdatePricesOutputBoundary presenter) {
         this.fileDataAccessObject = fileDataAccessObject;
         this.apiDataAccessObject = apiDataAccessObject;
         this.presenter = presenter;

@@ -1,6 +1,5 @@
 package app;
 
-import use_case.add_portfolio.AddPortfolioDataAccessInterface;
 import view.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.credit.CreditViewModel;
@@ -45,7 +44,7 @@ public class ViewFactory {
     }
 
     protected static AddPortfolioView createAddPortfolioView(AddPortfolioViewModel addPortfolioViewModel, ViewManagerModel viewManagerModel, PortfolioSelectionViewModel portfolioSelectionViewModel) {
-        AddPortfolioDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
         AddPortfolioOutputBoundary addPortfolioOutputBoundary = new AddPortfolioPresenter(viewManagerModel, portfolioSelectionViewModel);
         AddPortfolioInputBoundary addPortfolioInputBoundary = new AddPortfolioInteractor(fileDataAccessObject, addPortfolioOutputBoundary);
         AddPortfolioController addPortfolioController = new AddPortfolioController(addPortfolioInputBoundary);

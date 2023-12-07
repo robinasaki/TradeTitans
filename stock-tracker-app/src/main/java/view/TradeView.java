@@ -72,7 +72,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.CURRENCY_LABEL), currencyField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SHARES_LABEL), sharesField));
         panel.add(new LabelTextPanel(new JLabel(tradeViewModel.SYMBOL_LABEL), symbolField));
-        panel.add(new LabelTextPanel(new JLabel("Price Per Share"), priceField));
+        panel.add(new LabelTextPanel(new JLabel(tradeViewModel.PRICE_LABEL), priceField));
         panel.add(new LabelTextPanel(new JLabel("TotalPrice"), totalPriceField));
 
         symbolField.addKeyListener(new SymbolFieldKeyListener());

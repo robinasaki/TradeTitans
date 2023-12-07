@@ -10,8 +10,6 @@ public class TradeViewModel extends ViewModel {
     public final String TRADE_TYPE_LABEL = "Trade type";
     public final String AMOUNT_LABEL = "Amount";
     public final String CURRENCY_LABEL = "Currency";
-
-    public final String TO_CURRENCY_LABEL = "Exchange to";
     public final String SHARES_LABEL = "Shares";
     public final String SYMBOL_LABEL = "Symbol";
     public final String PRICE_LABEL = "Price";
