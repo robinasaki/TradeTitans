@@ -330,9 +330,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 priceField.setVisible(true);
                 totalPriceField.setVisible(true);
                 break;
-            default:
-                // TODO: implement default case here.
-                break;
         }
         panel.revalidate();
         panel.repaint();

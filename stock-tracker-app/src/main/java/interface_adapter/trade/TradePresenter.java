@@ -22,9 +22,6 @@ public class TradePresenter implements TradeOutputBoundary {
         holdingsViewModel.getState().setValues(tradeOutputData.getValues());
         holdingsViewModel.getState().setChanges(tradeOutputData.getChanges());
         holdingsViewModel.getState().setChangePercents(tradeOutputData.getChangePercents());
-
-        // TODO: this is a hack to get the holdings view model to update
-        // TODO: done by calling setState() which has a side effect of firing a property changed event
         holdingsViewModel.setState(holdingsViewModel.getState());
 
         viewManagerModel.setActiveView("holdings");
