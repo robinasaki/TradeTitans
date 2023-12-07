@@ -3,7 +3,6 @@ package interface_adapter.add_portfolio;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
-import use_case.add_portfolio.AddPortfolioOutputData;
 
 import java.util.List;
 

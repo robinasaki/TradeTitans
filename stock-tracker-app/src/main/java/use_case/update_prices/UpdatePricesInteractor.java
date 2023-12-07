@@ -1,8 +1,6 @@
 package use_case.update_prices;
 
 import data_access.APIDataAccessObject;
-import data_access.FileDataAccessObject;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Date;

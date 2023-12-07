@@ -2,8 +2,6 @@ package data_access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.core.Versioned;
-import com.fasterxml.jackson.core.TreeNode;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,7 +15,6 @@ import java.time.ZoneId;
 import java.util.*;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.io.File;
 
 public class APIDataAccessObject {
     private static final String BASE_URL = "https://www.alphavantage.co/query";
@@ -108,7 +105,7 @@ public class APIDataAccessObject {
     }
 
     private TreeMap<Date, Double> getHistoricalStockQuotes(String symbol, String targetCurrency) {
-        TreeMap<Date, Double> conversionRates = new TreeMap<>();
+        TreeMap<Date, Double> conversionRates;
         if (symbol.endsWith(".LON")) {
             conversionRates = getHistoricalForexQuotes("$GBP", targetCurrency);
         } else if (symbol.endsWith(".TRT") || symbol.endsWith(".TRV")) {

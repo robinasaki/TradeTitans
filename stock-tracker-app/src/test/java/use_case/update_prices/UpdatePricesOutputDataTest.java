@@ -2,8 +2,6 @@ package use_case.update_prices;
 
 import org.junit.Test;
 
-
-import javax.print.attribute.standard.NumberUp;
 import java.util.ArrayList;
 
 public class UpdatePricesOutputDataTest {

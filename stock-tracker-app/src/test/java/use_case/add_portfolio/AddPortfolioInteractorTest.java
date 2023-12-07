@@ -4,14 +4,9 @@ import entity.Portfolio;
 import entity.Tradeable;
 import data_access.FileDataAccessObject;
 import org.junit.jupiter.api.Test;
-import use_case.add_portfolio.AddPortfolioOutputBoundary;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddPortfolioInteractorTest {

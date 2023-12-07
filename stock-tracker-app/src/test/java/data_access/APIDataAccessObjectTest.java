@@ -1,18 +1,10 @@
 package data_access;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
-import java.util.TreeMap;
-import java.text.SimpleDateFormat;
 
-import data_access.APIDataAccessObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import static org.junit.Assert.*;
 
 public class APIDataAccessObjectTest {
     private APIDataAccessObject DAO;
@@ -44,8 +36,8 @@ public class APIDataAccessObjectTest {
         Assertions.assertEquals(62.13, historicalQuotes.get(new Date(123, 10, 3)), 0.01);
 
         // These are weekends, so there should be no data
-        assert(historicalQuotes.get(new Date(123, 10, 4)) == null);
-        assert(historicalQuotes.get(new Date(123, 10, 5)) == null);
+        assert (historicalQuotes.get(new Date(123, 10, 4)) == null);
+        assert (historicalQuotes.get(new Date(123, 10, 5)) == null);
     }
 
     @Test
@@ -58,7 +50,7 @@ public class APIDataAccessObjectTest {
         String currency = "$CNY";
 
         // the alpha vantage demo returns the data in $CNY
-        Map<Date, Double> historicalQuotesCrypto = DAO.getHistoricalQuotes(symbol,currency);
+        Map<Date, Double> historicalQuotesCrypto = DAO.getHistoricalQuotes(symbol, currency);
 
         Assertions.assertNotNull(historicalQuotesCrypto);
         Assertions.assertFalse(historicalQuotesCrypto.isEmpty());

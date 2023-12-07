@@ -2,16 +2,12 @@ package use_case.trade;
 
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
-import entity.TradeTransaction;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.holdings.HoldingsState;
 import interface_adapter.holdings.HoldingsViewModel;
 import interface_adapter.trade.TradePresenter;
-import org.junit.Assert.*;
 import org.junit.Test;
 import entity.Tradeable;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class TradeInteractorTest {

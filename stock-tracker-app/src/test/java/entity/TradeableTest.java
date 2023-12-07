@@ -1,13 +1,9 @@
 package entity;
 
-
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.TreeMap;
-
-//import static entity.Tradeable.addTradeable;
-//import static entity.Tradeable.getTradeable;
 
 public class TradeableTest {
     private Tradeable test;

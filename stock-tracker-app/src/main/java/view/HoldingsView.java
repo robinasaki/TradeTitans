@@ -1,10 +1,8 @@
 package view;
 
 import interface_adapter.holdings.HoldingsViewModel;
-import interface_adapter.holdings.HoldingsState;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.trade.TradeViewModel;
-import interface_adapter.trade.TradeState;
 import interface_adapter.view_transactions.ViewTransactionsController;
 
 import javax.swing.*;
@@ -12,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HoldingsView extends JPanel {

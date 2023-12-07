@@ -1,6 +1,5 @@
 package use_case.trade;
 
-import data_access.FileDataAccessObject;
 import data_access.APIDataAccessObject;
 import entity.TradeTransaction;
 import entity.Portfolio;

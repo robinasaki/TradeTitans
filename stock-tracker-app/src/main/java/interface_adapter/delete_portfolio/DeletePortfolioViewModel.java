@@ -4,7 +4,6 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
 public class DeletePortfolioViewModel extends ViewModel {
 
@@ -15,35 +14,24 @@ public class DeletePortfolioViewModel extends ViewModel {
 
     private String portfolioName;
 
-    /*
-    private DeletePortfolioState state = new DeletePortfolioState();
-
-    public DeletePortfolioState getState() {
-        return state;
-    }
-
-    public void setState(DeletePortfolioState state) {
-        this.state = state;
-    }
-    */
-
-    public DeletePortfolioViewModel(){
+    public DeletePortfolioViewModel() {
         super("delete_portfolio");
     }
 
-    public String getPortfolioName(){
+    public String getPortfolioName() {
         return this.portfolioName;
     }
 
-    public void setPortfolioName(String portfolioName){
+    public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void firePropertyChanged(){
+    public void firePropertyChanged() {
         support.firePropertyChange("state", null, portfolioName);
     }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
