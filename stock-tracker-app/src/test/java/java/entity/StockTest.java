@@ -1,4 +1,4 @@
-package entity;
+package test.java.java.entity;
 
 
 import org.junit.Test;

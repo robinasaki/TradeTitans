@@ -1,6 +1,7 @@
-package entity;
+package test.java.java.entity;
 
 
+import entity.Tradeable;
 import org.junit.Test;
 
 import java.util.Date;
