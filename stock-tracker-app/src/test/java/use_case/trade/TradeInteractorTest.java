@@ -76,38 +76,36 @@ public class TradeInteractorTest {
         fileDataAccessObject.removePortfolio("TradeInteractorTestProfile");
     }
 
-//    @Test
-//    public void testBuy() {
-//        /**
-//         * Test buying with enough currency.
-//         */
-//
-//        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
-//        Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
-//        fileDataAccessObject.savePortfolio(hypoPortfolio);
-//        ViewManagerModel viewManagerModel = new ViewManagerModel();
-//        HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
-//
-//        HoldingsState hypoState = new HoldingsState();
-//
-//        hypoState.setPortfolioName(hypoPortfolio.getName());
-//        hypoState.setDefaultCurrency(hypoPortfolio.getCurrency().getSymbol());
-//
-//        ArrayList<String> symbols = new ArrayList<>(hypoPortfolio.getHoldings().keySet());
-//        hypoState.setSymbols(symbols);
-//
-//
-//        holdingsViewModel.setState(hypoState);
-//        TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
-//        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
-//
-//        // user deposits 500 $USD
-//        TradeInputData deposit = new TradeInputData("TradeInteractorTestProfile", 0.00, "$USD", "", 500.00, 0.00, new Date(123, 9, 11));
-//        tradeInteractor.execute(deposit);
-//
-//        assert (hypoPortfolio.getHoldings().get("TradeInteractorTestProfile").getSharesHeld() == 500);
-//
-//        // TODO: remove the portfolio
-//        fileDataAccessObject.removePortfolio("TradeInteractorTestProfile");
-//    }
+    private static class TestFileDataAccessObject extends FileDataAccessObject {
+        private Portfolio portfolio;
+
+        @Override
+        public Portfolio getPortfolio(String portfolioName) {
+            return portfolio;
+        }
+
+        @Override
+        public void removePortfolio(String portfolioName) {
+
+        }
+
+        @Override
+        public void savePortfolio(Portfolio portfolio) {
+            this.portfolio = portfolio;
+        }
+    }
+
+    private static class TradeOutputBoundaryMock implements TradeOutputBoundary {
+        private boolean wasPresented = false;
+
+        @Override
+        public void present(TradeOutputData tradeOutputData) {
+            wasPresented = true;
+        }
+
+        @Override
+        public void prepareFailView(String error) {
+
+        }
+    }
 }
