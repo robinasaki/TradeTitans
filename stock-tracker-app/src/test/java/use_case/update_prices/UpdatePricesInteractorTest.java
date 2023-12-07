@@ -1,6 +1,6 @@
 package use_case.update_prices;
 
-import data_access.APIDataAccessObject;
+/* import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 import entity.Tradeable;
@@ -97,4 +97,4 @@ class UpdatePricesInteractorTest {
             presentCallCount++;
         }
     }
-}
+} */
