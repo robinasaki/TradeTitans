@@ -42,16 +42,15 @@ public class PriceHistoryView extends JPanel {
 
         updatePriceHistory();
 
+        JButton backButton = new JButton("Back to Holdings");
+        backButton.addActionListener(new BackButtonListener());
+        backButton.setPreferredSize(new Dimension(200, 50));
+        add(backButton, BorderLayout.SOUTH);
     }
 
     private void updatePriceHistory() {
         // clear panel
         removeAll();
-
-        JButton backButton = new JButton("Back to Holdings");
-        backButton.addActionListener(new BackButtonListener());
-        backButton.setPreferredSize(new Dimension(200, 50));
-        add(backButton, BorderLayout.SOUTH);
 
         // get data from state
         String portfolioName = viewModel.getState().getPortfolioName();
@@ -76,7 +75,7 @@ public class PriceHistoryView extends JPanel {
         XYPlot plot = (XYPlot) chart.getPlot();
 
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
-        dateAxis.setDateFormatOverride(new SimpleDateFormat("MMMM d yyyy"));
+        dateAxis.setDateFormatOverride(new SimpleDateFormat("MMMM-d-yyyy"));
         dateAxis.setAutoRange(true);
         dateAxis.setVerticalTickLabels(true);
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
@@ -84,10 +83,11 @@ public class PriceHistoryView extends JPanel {
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.BLUE);
         plot.setRenderer(renderer);
+        JPanel chartJPanel = new JPanel();
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setMouseWheelEnabled(true);
-        chartPanel.setPreferredSize(new Dimension(700, 717));
-        add(chartPanel, BorderLayout.NORTH);
+        //chartPanel.setPreferredSize(new Dimension(700, 500));
+        add(chartPanel, BorderLayout.CENTER);
 
     }
 
