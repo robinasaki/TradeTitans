@@ -36,7 +36,6 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         for(String holding : portfolio.getHoldings().keySet()) {
             Tradeable assetTradeable = portfolio.getHoldings().get(holding);
             TreeMap<Date, Double> priceHistory = apiDataAccessObject.getHistoricalQuotes(holding, portfolio.getCurrency().getSymbol());
-
             assetTradeable.setPriceHistory(priceHistory);
 
             holdings.add(assetTradeable.getSymbol());
@@ -48,12 +47,22 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
 
         }
         holdings.add("Total");
-        // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
-        changes.add(0.0);
-        changePercents.add(0.0);
+
+        double totalChange = 0;
+        for (int i = 0; i < changes.size(); i++) {
+            totalChange += changes.get(i) * shares.get(i);
+        }
+        changes.add(totalChange);
+
+        if (portfolio.getPortfolioValue() - totalChange == 0) {
+            changePercents.add(0.0);
+        }
+        else {
+            changePercents.add(totalChange / (portfolio.getPortfolioValue() - totalChange) * 100);
+        }
 
         String defaultCurrency = portfolio.getCurrency().getSymbol();
 

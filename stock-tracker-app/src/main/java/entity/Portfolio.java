@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.TreeMap;
 
 import entity.TradeTransaction;
 import entity.Tradeable;
@@ -108,6 +110,40 @@ public class Portfolio implements Serializable {
 
         // record transaction
         transactions.add(transaction);
+    }
+
+    public TreeMap<Date, Double> getPriceHistory() {
+        TreeMap<Date, Double> combinedPriceHistory = new TreeMap<>();
+        for (Tradeable asset : holdings.values()) {
+            TreeMap<Date, Double> historicalPrices = asset.getPriceHistory();
+            TreeMap<Date, Double> historicalShares = calculateHistoricalShares(asset);
+            for (Date date : historicalShares.keySet()) {
+                double price = historicalPrices.get(date);
+                double shares = historicalShares.get(date);
+                double value = price * shares;
+                if (combinedPriceHistory.containsKey(date)) {
+                    combinedPriceHistory.put(date, combinedPriceHistory.get(date) + value);
+                } else {
+                    combinedPriceHistory.put(date, value);
+                }
+            }
+        }
+        return combinedPriceHistory;
+    }
+
+    private TreeMap<Date, Double> calculateHistoricalShares(Tradeable asset) {
+        TreeMap<Date, Double> historicalShares = new TreeMap<>();
+        for (TradeTransaction transaction : transactions) {
+            if (transaction.getAssetIn().equals(asset.getName())) {
+                // if asset is being bought, add amount to historicalShares
+                historicalShares.put(transaction.getDate(), historicalShares.getOrDefault(transaction.getDate(), 0.0) + transaction.getAmountIn());
+            }
+            if (transaction.getAssetOut().equals(asset.getName())) {
+                // if asset is being sold, subtract amount from historicalShares
+                historicalShares.put(transaction.getDate(), historicalShares.getOrDefault(transaction.getDate(), 0.0) - transaction.getAmountOut());
+            }
+        }
+        return historicalShares;
     }
 
     public double getPortfolioValue() {

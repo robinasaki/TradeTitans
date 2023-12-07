@@ -58,7 +58,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         ((AbstractDocument) sharesField.getDocument()).setDocumentFilter(new NumericFilter());
 
         // Set up CurrencyFilter
-        ((AbstractDocument) symbolField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
+        ((AbstractDocument) symbolField.getDocument()).setDocumentFilter(new SymbolInputFilter());
         ((AbstractDocument) currencyField.getDocument()).setDocumentFilter(new CurrencyInputFilter());
 
         panel = new JPanel(new GridLayout(0, 1));
@@ -139,6 +139,22 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         }
     }
 
+    private static class SymbolInputFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            if (string.matches("[A-Z\\.\\-]*")) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            if (text.matches("[A-Z\\.\\-]*")) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    }
     private class ConfirmButtonListener implements ActionListener {
 
         @Override
@@ -161,6 +177,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                         tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
+                            exp.printStackTrace();
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());
