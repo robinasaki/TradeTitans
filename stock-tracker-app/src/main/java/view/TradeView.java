@@ -7,6 +7,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Date;
 
 import interface_adapter.trade.TradeController;
 import interface_adapter.trade.TradeViewModel;
@@ -89,6 +92,10 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
 
         panel.add(buttons);
 
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ClearButtonListener());
+        panel.add(clearButton);
+
         JButton instructionButton = new JButton("<html> <i>What are these trade types?</i> <html/>");
         instructionButton.addActionListener(new InstructionButtonListener());
         panel.add(instructionButton);
@@ -151,7 +158,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     try {
-                        tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, tradingFee);
+                        tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
@@ -164,7 +171,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
                     try {
-                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, tradingFee);
+                        tradeController.execute(portfolio, "", "$" + currency, 0.0, amount, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
@@ -178,7 +185,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String symbol = symbolField.getText();
                     try {
                         double price = Double.parseDouble(priceField.getText());
-                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, tradingFee);
+                        tradeController.execute(portfolio, symbol, defaultCurrency, shares, shares * price, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
@@ -192,7 +199,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     String symbol = symbolField.getText();
                     try {
                         double price = Double.parseDouble(priceField.getText());
-                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, tradingFee);
+                        tradeController.execute(portfolio, defaultCurrency, symbol, shares * price, shares, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
@@ -205,7 +212,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 case "Currency Exchange" -> {
                     double amount = Double.parseDouble(amountField.getText());
                     String currency = currencyField.getText();
-                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, tradingFee);
+                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, tradingFee, new Date());
                 }
             }
         }
@@ -336,5 +343,18 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         }
         panel.revalidate();
         panel.repaint();
+    }
+
+    private class ClearButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            amountField.setText("");
+            currencyField.setText("");
+            sharesField.setText("");
+            symbolField.setText("");
+            priceField.setText("");
+            totalPriceField.setText("");
+        }
     }
 }

@@ -39,9 +39,9 @@ public class APIDataAccessObjectTest {
 
         // Manual entered these from values on yahoo finance, then converted from euro to us dollar
         // making sure we are not off by more than 0.01
-        assertEquals(59.14, historicalQuotes.get(new Date(123, 10, 1)), 0.01);
-        assertEquals(61.09, historicalQuotes.get(new Date(123, 10, 2)), 0.01);
-        assertEquals(62.13, historicalQuotes.get(new Date(123, 10, 3)), 0.01);
+        Assertions.assertEquals(59.14, historicalQuotes.get(new Date(123, 10, 1)), 0.01);
+        Assertions.assertEquals(61.09, historicalQuotes.get(new Date(123, 10, 2)), 0.01);
+        Assertions.assertEquals(62.13, historicalQuotes.get(new Date(123, 10, 3)), 0.01);
 
         // These are weekends, so there should be no data
         assert(historicalQuotes.get(new Date(123, 10, 4)) == null);

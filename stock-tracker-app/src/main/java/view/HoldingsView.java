@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +54,16 @@ public class HoldingsView extends JPanel {
             tableModel.addColumn("<html><font color='gray'>Change</font><html>");
             tableModel.addColumn("<html><font color='gray'>Change (%)</font><html>");
 
+            DecimalFormat decimalFormat = new DecimalFormat("0.000");
+
             // Populate table
             List<String> symbols = viewModel.getState().getSymbols();
             List<Double> quotes = viewModel.getState().getQuotes();
+            quotes.replaceAll(obj -> Double.parseDouble(decimalFormat.format(obj)));
             List<Double> shares = viewModel.getState().getShares();
+            shares.replaceAll(obj -> Double.parseDouble(decimalFormat.format(obj)));
             List<Double> values = viewModel.getState().getValues();
+            values.replaceAll(obj -> Double.parseDouble(decimalFormat.format(obj)));
             List<Double> changes = viewModel.getState().getChanges();
             List<Double> changePercents = viewModel.getState().getChangePercents();
             for (int i = 0; i < symbols.size(); i++) {
@@ -95,6 +101,11 @@ public class HoldingsView extends JPanel {
             addTradeButton.addActionListener(new AddTradeButtonListener());
             panel.add(addTradeButton);
 
+            // Create button for viewing transaction history
+            JButton transactionHistoryButton = new JButton("View Transaction History");
+            transactionHistoryButton.addActionListener(new TransactionHistoryButtonListener());
+            panel.add(transactionHistoryButton);
+
             add(panel);
         } catch (Exception exp) {
             JOptionPane.showMessageDialog(panel, exp.getMessage());
@@ -112,6 +123,12 @@ public class HoldingsView extends JPanel {
             tradeViewModel.getState().setPortfolioName(viewModel.getState().getPortfolioName());
             tradeViewModel.getState().setDefaultCurrency(viewModel.getState().getDefaultCurrency());
             viewManagerModel.setActiveView("trade");
+        }
+    }
+
+    private class TransactionHistoryButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            viewManagerModel.setActiveView("transactions");
         }
     }
 
