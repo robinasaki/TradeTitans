@@ -1,4 +1,4 @@
-package use_case.trade;
+package java.use_case.trade;
 
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
@@ -10,6 +10,9 @@ import interface_adapter.trade.TradePresenter;
 import org.junit.Assert.*;
 import org.junit.Test;
 import entity.Tradeable;
+import use_case.trade.TradeInputData;
+import use_case.trade.TradeInteractor;
+import use_case.trade.TradeOutputBoundary;
 
 import java.util.ArrayList;
 import java.util.Date;
