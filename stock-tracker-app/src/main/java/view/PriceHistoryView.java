@@ -76,7 +76,7 @@ public class PriceHistoryView extends JPanel {
         XYPlot plot = (XYPlot) chart.getPlot();
 
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
-        dateAxis.setDateFormatOverride(new SimpleDateFormat("MMMM-d-yyyy"));
+        dateAxis.setDateFormatOverride(new SimpleDateFormat("MMMM d yyyy"));
         dateAxis.setAutoRange(true);
         dateAxis.setVerticalTickLabels(true);
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
