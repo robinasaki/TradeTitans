@@ -102,7 +102,7 @@ public class Portfolio implements Serializable {
             double assetOutAmount = holdings.get(assetOut).getSharesHeld() - amountOut;
             if (assetOutAmount < 0 && !assetIn.isEmpty()) {
                 // this Exception should be caught in TradeView
-                throw new RuntimeException("Code100");
+                throw new RuntimeException("Code100: over-withdrawal or buying without enough asset");
             } else if (assetOutAmount < 0) {
                 throw new RuntimeException("You don't have enough asset.");
             }

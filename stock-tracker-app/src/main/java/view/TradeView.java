@@ -189,7 +189,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
-                        } else if (exp.getMessage().equals("Code100")) {
+                        } else if (exp.getMessage().equals("Code100: over-withdrawal or buying without enough asset")) {
                             JOptionPane.showMessageDialog(panel, "You do not have enough " + defaultCurrency + ".");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());
@@ -205,7 +205,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
-                        } else if (exp.getMessage().equals("Code100")) {
+                        } else if (exp.getMessage().equals("Code100: over-withdrawal or buying without enough asset")) {
                             JOptionPane.showMessageDialog(panel, "You do not have enough asset to sell.");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());
