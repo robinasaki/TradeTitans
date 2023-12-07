@@ -38,7 +38,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
         this.viewManagerModel = viewManagerModel;
         this.tradeController = tradeController;
         this.tradeViewModel = tradeViewModel;
-        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Buy", "Sell", "Deposit", "Withdraw", "Currency Exchange"});
+        this.tradeTypeComboBox = new JComboBox<>(new String[]{"Buy", "Sell", "Deposit", "Withdraw"});
         this.amountField = new JTextField(10);
         this.currencyField = new JTextField(5);
         this.sharesField = new JTextField(10);
@@ -189,6 +189,8 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else if (exp.getMessage().equals("Code100: over-withdrawal or buying without enough asset")) {
+                            JOptionPane.showMessageDialog(panel, "You do not have enough " + defaultCurrency + ".");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
@@ -203,16 +205,12 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
+                        } else if (exp.getMessage().equals("Code100: over-withdrawal or buying without enough asset")) {
+                            JOptionPane.showMessageDialog(panel, "You do not have enough asset to sell.");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());
                         }
                     }
-                }
-                // TODO: The logic behind this is incorrect. Still need proper implementation.
-                case "Currency Exchange" -> {
-                    double amount = Double.parseDouble(amountField.getText());
-                    String currency = currencyField.getText();
-                    tradeController.execute(portfolio, defaultCurrency, currency, amount, 0.0, tradingFee, new Date());
                 }
             }
         }
@@ -243,8 +241,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                     "<b>Deposit</b>: deposit selected currency into the portfolio " +
                     "<br/> <br/> <b>Withdraw</b>: withdraw selected currency into the portfolio " +
                     "<br/> <br/> <b>Buy</b>: purchase the inputted stock with the default currency " +
-                    "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency " +
-                    "<br/> <br/> <b>Exchange</b>: exchange a foreign currency to the default currency <html/>");
+                    "<br/> <br/> <b>Sell</b>: sell the inputted stock and convert to the default currency ");
         }
     }
 
@@ -332,10 +329,6 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                 symbolField.setVisible(true);
                 priceField.setVisible(true);
                 totalPriceField.setVisible(true);
-                break;
-            case "Currency Exchange":
-                amountField.setVisible(true);
-                currencyField.setVisible(true);
                 break;
             default:
                 // TODO: implement default case here.
