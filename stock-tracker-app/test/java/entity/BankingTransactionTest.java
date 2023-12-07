@@ -1,5 +1,7 @@
-package entity;
+package java.entity;
 
+import entity.BankingTransaction;
+import entity.Tradeable;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 

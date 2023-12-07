@@ -1,5 +1,6 @@
-package entity;
+package java.entity;
 
+import entity.Stock;
 import org.junit.Test;
 
 import java.util.Date;

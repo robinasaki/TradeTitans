@@ -1,8 +1,12 @@
-package use_case.delete_portfolio;
+package java.use_case.delete_portfolio;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
+import use_case.delete_portfolio.DeletePortfolioInteractor;
+import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeletePortfolioInteractorTest {
