@@ -27,10 +27,6 @@ public class AddPortfolioPresenter implements AddPortfolioOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        // addPortfolioViewModel is not relevant because we are switching to portfolio_selection
 
-        // AddPortfolioState addPortfolioState = addPortfolioViewModel.getState();
-        // TODO: COMPLETE THIS -> addPortfolioState.
-        // addPortfolioViewModel.firePropertyChanged();
     }
 }

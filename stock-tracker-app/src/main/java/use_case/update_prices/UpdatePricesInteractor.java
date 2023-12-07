@@ -52,8 +52,6 @@ public class UpdatePricesInteractor implements UpdatePricesInputBoundary {
         prices.add(0.0);
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
-
-        // TODO: these should actually be calculated
         changes.add(0.0);
         changePercents.add(0.0);
 
