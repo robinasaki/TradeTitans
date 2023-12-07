@@ -1,4 +1,4 @@
-package use_case.view_transactions;
+package test.java.use_case.view_transactions;
 
 public class ViewTransactionsInteractorTest {
 }

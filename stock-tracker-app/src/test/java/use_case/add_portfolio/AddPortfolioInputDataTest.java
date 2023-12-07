@@ -1,6 +1,8 @@
-package use_case.add_portfolio;
+package test.java.use_case.add_portfolio;
 
 import org.junit.jupiter.api.Test;
+import use_case.add_portfolio.AddPortfolioInputData;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddPortfolioInputDataTest {
