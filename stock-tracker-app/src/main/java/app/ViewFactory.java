@@ -16,6 +16,9 @@ import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradePresenter;
 import interface_adapter.trade.TradeController;
+import interface_adapter.view_price_history.PriceHistoryViewModel;
+import interface_adapter.view_price_history.ViewPriceHistoryPresenter;
+import interface_adapter.view_price_history.ViewPriceHistoryController;
 import interface_adapter.view_transactions.TransactionsViewModel;
 import interface_adapter.view_transactions.ViewTransactionsPresenter;
 import interface_adapter.view_transactions.ViewTransactionsController;
@@ -25,6 +28,9 @@ import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import use_case.delete_portfolio.DeletePortfolioInteractor;
 import use_case.delete_portfolio.DeletePortfolioInputBoundary;
 import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
+import use_case.view_price_history.ViewPriceHistoryInputBoundary;
+import use_case.view_price_history.ViewPriceHistoryOutputBoundary;
+import use_case.view_price_history.ViewPriceHistoryInteractor;
 import use_case.update_prices.UpdatePricesInteractor;
 import use_case.update_prices.UpdatePricesInputBoundary;
 import use_case.update_prices.UpdatePricesOutputBoundary;
@@ -82,11 +88,18 @@ public class ViewFactory {
         return new TransactionsView(transactionsViewModel, viewManagerModel);
     }
 
-    protected static HoldingsView createHoldingsView(HoldingsViewModel holdingsViewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, TransactionsViewModel transactionsViewModel) {
+    protected static PriceHistoryView createPriceHistoryView(PriceHistoryViewModel priceHistoryViewModel, ViewManagerModel viewManagerModel) {
+        return new PriceHistoryView(priceHistoryViewModel, viewManagerModel);
+    }
+
+    protected static HoldingsView createHoldingsView(HoldingsViewModel holdingsViewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, TransactionsViewModel transactionsViewModel, PriceHistoryViewModel priceHistoryViewModel) {
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
         ViewTransactionsOutputBoundary viewTransactionsOutputBoundary = new ViewTransactionsPresenter(viewManagerModel, transactionsViewModel);
         ViewTransactionsInputBoundary viewTransactionsInputBoundary = new ViewTransactionsInteractor(fileDataAccessObject, viewTransactionsOutputBoundary);
         ViewTransactionsController viewTransactionsController = new ViewTransactionsController(viewTransactionsInputBoundary);
-        return new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, viewTransactionsController);
+        ViewPriceHistoryOutputBoundary viewPriceHistoryOutputBoundary = new ViewPriceHistoryPresenter(priceHistoryViewModel, viewManagerModel);
+        ViewPriceHistoryInputBoundary viewPriceHistoryInputBoundary = new ViewPriceHistoryInteractor(fileDataAccessObject, viewPriceHistoryOutputBoundary);
+        ViewPriceHistoryController viewPriceHistoryController = new ViewPriceHistoryController(viewPriceHistoryInputBoundary);
+        return new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, viewTransactionsController, viewPriceHistoryController);
     }
 }
