@@ -1,6 +1,5 @@
 package use_case.view_price_history;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Date;
 

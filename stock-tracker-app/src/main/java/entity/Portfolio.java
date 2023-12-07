@@ -3,12 +3,8 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.TreeMap;
-
-import entity.TradeTransaction;
-import entity.Tradeable;
 
 public class Portfolio implements Serializable {
     private final String name;

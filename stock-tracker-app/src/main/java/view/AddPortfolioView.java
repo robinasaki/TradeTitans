@@ -8,10 +8,8 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import interface_adapter.add_portfolio.AddPortfolioController;
-import interface_adapter.add_portfolio.AddPortfolioState;
 import interface_adapter.add_portfolio.AddPortfolioViewModel;
 import interface_adapter.ViewManagerModel;
 

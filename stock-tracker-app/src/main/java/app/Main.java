@@ -17,10 +17,8 @@ import data_access.FileDataAccessObject;
 import entity.Portfolio;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.util.List;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {

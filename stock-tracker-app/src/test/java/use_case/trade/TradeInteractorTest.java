@@ -1,5 +1,6 @@
 package use_case.trade;
 
+import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 import entity.TradeTransaction;
@@ -10,6 +11,8 @@ import interface_adapter.trade.TradePresenter;
 import org.junit.Assert.*;
 import org.junit.Test;
 import entity.Tradeable;
+import use_case.APIDataAccessInterface;
+import use_case.FileDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,11 +26,12 @@ public class TradeInteractorTest {
         /**
          * Test selling without enough assets.
          */
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
+        APIDataAccessInterface apiDataAccessInterface = new APIDataAccessObject();
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
         TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
-        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
+        this.tradeInteractor = new TradeInteractor(apiDataAccessInterface, fileDataAccessObject, presenter);
 
         Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
         fileDataAccessObject.savePortfolio(hypoPortfolio);
@@ -52,11 +56,12 @@ public class TradeInteractorTest {
         /**
          * Test buying without enough default currency.
          */
-        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
+        APIDataAccessInterface apiDataAccessInterface = new APIDataAccessObject();
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
         TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
-        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
+        this.tradeInteractor = new TradeInteractor(apiDataAccessInterface, fileDataAccessObject, presenter);
 
         Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
         fileDataAccessObject.savePortfolio(hypoPortfolio);

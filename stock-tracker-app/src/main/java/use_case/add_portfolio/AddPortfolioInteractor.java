@@ -1,6 +1,5 @@
 package use_case.add_portfolio;
 
-import use_case.add_portfolio.AddPortfolioOutputBoundary;
 import use_case.FileDataAccessInterface;
 import entity.Portfolio;
 import entity.Tradeable;
@@ -10,7 +9,6 @@ import java.util.Date;
 import java.util.TreeMap;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.LocalDate;
 
 public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
     private final FileDataAccessInterface fileDataAccessObject;
