@@ -1,5 +1,4 @@
 package use_case.trade;
-
 import entity.Portfolio;
 
 public interface TradeDataAccessInterface {
