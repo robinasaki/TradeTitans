@@ -1,4 +1,4 @@
-package test.java.entity;
+package entity;
 
 import entity.Portfolio;
 import entity.TradeTransaction;

@@ -1,4 +1,4 @@
-package test.java.use_case.trade;
+package use_case.trade;
 
 import org.junit.Test;
 import use_case.trade.TradeOutputData;

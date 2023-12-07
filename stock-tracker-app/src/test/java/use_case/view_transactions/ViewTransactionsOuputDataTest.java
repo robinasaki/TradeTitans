@@ -1,4 +1,4 @@
-package test.java.use_case.view_transactions;
+package use_case.view_transactions;
 
 import org.junit.Test;
 import use_case.view_transactions.ViewTransactionsOutputData;
