@@ -25,7 +25,7 @@ public class AddPortfolioInteractor implements AddPortfolioInputBoundary {
         List<Portfolio> portfolios = fileDataAccessObject.loadPortfolios();
         for (Portfolio ptf : portfolios) {
             if (portfolioName.equals(ptf.getName())) {
-                throw new IllegalArgumentException("Portfolio name already used. Please try another name");
+                throw new RuntimeException("Portfolio name already used. Please try another name");
             }
         }
 
