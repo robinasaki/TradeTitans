@@ -19,6 +19,7 @@ public class ViewTransactionsInteractor implements ViewTransactionsInputBoundary
     @Override
     public void execute(String portfolioName) {
         Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
+        String defaultCurrency = portfolio.getCurrency().getSymbol();
         ArrayList<TradeTransaction> transactions = portfolio.getTransactions();
 
         ArrayList<String> assetsIn = new ArrayList<String>();
@@ -35,7 +36,7 @@ public class ViewTransactionsInteractor implements ViewTransactionsInputBoundary
             dates.add(transaction.getDate());
         }
 
-        ViewTransactionsOutputData outputData = new ViewTransactionsOutputData(portfolioName, assetsIn, assetsOut, amountsIn, amountsOut, dates);
+        ViewTransactionsOutputData outputData = new ViewTransactionsOutputData(portfolioName, defaultCurrency, assetsIn, assetsOut, amountsIn, amountsOut, dates);
         presenter.present(outputData);
     }
 }
