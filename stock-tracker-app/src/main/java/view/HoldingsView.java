@@ -94,7 +94,10 @@ public class HoldingsView extends JPanel {
             }
 
             // Create table
+            Font font = new Font("Georgia", Font.PLAIN, 20);
             JTable table = new JTable(tableModel);
+            table.setFont(font);
+            table.setRowHeight(30);
             add(table);
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
