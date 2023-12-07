@@ -26,9 +26,6 @@ public class Portfolio implements Serializable {
         this.currency = currency;
         this.holdings = holdings;
         this.transactions = transactions;
-        // TODO: implement portfolio id as the following:
-        // portfolioId = currentPortfolioCount + 1
-        // with the initial portfolio id = 1
         this.portfolioId = 1;
     }
 

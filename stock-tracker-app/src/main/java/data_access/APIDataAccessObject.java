@@ -19,11 +19,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.io.File;
 
-
-//import java.io.InputStreamReader;
-//import java.net.HttpURLConnection;
-//import java.net.URL;
-
 public class APIDataAccessObject {
     private static final String BASE_URL = "https://www.alphavantage.co/query";
     private static final String FUNCTION = "TIME_SERIES_DAILY";
@@ -103,7 +98,6 @@ public class APIDataAccessObject {
             while (fields.hasNext()) {
                 Map.Entry<String, JsonNode> entry = fields.next();
                 Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(entry.getKey());
-                // TODO: potential bugs here
                 double price = entry.getValue().get("4a. close (" + targetCurrency.substring(1) + ")").asDouble();
                 quotes.put(date, price);
             }

@@ -7,5 +7,3 @@ public interface User {
     String getTradeTransaction();
     LocalDateTime getCurrentTime();
 }
-
-// TODO: Not everything in here may be correct. May need to change/add to this later.

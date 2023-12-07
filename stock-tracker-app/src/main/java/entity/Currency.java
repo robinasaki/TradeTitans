@@ -1,7 +1,6 @@
 package entity;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class Currency extends Tradeable {
