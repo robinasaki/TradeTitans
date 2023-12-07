@@ -1,4 +1,4 @@
-package java.use_case.delete_portfolio;
+package use_case.delete_portfolio;
 
 import java.util.ArrayList;
 import java.util.List;

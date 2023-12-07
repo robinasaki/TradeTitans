@@ -1,4 +1,4 @@
-package java.use_case.trade;
+package use_case.trade;
 
 import data_access.FileDataAccessObject;
 import entity.Portfolio;

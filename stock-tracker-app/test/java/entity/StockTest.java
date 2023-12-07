@@ -1,4 +1,4 @@
-package java.entity;
+package entity;
 
 import entity.Stock;
 import org.junit.Test;

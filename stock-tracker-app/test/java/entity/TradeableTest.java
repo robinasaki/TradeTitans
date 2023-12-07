@@ -1,4 +1,4 @@
-package java.entity;
+package entity;
 
 import entity.Tradeable;
 import org.junit.Test;

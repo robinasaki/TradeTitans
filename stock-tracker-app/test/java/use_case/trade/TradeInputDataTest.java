@@ -1,4 +1,4 @@
-package java.use_case.trade;
+package use_case.trade;
 
 import org.junit.jupiter.api.Test;
 import use_case.trade.TradeInputData;

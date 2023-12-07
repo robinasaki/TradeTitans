@@ -1,4 +1,4 @@
-package java.entity;
+package entity;
 
 import entity.Currency;
 import org.junit.Test;

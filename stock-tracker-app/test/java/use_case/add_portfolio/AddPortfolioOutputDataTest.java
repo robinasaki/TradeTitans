@@ -1,4 +1,4 @@
-package java.use_case.add_portfolio;
+package use_case.add_portfolio;
 
 import org.junit.jupiter.api.Test;
 import use_case.add_portfolio.AddPortfolioOutputData;

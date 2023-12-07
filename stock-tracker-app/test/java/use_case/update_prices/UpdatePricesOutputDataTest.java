@@ -1,4 +1,4 @@
-package java.use_case.update_prices;
+package use_case.update_prices;
 
 import org.junit.Test;
 import use_case.update_prices.UpdatePricesOutputData;
