@@ -41,12 +41,14 @@ public class HoldingsView extends JPanel {
         // Clear panel
         removeAll();
 
-        JPanel panel = new JPanel();
+        setLayout(new BorderLayout());
         try {
+            // Title panel
+            JPanel titlePanel = new JPanel(new BorderLayout(10, 10));
             // Create title
             JLabel title = new JLabel("<html> <font color='gray'>Current Portfolio: </font> <br/>" + "<b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "<font color='gray'>Portfolio Currency:</font> <br/>" + "<b>" + viewModel.getState().getDefaultCurrency() + "</b>" + "<br/>" + "<html/>");
             title.setFont(new Font("Georgia", Font.PLAIN, 15));
-            panel.add(title);
+            add(title, BorderLayout.NORTH);
 
             // Create table model
             HoldingsTableModel tableModel = new HoldingsTableModel();
@@ -89,29 +91,35 @@ public class HoldingsView extends JPanel {
 
             // Create table
             JTable table = new JTable(tableModel);
-            panel.add(table);
+            add(table);
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            panel.add(scrollPane);
+            add(scrollPane, BorderLayout.CENTER);
+
+            // Create buttons panel
+            JPanel buttonsPanel = new JPanel(new BorderLayout(10, 10));
 
             // Create back button for going back to portfolio selection
             JButton backButton = new JButton("Back to Portfolio Selection");
             backButton.addActionListener(new BackButtonListener());
-            panel.add(backButton);
-
-            // Create button for adding trade
-            JButton addTradeButton = new JButton("Add Trade");
-            addTradeButton.addActionListener(new AddTradeButtonListener());
-            panel.add(addTradeButton);
+            backButton.setPreferredSize(new Dimension(350, 30));
+            buttonsPanel.add(backButton, BorderLayout.WEST);
 
             // Create button for viewing transaction history
             JButton transactionHistoryButton = new JButton("View Transaction History");
             transactionHistoryButton.addActionListener(new TransactionHistoryButtonListener());
-            panel.add(transactionHistoryButton);
+            transactionHistoryButton.setPreferredSize(new Dimension(350, 30));
+            buttonsPanel.add(transactionHistoryButton, BorderLayout.CENTER);
 
-            add(panel);
+            // Create button for adding trade
+            JButton addTradeButton = new JButton("Add Trade");
+            addTradeButton.addActionListener(new AddTradeButtonListener());
+            addTradeButton.setPreferredSize(new Dimension(350, 30));
+            buttonsPanel.add(addTradeButton, BorderLayout.EAST);
+
+            add(buttonsPanel, BorderLayout.SOUTH);
         } catch (Exception exp) {
-            JOptionPane.showMessageDialog(panel, exp.getMessage());
+            JOptionPane.showMessageDialog(this, exp.getMessage());
         }
     }
 
