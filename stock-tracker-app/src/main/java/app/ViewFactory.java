@@ -17,6 +17,8 @@ import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradePresenter;
 import interface_adapter.trade.TradeController;
 import interface_adapter.view_transactions.TransactionsViewModel;
+import interface_adapter.view_transactions.ViewTransactionsPresenter;
+import interface_adapter.view_transactions.ViewTransactionsController;
 import use_case.add_portfolio.AddPortfolioInteractor;
 import use_case.add_portfolio.AddPortfolioInputBoundary;
 import use_case.add_portfolio.AddPortfolioOutputBoundary;
@@ -29,6 +31,9 @@ import use_case.update_prices.UpdatePricesOutputBoundary;
 import use_case.trade.TradeInteractor;
 import use_case.trade.TradeInputBoundary;
 import use_case.trade.TradeOutputBoundary;
+import use_case.view_transactions.ViewTransactionsOutputBoundary;
+import use_case.view_transactions.ViewTransactionsInputBoundary;
+import use_case.view_transactions.ViewTransactionsInteractor;
 import data_access.APIDataAccessObject;
 import data_access.FileDataAccessObject;
 
@@ -73,5 +78,13 @@ public class ViewFactory {
 
     protected static TransactionsView createTransactionsView(TransactionsViewModel transactionsViewModel, ViewManagerModel viewManagerModel) {
         return new TransactionsView(transactionsViewModel, viewManagerModel);
+    }
+
+    protected static HoldingsView createHoldingsView(HoldingsViewModel holdingsViewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, TransactionsViewModel transactionsViewModel) {
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        ViewTransactionsOutputBoundary viewTransactionsOutputBoundary = new ViewTransactionsPresenter(viewManagerModel, transactionsViewModel);
+        ViewTransactionsInputBoundary viewTransactionsInputBoundary = new ViewTransactionsInteractor(fileDataAccessObject, viewTransactionsOutputBoundary);
+        ViewTransactionsController viewTransactionsController = new ViewTransactionsController(viewTransactionsInputBoundary);
+        return new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, viewTransactionsController);
     }
 }
