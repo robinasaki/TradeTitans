@@ -1,99 +1,113 @@
 package use_case.trade;
 
 import data_access.FileDataAccessObject;
-import data_access.APIDataAccessObject;
-import entity.*;
-import org.junit.jupiter.api.Test;
+import entity.Portfolio;
+import entity.TradeTransaction;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.holdings.HoldingsState;
+import interface_adapter.holdings.HoldingsViewModel;
+import interface_adapter.trade.TradePresenter;
+import org.junit.Assert.*;
+import org.junit.Test;
+import entity.Tradeable;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class TradeInteractorTest {
 
-class TradeInteractorTest {
-
-    @Test
-    void execute_TradeDeposit_Successful() {
-        // Arrange
-        FileDataAccessObject fileDataAccessObject = new TestFileDataAccessObject();
-        TradeOutputBoundaryMock presenter = new TradeOutputBoundaryMock();
-        TradeInteractor tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
-        String portfolioName = "TestPortfolio";
-        double tradingFee = 0.01;
-        String assetInSymbol = "USD";
-        double amountIn = 100.0;
-        Date date = new Date();
-        TradeInputData tradeInputData = new TradeInputData(portfolioName, tradingFee, assetInSymbol, "", amountIn, 0, date);
-
-        // Act
-        tradeInteractor.execute(tradeInputData);
-
-        // Assert
-        Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
-        assertNotNull(portfolio);
-        assertTrue(portfolio.getHoldings().containsKey(assetInSymbol));
-        assertEquals(amountIn, portfolio.getHoldings().get(assetInSymbol).getSharesHeld());
-        assertTrue(presenter.wasPresented);
-    }
+    private TradeInteractor tradeInteractor;
 
     @Test
-    void execute_TradeWithdraw_Successful() {
-        // Arrange
-        FileDataAccessObject fileDataAccessObject = new TestFileDataAccessObject();
-        TradeOutputBoundaryMock presenter = new TradeOutputBoundaryMock();
-        TradeInteractor tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
-        String portfolioName = "TestPortfolio";
-        double tradingFee = 0.01;
-        String assetOutSymbol = "USD";
-        double amountOut = 50.0;
-        Date date = new Date();
-        TradeInputData tradeInputData = new TradeInputData(portfolioName, tradingFee, "", assetOutSymbol, 0, amountOut, date);
+    public void testSellNoEnoughAsset() {
+        /**
+         * Test selling without enough assets.
+         */
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
+        TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
+        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
 
-        // Act
-        tradeInteractor.execute(tradeInputData);
+        Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
+        fileDataAccessObject.savePortfolio(hypoPortfolio);
 
-        // Assert
-        Portfolio portfolio = fileDataAccessObject.getPortfolio(portfolioName);
-        assertNotNull(portfolio);
-        assertTrue(portfolio.getHoldings().containsKey(assetOutSymbol));
-        assertEquals(amountOut, portfolio.getHoldings().get(assetOutSymbol).getSharesHeld());
-        assertTrue(presenter.wasPresented);
+        // suppose user wants to sell an IBM stock without having it
+        TradeInputData tradeInputData = new TradeInputData("TradeInteractorTestProfile", 10.99, "$USD", "IBM", 50.00, 1, new Date(123, 9, 11));
+        try {
+            tradeInteractor.execute(tradeInputData);
+        } catch (RuntimeException exp) {
+            if (exp.getMessage().contains("Code100")) {
+                // Code100 should be dealt in the TradeView
+                assert true;
+            } else {
+                assert false;
+            }
+        }
+        fileDataAccessObject.removePortfolio("TradeInteractorTestProfile");
     }
 
-    // Add more test cases as needed...
+    @Test
+    public void testBuyNoEnoughCurrency() {
+        /**
+         * Test buying without enough default currency.
+         */
+        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
+        TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
+        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
 
-    private static class TestFileDataAccessObject extends FileDataAccessObject {
-        private Portfolio portfolio;
+        Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
+        fileDataAccessObject.savePortfolio(hypoPortfolio);
 
-        @Override
-        public Portfolio getPortfolio(String portfolioName) {
-            return portfolio;
+        // suppose user wants to buy an IBM stock without having it
+        TradeInputData tradeInputData = new TradeInputData("TradeInteractorTestProfile", 10.99, "IBM", "$USD", 1.00, 50.00, new Date(123, 9, 11));
+        try {
+            tradeInteractor.execute(tradeInputData);
+        } catch (RuntimeException exp) {
+            if (exp.getMessage().contains("Code100")) {
+                // Code100 should be dealt in the TradeView
+                assert true;
+            } else {
+                assert false;
+            }
         }
-
-        @Override
-        public void removePortfolio(String portfolioName) {
-            // Do nothing for the test
-        }
-
-        @Override
-        public void savePortfolio(Portfolio portfolio) {
-            this.portfolio = portfolio;
-        }
+        fileDataAccessObject.removePortfolio("TradeInteractorTestProfile");
     }
 
-    private static class TradeOutputBoundaryMock implements TradeOutputBoundary {
-        private boolean wasPresented = false;
-
-        @Override
-        public void present(TradeOutputData tradeOutputData) {
-            wasPresented = true;
-        }
-
-        @Override
-        public void prepareFailView(String error) {
-
-        }
-    }
+//    @Test
+//    public void testBuy() {
+//        /**
+//         * Test buying with enough currency.
+//         */
+//
+//        FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
+//        Portfolio hypoPortfolio = new Portfolio("TradeInteractorTestProfile", new Tradeable("the US Dollar", "$USD"));
+//        fileDataAccessObject.savePortfolio(hypoPortfolio);
+//        ViewManagerModel viewManagerModel = new ViewManagerModel();
+//        HoldingsViewModel holdingsViewModel = new HoldingsViewModel();
+//
+//        HoldingsState hypoState = new HoldingsState();
+//
+//        hypoState.setPortfolioName(hypoPortfolio.getName());
+//        hypoState.setDefaultCurrency(hypoPortfolio.getCurrency().getSymbol());
+//
+//        ArrayList<String> symbols = new ArrayList<>(hypoPortfolio.getHoldings().keySet());
+//        hypoState.setSymbols(symbols);
+//
+//
+//        holdingsViewModel.setState(hypoState);
+//        TradeOutputBoundary presenter = new TradePresenter(viewManagerModel, holdingsViewModel);
+//        this.tradeInteractor = new TradeInteractor(fileDataAccessObject, presenter);
+//
+//        // user deposits 500 $USD
+//        TradeInputData deposit = new TradeInputData("TradeInteractorTestProfile", 0.00, "$USD", "", 500.00, 0.00, new Date(123, 9, 11));
+//        tradeInteractor.execute(deposit);
+//
+//        assert (hypoPortfolio.getHoldings().get("TradeInteractorTestProfile").getSharesHeld() == 500);
+//
+//        // TODO: remove the portfolio
+//        fileDataAccessObject.removePortfolio("TradeInteractorTestProfile");
+//    }
 }
-

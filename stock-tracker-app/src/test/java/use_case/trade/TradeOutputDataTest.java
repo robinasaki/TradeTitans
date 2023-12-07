@@ -1,66 +1,60 @@
 package use_case.trade;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
 
-class TradeOutputDataTest {
-
-    @Test
-    void constructor_ShouldSetValues() {
-        // Arrange
-        ArrayList<String> symbols = new ArrayList<>();
-        ArrayList<Double> prices = new ArrayList<>();
-        ArrayList<Double> shares = new ArrayList<>();
-        ArrayList<Double> values = new ArrayList<>();
-        ArrayList<Double> changes = new ArrayList<>();
-        ArrayList<Double> changePercents = new ArrayList<>();
-
-        // Act
-        TradeOutputData outputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
-
-        // Assert
-        assertEquals(symbols, outputData.getSymbols());
-        assertEquals(prices, outputData.getPrices());
-        assertEquals(shares, outputData.getShares());
-        assertEquals(values, outputData.getValues());
-        assertEquals(changes, outputData.getChanges());
-        assertEquals(changePercents, outputData.getChangePercents());
-    }
+public class TradeOutputDataTest {
+    private TradeOutputData testingTradeOutputData;
 
     @Test
-    void gettersAndSetters_ShouldWorkCorrectly() {
-        // Arrange
+    public void test() {
+        // hypothetical data
         ArrayList<String> symbols = new ArrayList<>();
+        symbols.add("IBM");
         ArrayList<Double> prices = new ArrayList<>();
+        prices.add(50.00);
         ArrayList<Double> shares = new ArrayList<>();
+        shares.add(1.00);
         ArrayList<Double> values = new ArrayList<>();
+        values.add(50.00);
         ArrayList<Double> changes = new ArrayList<>();
+        changes.add(0.1);
         ArrayList<Double> changePercents = new ArrayList<>();
-        TradeOutputData outputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
+        changePercents.add(10.00);
+        this.testingTradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
 
-        // Act
-        ArrayList<String> newSymbols = new ArrayList<>();
-        ArrayList<Double> newPrices = new ArrayList<>();
-        ArrayList<Double> newShares = new ArrayList<>();
-        ArrayList<Double> newValues = new ArrayList<>();
-        ArrayList<Double> newChanges = new ArrayList<>();
-        ArrayList<Double> newChangePercents = new ArrayList<>();
+        assert testingTradeOutputData.getSymbols().equals(symbols);
+        assert testingTradeOutputData.getPrices().equals(prices);
+        assert testingTradeOutputData.getShares().equals(shares);
+        assert testingTradeOutputData.getValues().equals(values);
+        assert testingTradeOutputData.getChanges().equals(changes);
+        assert testingTradeOutputData.getChangePercents().equals(changePercents);
 
-        outputData.setSymbols(newSymbols);
-        outputData.setPrices(newPrices);
-        outputData.setShares(newShares);
-        outputData.setValues(newValues);
-        outputData.setChanges(newChanges);
-        outputData.setChangePercents(newChangePercents);
+        ArrayList<String> newSymbols = symbols;
+        newSymbols.add("AAPL");
+        ArrayList<Double> newPrices = prices;
+        newPrices.add(100.00);
+        ArrayList<Double> newShares = shares;
+        newShares.add(2.00);
+        ArrayList<Double> newValues = values;
+        newValues.add(200.00);
+        ArrayList<Double> newChanges = changes;
+        newChanges.add(0.05);
+        ArrayList<Double> newChangePercents = changePercents;
+        newChangePercents.add(5.00);
 
-        // Assert
-        assertEquals(newSymbols, outputData.getSymbols());
-        assertEquals(newPrices, outputData.getPrices());
-        assertEquals(newShares, outputData.getShares());
-        assertEquals(newValues, outputData.getValues());
-        assertEquals(newChanges, outputData.getChanges());
-        assertEquals(newChangePercents, outputData.getChangePercents());
+        testingTradeOutputData.setSymbols(newSymbols);
+        assert testingTradeOutputData.getSymbols().equals(newSymbols);
+        testingTradeOutputData.setPrices(newPrices);
+        assert testingTradeOutputData.getPrices().equals(newPrices);
+        testingTradeOutputData.setShares(newShares);
+        assert testingTradeOutputData.getShares().equals(newShares);
+        testingTradeOutputData.setValues(newValues);
+        assert testingTradeOutputData.getValues().equals(newValues);
+        testingTradeOutputData.setChanges(newChanges);
+        assert testingTradeOutputData.getChanges().equals(newChanges);
+        testingTradeOutputData.setChangePercents(newChangePercents);
+        assert testingTradeOutputData.getChangePercents().equals(newChangePercents);
     }
 }
-
