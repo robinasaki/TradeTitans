@@ -5,6 +5,7 @@ import interface_adapter.holdings.HoldingsState;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.trade.TradeState;
+import interface_adapter.view_transactions.ViewTransactionsController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +21,13 @@ public class HoldingsView extends JPanel {
     private HoldingsViewModel viewModel;
     private ViewManagerModel viewManagerModel;
     private TradeViewModel tradeViewModel;
+    private ViewTransactionsController viewTransactionsController;
 
-    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel) {
+    public HoldingsView(HoldingsViewModel viewModel, ViewManagerModel viewManagerModel, TradeViewModel tradeViewModel, ViewTransactionsController viewTransactionsController) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         this.tradeViewModel = tradeViewModel;
+        this.viewTransactionsController = viewTransactionsController;
         initView();
 
         viewModel.addPropertyChangeListener(evt -> {
@@ -128,6 +131,7 @@ public class HoldingsView extends JPanel {
 
     private class TransactionHistoryButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            viewTransactionsController.execute(viewModel.getState().getPortfolioName(), viewModel.getState().getDefaultCurrency());
             viewManagerModel.setActiveView("transactions");
         }
     }

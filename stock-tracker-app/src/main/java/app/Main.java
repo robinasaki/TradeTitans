@@ -10,6 +10,7 @@ import interface_adapter.holdings.HoldingsViewModel;
 import interface_adapter.holdings.HoldingsState;
 import interface_adapter.trade.TradeViewModel;
 import interface_adapter.view_transactions.TransactionsViewModel;
+import interface_adapter.view_transactions.TransactionsState;
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
 
@@ -50,7 +51,9 @@ public class Main {
 
         TradeViewModel tradeViewModel = new TradeViewModel();
 
+        TransactionsState emptyTransactionsState = new TransactionsState();
         TransactionsViewModel transactionsViewModel = new TransactionsViewModel();
+        transactionsViewModel.setState(emptyTransactionsState);
 
         FileDataAccessObject fileDataAccessObject = new FileDataAccessObject();
 
@@ -69,7 +72,7 @@ public class Main {
         PortfolioSelectionView portfolioSelectionView = ViewFactory.createPortfolioSelectionView(portfolioSelectionViewModel, holdingsViewModel, deletePortfolioViewModel, viewManagerModel);
         views.add(portfolioSelectionView, portfolioSelectionView.viewName);
 
-        HoldingsView holdingsView = new HoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel);
+        HoldingsView holdingsView = ViewFactory.createHoldingsView(holdingsViewModel, viewManagerModel, tradeViewModel, transactionsViewModel);
         views.add(holdingsView, holdingsView.viewName);
 
         AddPortfolioView addPortfolioView = ViewFactory.createAddPortfolioView(addPortfolioViewModel, viewManagerModel, portfolioSelectionViewModel);

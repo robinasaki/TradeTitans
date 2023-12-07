@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class TransactionsState {
     private String portfolioName;
+    private String defaultCurrency;
     private ArrayList<String> tradeTypes;
     private ArrayList<String> symbols;
     private ArrayList<String> amounts;
@@ -12,6 +13,7 @@ public class TransactionsState {
 
     public TransactionsState() {
         this.portfolioName = "";
+        this.defaultCurrency = "";
         this.tradeTypes = new ArrayList<String>();
         this.symbols = new ArrayList<String>();
         this.amounts = new ArrayList<String>();
@@ -20,6 +22,10 @@ public class TransactionsState {
 
     public String getPortfolioName() {
         return this.portfolioName;
+    }
+
+    public String getDefaultCurrency() {
+        return this.defaultCurrency;
     }
 
     public ArrayList<String> getTradeTypes() {
@@ -40,6 +46,10 @@ public class TransactionsState {
 
     public void setPortfolioName(String portfolioName) {
         this.portfolioName = portfolioName;
+    }
+
+    public void setDefaultCurrency(String defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
     }
 
     public void setTradeTypes(ArrayList<String> tradeTypes) {
