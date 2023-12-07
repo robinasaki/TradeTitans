@@ -161,6 +161,7 @@ public class TradeView extends JPanel { //implements ActionListener, PropertyCha
                         tradeController.execute(portfolio, "$" + currency, "", amount, 0.0, tradingFee, new Date());
                     } catch (RuntimeException exp) {
                         if (exp.getClass().equals(NullPointerException.class)) {
+                            exp.printStackTrace();
                             JOptionPane.showMessageDialog(panel, "API access error. Please check again.");
                         } else {
                             JOptionPane.showMessageDialog(panel, exp.getMessage());

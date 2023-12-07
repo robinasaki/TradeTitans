@@ -98,14 +98,23 @@ public class TradeInteractor implements TradeInputBoundary {
         fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
 
-        symbols.add("TotalValue");
+        symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
-        changes.add(0.0);
-        changePercents.add(0.0);
 
+        double totalChange = 0;
+        for (int i = 0; i < changes.size(); i++) {
+            totalChange = totalChange + changes.get(i) * shares.get(i);
+        }
+        changes.add(totalChange);
+
+        if (portfolio.getPortfolioValue() == 0) {
+            changePercents.add(0.0);
+        } else {
+            changePercents.add(totalChange / (portfolio.getPortfolioValue() - totalChange) * 100);
+        }
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);
