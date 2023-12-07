@@ -1,21 +1,22 @@
 package use_case.trade;
 
-import data_access.FileDataAccessObject;
-import data_access.APIDataAccessObject;
 import entity.TradeTransaction;
 import entity.Portfolio;
 import entity.Tradeable;
 import use_case.FileDataAccessInterface;
+import use_case.APIDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
 public class TradeInteractor implements TradeInputBoundary {
+    private final APIDataAccessInterface apiDataAccessObject;
     private final FileDataAccessInterface fileDataAccessObject;
     private final TradeOutputBoundary presenter;
 
-    public TradeInteractor(FileDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
+    public TradeInteractor(APIDataAccessInterface apiDataAccessObject, FileDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
+        this.apiDataAccessObject = apiDataAccessObject;
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }
@@ -59,7 +60,6 @@ public class TradeInteractor implements TradeInputBoundary {
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
 
-        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
 
         // if the asset in isn't in the portfolio, give it a price history from API
         if (newAssetIn) {

@@ -73,9 +73,10 @@ public class ViewFactory {
     }
 
     protected static TradeView createTradeView(TradeViewModel tradeViewModel, ViewManagerModel viewManagerModel, HoldingsViewModel holdingsViewModel) {
+        APIDataAccessInterface apiDataAccessObject = new APIDataAccessObject();
         FileDataAccessInterface fileDataAccessObject = new FileDataAccessObject();
         TradeOutputBoundary tradeOutputBoundary = new TradePresenter(viewManagerModel, holdingsViewModel);
-        TradeInputBoundary TradeInputBoundary = new TradeInteractor(fileDataAccessObject, tradeOutputBoundary);
+        TradeInputBoundary TradeInputBoundary = new TradeInteractor(apiDataAccessObject, fileDataAccessObject, tradeOutputBoundary);
         TradeController tradeController = new TradeController(TradeInputBoundary);
         return new TradeView(tradeViewModel, viewManagerModel, tradeController);
     }
