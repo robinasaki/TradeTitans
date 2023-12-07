@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class AddPortfolioViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Add portfolio view";
+    public final String TITLE_LABEL = "Add portfolio";
     public final String ADD_PORTFOLIO_LABEL = "Add portfolio";
     public final String CONFIRM_BUTTON_LABEL = "Add portfolio";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
