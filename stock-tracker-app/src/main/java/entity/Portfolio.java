@@ -101,9 +101,11 @@ public class Portfolio implements Serializable {
             // as long as it's not a deposit, we calculate amount in holdings after trade, then update holdings
             double assetOutAmount = holdings.get(assetOut).getSharesHeld() - amountOut;
             if (assetOutAmount < 0 && !assetIn.isEmpty()) {
-                // this Exception should be caught in TradeView
+                // case: buy without enough default currency || selling without enough asset
+                // this Exception should be caught and filtered in TradeView
                 throw new RuntimeException("Code100: over-withdrawal or buying without enough asset");
             } else if (assetOutAmount < 0) {
+                // case: withdraw currency
                 throw new RuntimeException("You don't have enough asset.");
             }
             holdings.get(assetOut).setSharesHeld(assetOutAmount);
