@@ -1,7 +1,6 @@
 package view;
 
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
-import interface_adapter.add_portfolio.AddPortfolioController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.holdings.UpdatePricesController;
 import interface_adapter.delete_portfolio.DeletePortfolioViewModel;
@@ -13,7 +12,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
-import java.util.Objects;
 
 
 public class PortfolioSelectionView extends JPanel {

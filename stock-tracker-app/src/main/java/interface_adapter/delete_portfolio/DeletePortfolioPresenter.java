@@ -3,7 +3,6 @@ package interface_adapter.delete_portfolio;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.portfolio_selection.PortfolioSelectionViewModel;
 import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
-import view.DeletePortfolioView;
 
 import java.util.List;
 

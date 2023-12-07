@@ -2,10 +2,7 @@ package entity;
 
 import java.util.Date;
 import java.util.TreeMap;
-import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Tradeable implements Serializable {
     private String name; // e.g. "Apple Inc."

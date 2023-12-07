@@ -4,8 +4,6 @@ import interface_adapter.ViewManagerModel;
 import use_case.view_price_history.ViewPriceHistoryOutputBoundary;
 import use_case.view_price_history.ViewPriceHistoryOutputData;
 
-import java.util.ArrayList;
-
 public class ViewPriceHistoryPresenter implements ViewPriceHistoryOutputBoundary {
     private PriceHistoryViewModel priceHistoryViewModel;
     private ViewManagerModel viewManagerModel;

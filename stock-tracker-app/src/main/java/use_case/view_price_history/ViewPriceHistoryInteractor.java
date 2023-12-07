@@ -2,10 +2,8 @@ package use_case.view_price_history;
 
 import data_access.FileDataAccessObject;
 import entity.Portfolio;
-import entity.TradeTransaction;
 import entity.Tradeable;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 

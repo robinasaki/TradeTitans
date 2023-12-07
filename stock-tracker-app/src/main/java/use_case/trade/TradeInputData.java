@@ -1,6 +1,5 @@
 package use_case.trade;
 
-import entity.Tradeable;
 import java.util.Date;
 
 public class TradeInputData {

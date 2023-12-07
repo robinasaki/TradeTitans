@@ -1,6 +1,5 @@
 package interface_adapter.view_price_history;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 

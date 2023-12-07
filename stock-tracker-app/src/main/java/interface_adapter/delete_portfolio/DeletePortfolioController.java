@@ -1,6 +1,5 @@
 package interface_adapter.delete_portfolio;
 
-import entity.Portfolio;
 import use_case.delete_portfolio.DeletePortfolioInputBoundary;
 
 public class DeletePortfolioController {

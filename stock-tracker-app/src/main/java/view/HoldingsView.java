@@ -1,10 +1,8 @@
 package view;
 
 import interface_adapter.holdings.HoldingsViewModel;
-import interface_adapter.holdings.HoldingsState;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.trade.TradeViewModel;
-import interface_adapter.trade.TradeState;
 import interface_adapter.view_transactions.ViewTransactionsController;
 import interface_adapter.view_price_history.ViewPriceHistoryController;
 
@@ -15,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HoldingsView extends JPanel {
@@ -43,12 +40,10 @@ public class HoldingsView extends JPanel {
     }
 
     private void initView() {
-        // Clear panel
         removeAll();
 
         setLayout(new BorderLayout());
         try {
-            // Title panel
             JPanel titlePanel = new JPanel(new BorderLayout(10, 10));
             // Create title
             JLabel title = new JLabel("<html> <b>" + viewModel.getState().getPortfolioName() + "</b>" + "<br/>" + "<html/>");
