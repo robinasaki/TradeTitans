@@ -50,12 +50,12 @@ class AddPortfolioInteractorTest {
         List<Portfolio> portfolios = new ArrayList<>();
         Portfolio savedPortfolio;
 
-        @Test
+        @Override
         public List<Portfolio> loadPortfolios() {
             return portfolios;
         }
 
-        @Test
+        @Override
         public void savePortfolio(Portfolio portfolio) {
             savedPortfolio = portfolio;
         }
@@ -66,12 +66,12 @@ class AddPortfolioInteractorTest {
         public String lastPreparedView;
         String lastPreparedSuccessView;
 
-        @Test
+        @Override
         public void prepareSuccessView(String portfolioName) {
             lastPreparedSuccessView = portfolioName;
         }
 
-        @Test
+        @Override
         public void prepareFailView(String error) {
 
         }
