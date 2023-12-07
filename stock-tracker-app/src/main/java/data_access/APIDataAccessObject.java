@@ -19,7 +19,9 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.io.File;
 
-public class APIDataAccessObject {
+import use_case.APIDataAccessInterface;
+
+public class APIDataAccessObject implements APIDataAccessInterface {
     private static final String BASE_URL = "https://www.alphavantage.co/query";
     private static final String FUNCTION = "TIME_SERIES_DAILY";
     private static final String FX_FUNCTION = "FX_DAILY";

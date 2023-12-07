@@ -13,6 +13,17 @@ import use_case.view_transactions.ViewTransactionsOutputBoundary;
 
 import java.util.Date;
 
+import data_access.FileDataAccessObject;
+import entity.Portfolio;
+import entity.TradeTransaction;
+import entity.Tradeable;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.view_transactions.TransactionsViewModel;
+import interface_adapter.view_transactions.ViewTransactionsPresenter;
+import org.junit.Test;
+
+import java.util.Date;
+
 public class ViewTransactionsInteractorTest {
     private ViewTransactionsInteractor viewTransactionsInteractor;
 

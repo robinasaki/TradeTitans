@@ -7,6 +7,8 @@ import use_case.delete_portfolio.DeletePortfolioDataAccessInterface;
 import use_case.delete_portfolio.DeletePortfolioInteractor;
 import use_case.delete_portfolio.DeletePortfolioOutputBoundary;
 
+import use_case.FileDataAccessInterface;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeletePortfolioInteractorTest {
@@ -41,8 +43,9 @@ class DeletePortfolioInteractorTest {
         Assertions.assertNull(presenter.lastPreparedView);
     }
 
+    // TODO: get rid of this unless it has a purpose
     // Test double for DeletePortfolioDataAccessInterface
-    private static class TestDeletePortfolioDataAccessInterface implements DeletePortfolioDataAccessInterface {
+    private static class TestDeletePortfolioDataAccessInterface implements FileDataAccessInterface {
         List<String> portfolios = new ArrayList<>();
 
         @Override

@@ -1,20 +1,22 @@
 package use_case.trade;
 
-import data_access.FileDataAccessObject;
-import data_access.APIDataAccessObject;
 import entity.TradeTransaction;
 import entity.Portfolio;
 import entity.Tradeable;
+import use_case.FileDataAccessInterface;
+import use_case.APIDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
 public class TradeInteractor implements TradeInputBoundary {
-    private final TradeDataAccessInterface fileDataAccessObject;
+    private final APIDataAccessInterface apiDataAccessObject;
+    private final FileDataAccessInterface fileDataAccessObject;
     private final TradeOutputBoundary presenter;
 
-    public TradeInteractor(TradeDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
+    public TradeInteractor(APIDataAccessInterface apiDataAccessObject, FileDataAccessInterface fileDataAccessObject, TradeOutputBoundary presenter) {
+        this.apiDataAccessObject = apiDataAccessObject;
         this.fileDataAccessObject = fileDataAccessObject;
         this.presenter = presenter;
     }
@@ -58,7 +60,6 @@ public class TradeInteractor implements TradeInputBoundary {
         boolean newAssetOut = !tradeInputData.getAssetOut().isEmpty() && !portfolio.getHoldings().containsKey(tradeInputData.getAssetOut());
         portfolio.addTrade(trade);
 
-        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
 
         // if the asset in isn't in the portfolio, give it a price history from API
         if (newAssetIn) {
@@ -97,14 +98,23 @@ public class TradeInteractor implements TradeInputBoundary {
         fileDataAccessObject.removePortfolio(portfolio.getName());
         fileDataAccessObject.savePortfolio(portfolio);
 
-        symbols.add("TotalValue");
+        symbols.add("Total");
         // TODO: should be something meaningful like N/A for total price and shares
         prices.add(0.0);
         shares.add(0.0);
         values.add(portfolio.getPortfolioValue());
-        changes.add(0.0);
-        changePercents.add(0.0);
 
+        double totalChange = 0;
+        for (int i = 0; i < changes.size(); i++) {
+            totalChange = totalChange + changes.get(i) * shares.get(i);
+        }
+        changes.add(totalChange);
+
+        if (portfolio.getPortfolioValue() == 0) {
+            changePercents.add(0.0);
+        } else {
+            changePercents.add(totalChange / (portfolio.getPortfolioValue() - totalChange) * 100);
+        }
 
         TradeOutputData tradeOutputData = new TradeOutputData(symbols, prices, shares, values, changes, changePercents);
         presenter.present(tradeOutputData);

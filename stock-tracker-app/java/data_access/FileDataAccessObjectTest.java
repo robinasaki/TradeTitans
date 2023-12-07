@@ -1,4 +1,4 @@
-package test.java.data_access;
+package data_access;
 
 import entity.Tradeable;
 import entity.Portfolio;
@@ -31,10 +31,10 @@ public class FileDataAccessObjectTest {
         Portfolio loadedPortfolio2 = fileDao.getPortfolio("Portfolio2");
 
         // Asserting that the loaded portfolios contain the saved portfolios
-        Assertions.assertEquals(loadedPortfolio1.getName(), "Portfolio1");
-        Assertions.assertEquals(loadedPortfolio1.getCurrency().getSymbol(), "$USD");
-        Assertions.assertEquals(loadedPortfolio2.getName(), "Portfolio2");
-        Assertions.assertEquals(loadedPortfolio2.getCurrency().getSymbol(), "$CAD");
+        assertEquals(loadedPortfolio1.getName(), "Portfolio1");
+        assertEquals(loadedPortfolio1.getCurrency().getSymbol(), "$USD");
+        assertEquals(loadedPortfolio2.getName(), "Portfolio2");
+        assertEquals(loadedPortfolio2.getCurrency().getSymbol(), "$CAD");
 
         fileDao.removePortfolio("Portfolio1");
         fileDao.removePortfolio("Portfolio2");
