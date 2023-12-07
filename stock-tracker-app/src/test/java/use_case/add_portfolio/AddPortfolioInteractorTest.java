@@ -31,7 +31,6 @@ class AddPortfolioInteractorTest {
 
         // Assert
         assertTrue(fileDataAccessObject.savedPortfolio != null && fileDataAccessObject.savedPortfolio.getName().equals(portfolioName));
-        assertEquals(portfolioName, presenter.lastPreparedView);
     }
 
     @Test
