@@ -1,3 +1,4 @@
+![57184BD4-AF05-4042-ACF7-758AB75C39A5_4_5005_c](https://github.com/robinasaki/TradeTitans/assets/122477322/cff49ae6-a724-4c37-bf5c-8f0a6870f841)
 # Trade Titans
 A CSC207 project @UofT
 
